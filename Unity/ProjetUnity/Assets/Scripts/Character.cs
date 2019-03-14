@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Character : MonoBehaviour
 {
+
+    public int hp = 5;
+
     void Update()
     {
         if (Input.GetMouseButtonDown(0))
@@ -19,7 +22,7 @@ public class Character : MonoBehaviour
             {
                 left.GetComponent<SpriteRenderer>().color = Color.green;
             }
-            GameObject down = GameManager.instance.GetGameObject((int)transform.position.x, ((int) transform.position.y) - 1 );
+            GameObject down = GameManager.instance.GetGameObject((int)transform.position.x, ((int) transform.position.y) - 1);
             if (down != null)
             {
                 down.GetComponent<SpriteRenderer>().color = Color.green;
