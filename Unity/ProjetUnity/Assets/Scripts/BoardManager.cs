@@ -44,6 +44,13 @@ public class BoardManager : MonoBehaviour
             {
                 GameObject instance = Instantiate(floorTiles, new Vector3(x, y, 0f), Quaternion.identity) as GameObject;
                 floorGameObjects.Add(instance);
+                // TODELETE --> DEBUG CHARACTER
+                if (x == 0 && y == 0)
+                {
+                    instance.GetComponent<Square>().SetCharacter(GameObject.Find("epeiste").GetComponent<Character>());
+                }
+
+                
                 instance.transform.SetParent(boardHolder);
             }
         }
