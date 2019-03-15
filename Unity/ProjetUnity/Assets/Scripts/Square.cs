@@ -4,110 +4,82 @@ using UnityEngine;
 
 public class Square : MonoBehaviour
 {
-    public Sprite baseSprite;
-    public Sprite moveSprite;
-    public Sprite attackSprite;
-    public Sprite inaccessibleSprite;
+    public Color baseColor;
+    public Color moveColor;
+    public Color attackColor;
+    public Color inaccessibleColor;
 
-    private GameManager gm = GameManager.instance;
     private Character character = null;
-    private bool canMoveIn = false;
     public void OnMouseDown()
     {
         /*
          * Gros code en prévision
          */
+        
         if (character != null)
-         {
-            GameObject unit = gm.GetSelectedUnit();
-            if (unit == null)
+        {
+
+            if(GameManager.instance.GetSelectedUnit() != null)
             {
-                Debug.Log("null");
-                GameObject actionMenu = Instantiate(gm.canvasAction, new Vector2(transform.position.x, transform.position.y), Quaternion.identity) as GameObject;
-                gm.SetInstantiatedCanvasAction(actionMenu);
-                gm.SetSelectedUnit(gameObject);
+                GameManager.instance.SetSelectedUnit(character.gameObject);
+                ChangeSquare((int)transform.position.x, (int)transform.position.y);
             }
-            else if (unit.GetComponent<Square>().GetCharacter().Equals(character.gameObject))
+            else
             {
-                Debug.Log("same");
-                gm.SetSelectedUnit(null);
-                gm.RemoveInstantiatedCanvasAction();
-            }
-            else if (unit != null)
-            {
-                Debug.Log("notnull");
-                Vector3 pos = unit.transform.position;
-                if ((pos.x != transform.position.x && pos.y != transform.position.y) || (pos.x == transform.position.x && pos.y == transform.position.y))
+                GameObject unit = GameManager.instance.GetGameObject((int)transform.position.x, (int)transform.position.y);
+                if(unit != null)
                 {
-                    Debug.Log("same pos");
-                    gm.ClearMovingTiles();
-                    gm.RemoveInstantiatedCanvasAction();
-                    gm.SetSelectedUnit(null);
+                    character = unit.GetComponent<Character>();
+                    GameManager.instance.ClearMovingTiles();
+                    ChangeSquare((int)transform.position.x, (int)transform.position.y);
+                }
+                else
+                {
+                    GameManager.instance.ClearMovingTiles();
                 }
             }
-        }
-        else
-        {
-            GameObject unit = gm.GetSelectedUnit();
+
+            
         }
 
     }
 
-    public Character GetCharacter()
+    public void ChangeSquare(int xDir, int yDir)
     {
-        return character;
+        GameObject right = GameManager.instance.GetGameObject((xDir - 1), yDir);
+        if (right != null)
+        {
+            right.GetComponent<Square>().SetColor(moveColor);
+            GameManager.instance.AddMovingTiles(right);
+        }
+        GameObject left = GameManager.instance.GetGameObject(xDir + 1, yDir);
+        if (left != null)
+        {
+            left.GetComponent<Square>().SetColor(moveColor);
+            GameManager.instance.AddMovingTiles(left);
+        }
+        GameObject down = GameManager.instance.GetGameObject(xDir, (yDir - 1));
+        if (down != null)
+        {
+            down.GetComponent<Square>().SetColor(moveColor);
+            GameManager.instance.AddMovingTiles(down);
+        }
+        GameObject up = GameManager.instance.GetGameObject(xDir, (yDir + 1));
+        if (up != null)
+        {
+            up.GetComponent<SpriteRenderer>().color = moveColor;
+            GameManager.instance.AddMovingTiles(up);
+        }
     }
 
     public void SetCharacter(Character character)
     {
         this.character = character;
     }
-    
-    public void SetMovable(bool move)
+
+    public void SetColor(Color color)
     {
-        canMoveIn = move;
+        gameObject.GetComponent<SpriteRenderer>().color = color;
     }
 
-    public bool CanMoveIn()
-    {
-        return canMoveIn;
-    }
-
-    public void SetColor(Sprite color)
-    {
-        Debug.Log(transform.position.x + ", " + transform.position.y + ", " + color);
-        gameObject.GetComponent<SpriteRenderer>().sprite = color;
-    }
-    public void ChangeSquare(int xDir, int yDir)
-    {
-        GameObject right = GameManager.instance.GetGameObject((xDir - 1), yDir);
-        if (right != null)
-        {
-            right.GetComponent<Square>().SetColor(moveSprite);
-            right.GetComponent<Square>().SetMovable(true);
-            GameManager.instance.AddMovingTiles(right);
-        }
-        GameObject left = GameManager.instance.GetGameObject(xDir + 1, yDir);
-        if (left != null)
-        {
-            left.GetComponent<Square>().SetColor(moveSprite);
-            left.GetComponent<Square>().SetMovable(true);
-            GameManager.instance.AddMovingTiles(left);
-
-        }
-        GameObject down = GameManager.instance.GetGameObject(xDir, (yDir - 1));
-        if (down != null)
-        {
-            down.GetComponent<Square>().SetColor(moveSprite);
-            down.GetComponent<Square>().SetMovable(true);
-            GameManager.instance.AddMovingTiles(down);
-        }
-        GameObject up = GameManager.instance.GetGameObject(xDir, (yDir + 1));
-        if (up != null)
-        {
-            up.GetComponent<Square>().SetColor(moveSprite);
-            up.GetComponent<Square>().SetMovable(true);
-            GameManager.instance.AddMovingTiles(up);
-        }
-    }
 }

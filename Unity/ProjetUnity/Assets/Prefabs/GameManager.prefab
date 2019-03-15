@@ -45,8 +45,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boardScript: {fileID: 6276495806716407530}
-  canvasAction: {fileID: 7828671901751449632, guid: addd1149d8e11b84e9075606f567641a,
-    type: 3}
 --- !u!114 &6276495806716407530
 MonoBehaviour:
   m_ObjectHideFlags: 0

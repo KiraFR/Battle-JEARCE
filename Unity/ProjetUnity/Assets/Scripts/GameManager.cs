@@ -6,9 +6,8 @@ public class GameManager : MonoBehaviour
 {
     public BoardManager boardScript;
     public static GameManager instance = null;
-    public GameObject canvasAction;
-    private GameObject instantiatedCanvasAction = null;
-    private GameObject selectedUnit = null;
+
+    private GameObject selectedUnit;
     private List<GameObject> movingTiles;
     // Start is called before the first frame update
     void Start()
@@ -48,22 +47,6 @@ public class GameManager : MonoBehaviour
         selectedUnit = unit;
     }
 
-    public void SetInstantiatedCanvasAction(GameObject canvas)
-    {
-        RemoveInstantiatedCanvasAction();
-
-        instantiatedCanvasAction = canvas;
-    }
-
-    public void RemoveInstantiatedCanvasAction()
-    {
-        if(instantiatedCanvasAction != null)
-        {
-            Destroy(instantiatedCanvasAction);
-            instantiatedCanvasAction = null;
-        }
-    }
-
     public void AddMovingTiles(GameObject tile)
     {
         movingTiles.Add(tile);
@@ -72,8 +55,7 @@ public class GameManager : MonoBehaviour
     public void ClearMovingTiles()
     {
         foreach(GameObject obj in movingTiles){
-            obj.GetComponent<SpriteRenderer>().sprite = obj.GetComponent<Square>().baseSprite;
-            obj.GetComponent<Square>().SetMovable(false);
+            obj.GetComponent<SpriteRenderer>().color = obj.GetComponent<Square>().baseColor;
         }
         movingTiles.Clear();
     }
