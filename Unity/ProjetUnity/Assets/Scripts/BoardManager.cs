@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 public class BoardManager : MonoBehaviour
 {
@@ -61,6 +60,10 @@ public class BoardManager : MonoBehaviour
         InitialiseList();
     }
 
+    public Transform getBoard()
+    {
+        return boardHolder;
+    }
 
     public GameObject GetGameObject(int xDir, int yDir)
     {

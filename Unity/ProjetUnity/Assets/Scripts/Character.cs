@@ -24,5 +24,4 @@ public class Character : MonoBehaviour
     {
         movePoint.ResetCurrent();
     }
-
 }
