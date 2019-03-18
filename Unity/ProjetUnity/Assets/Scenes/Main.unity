@@ -112,6 +112,12 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!50 &451007233 stripped
+Rigidbody2D:
+  m_CorrespondingSourceObject: {fileID: 5947124273412368064, guid: 70ef5e92aa710c04aabaad9dcdf1f2d8,
+    type: 3}
+  m_PrefabInstance: {fileID: 1272062804}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -291,6 +297,11 @@ PrefabInstance:
       propertyPath: m_SortingLayer
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 7028686480017889325, guid: 70ef5e92aa710c04aabaad9dcdf1f2d8,
+        type: 3}
+      propertyPath: rb2D
+      value: 
+      objectReference: {fileID: 451007233}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 70ef5e92aa710c04aabaad9dcdf1f2d8, type: 3}
 --- !u!1 &1480785847

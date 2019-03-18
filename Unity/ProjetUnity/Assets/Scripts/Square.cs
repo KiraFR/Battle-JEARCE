@@ -9,9 +9,11 @@ public class Square : MonoBehaviour
     public Sprite attackSprite;
     public Sprite inaccessibleSprite;
 
+
     private GameManager gm = GameManager.instance;
     private Character character = null;
     private bool canMoveIn = false;
+
     public void OnMouseDown()
     {
         /*
@@ -22,24 +24,24 @@ public class Square : MonoBehaviour
             GameObject unit = gm.GetSelectedUnit();
             if (unit == null)
             {
-                Debug.Log("null");
+                
                 GameObject actionMenu = Instantiate(gm.canvasAction, new Vector2(transform.position.x, transform.position.y), Quaternion.identity) as GameObject;
                 gm.SetInstantiatedCanvasAction(actionMenu);
                 gm.SetSelectedUnit(gameObject);
             }
             else if (unit.GetComponent<Square>().GetCharacter().Equals(character.gameObject))
             {
-                Debug.Log("same");
+                
                 gm.SetSelectedUnit(null);
                 gm.RemoveInstantiatedCanvasAction();
             }
             else if (unit != null)
             {
-                Debug.Log("notnull");
+                
                 Vector3 pos = unit.transform.position;
                 if ((pos.x != transform.position.x && pos.y != transform.position.y) || (pos.x == transform.position.x && pos.y == transform.position.y))
                 {
-                    Debug.Log("same pos");
+                    
                     gm.ClearMovingTiles();
                     gm.RemoveInstantiatedCanvasAction();
                     gm.SetSelectedUnit(null);
@@ -49,9 +51,28 @@ public class Square : MonoBehaviour
         else
         {
             GameObject unit = gm.GetSelectedUnit();
+            Debug.Log(unit);
+            if(canMoveIn)
+            {
+                Debug.Log("move in " + transform.position.x + "," + transform.position.y);
+                //TODO MOVE CHARACTER
+                gm.ClearMovingTiles();
+                character = unit.GetComponent<Square>().GetCharacter();
+                unit.GetComponent<Square>().GetCharacter().GetComponent<Character>().Move(new Vector3(transform.position.x, transform.position.y, transform.position.z));
+                unit.GetComponent<Square>().SetCharacter(null);
+            }
+            else
+            {
+                if (GameManager.instance.GetinstantiatedCanvasAction() == null)
+                {
+                    gm.ClearMovingTiles();
+                    gm.SetSelectedUnit(null);
+                }
+            }
         }
 
     }
+
 
     public Character GetCharacter()
     {
@@ -75,7 +96,7 @@ public class Square : MonoBehaviour
 
     public void SetColor(Sprite color)
     {
-        Debug.Log(transform.position.x + ", " + transform.position.y + ", " + color);
+        //Debug.Log(transform.position.x + ", " + transform.position.y + ", " + color);
         gameObject.GetComponent<SpriteRenderer>().sprite = color;
     }
     public void ChangeSquare(int xDir, int yDir)

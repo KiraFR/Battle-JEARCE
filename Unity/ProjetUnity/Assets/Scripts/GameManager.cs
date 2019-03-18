@@ -6,7 +6,9 @@ public class GameManager : MonoBehaviour
 {
     public BoardManager boardScript;
     public static GameManager instance = null;
-    public GameObject canvasAction;
+    public GameObject canvasAction = null;
+
+
     private GameObject instantiatedCanvasAction = null;
     private GameObject selectedUnit = null;
     private List<GameObject> movingTiles;
@@ -62,6 +64,11 @@ public class GameManager : MonoBehaviour
             Destroy(instantiatedCanvasAction);
             instantiatedCanvasAction = null;
         }
+    }
+
+    public GameObject GetinstantiatedCanvasAction()
+    {
+        return instantiatedCanvasAction;
     }
 
     public void AddMovingTiles(GameObject tile)

@@ -24,7 +24,7 @@ public class Button : MonoBehaviour
             GameManager.instance.RemoveInstantiatedCanvasAction();
             Square square = unitSquare.GetComponent<Square>();
             square.ChangeSquare((int)square.gameObject.transform.position.x, (int)square.gameObject.transform.position.y);
-            Debug.Log("move");
+            //Debug.Log("move");
         }
     }
     public void AttackAction()
