@@ -10,6 +10,8 @@ public class Character : MonoBehaviour
     public Stats attackPoint;
     public Stats movePoint;
 
+    public Stats minDistAttack;
+    public Stats maxDistAttack;
 
     private Rigidbody2D rb2D;
     public float moveTime = .1f;
@@ -26,7 +28,7 @@ public class Character : MonoBehaviour
     {
         healthPoint.DecreaseCurrent(loss);
     }
-    
+
     public void Move(int used)
     {
         movePoint.DecreaseCurrent(used);
