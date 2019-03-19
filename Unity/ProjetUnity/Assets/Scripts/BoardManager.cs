@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 public class BoardManager : MonoBehaviour
 {
     [Serializable]
@@ -13,16 +14,14 @@ public class BoardManager : MonoBehaviour
         {
             minimum = min;
             maximum = max;
-        } 
+        }
     }
     public int columns = 8;
     public int rows = 8;
     public GameObject floorTiles;
 
-    // Every Floor's gameObject from Vector3
-    public Dictionary<Vector3,GameObject> floorGameObjects = new Dictionary<Vector3, GameObject>();
-
     private List<Vector3> gridPositions = new List<Vector3>();
+    private List<GameObject> floorGameObjects = new List<GameObject>();
     private Transform boardHolder;
     void InitialiseList()
     {
@@ -42,9 +41,8 @@ public class BoardManager : MonoBehaviour
         {
             for (int y = 0; y < rows; y++)
             {
-                Vector3 pos = new Vector3(x, y, 0f);
-                GameObject instance = Instantiate(floorTiles, pos, Quaternion.identity) as GameObject;
-                floorGameObjects.Add(pos,instance);
+                GameObject instance = Instantiate(floorTiles, new Vector3(x, y, 0f), Quaternion.identity) as GameObject;
+                floorGameObjects.Add(instance);
                 // TODELETE --> DEBUG CHARACTER
                 if (x == 0 && y == 0)
                 {
@@ -69,58 +67,14 @@ public class BoardManager : MonoBehaviour
 
     public GameObject GetGameObject(int xDir, int yDir)
     {
-        Vector3 pos = new Vector3(xDir, yDir);
-        if (floorGameObjects.ContainsKey(pos))
+        for (int i = 0; i < floorGameObjects.Count; i++)
         {
-            return floorGameObjects[pos];
+            GameObject obj = floorGameObjects[i];
+            if ((int)obj.transform.position.x == xDir && (int)obj.transform.position.y == yDir)
+            {
+                return obj;
+            }
         }
         return null;
-    }
-
-    public void VisuDeplacement(int posX, int posY, int mouvement)
-    {
-        if (GetGameObject((posX+1),posY)!=null)
-        {
-            GameObject objet = GetGameObject((posX+1), posY);
-            if (objet.GetComponent<SpriteRenderer>().sprite == objet.GetComponent<Square>().baseSprite)
-            {
-                // if (Enemy !=){
-                VisuDeplacement(posX + 1, posY, mouvement - 1);
-                //}
-            }
-        }
-
-        if (GetGameObject((posX-1),posY) != null)
-        {
-            GameObject objet = GetGameObject((posX-1), posY);
-            if (objet.GetComponent<SpriteRenderer>().sprite == objet.GetComponent<Square>().baseSprite)
-            {
-                // if (Enemy !=){
-                VisuDeplacement(posX - 1, posY, mouvement - 1);
-                //}
-            }
-        }
-
-        if (GetGameObject(posX,(posY+1)) != null)
-        {
-            GameObject objet = GetGameObject(posX,(posY+1));
-            if (objet.GetComponent<SpriteRenderer>().sprite == objet.GetComponent<Square>().baseSprite)
-            {
-                // if (Enemy !=){
-                VisuDeplacement(posX, posY+1, mouvement - 1);
-                //}
-            }
-        }
-
-        if (GetGameObject(posX,(posY-1)) != null)
-        {
-            GameObject objet = GetGameObject(posX, (posY-1));
-            if (objet.GetComponent<SpriteRenderer>().sprite == objet.GetComponent<Square>().baseSprite)
-            {
-                // if (Enemy !=){
-                VisuDeplacement(posX, posY-1, mouvement - 1);
-                //}
-            }
-        }
     }
 }

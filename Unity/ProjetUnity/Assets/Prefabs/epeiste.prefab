@@ -161,19 +161,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6981b808c7a0c44388c66af3cfa489f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthPoint:
-    baseStat: 15
-    currentStat: 15
-  attackPoint:
-    baseStat: 15
-    currentStat: 15
-  movePoint:
-    baseStat: 1
-    currentStat: 1
-  minDistAttack:
-    baseStat: 1
-    currentStat: 1
-  maxDistAttack:
-    baseStat: 1
-    currentStat: 1
-  moveTime: 0.1

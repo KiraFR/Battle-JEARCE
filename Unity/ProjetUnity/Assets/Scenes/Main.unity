@@ -112,6 +112,12 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!50 &451007233 stripped
+Rigidbody2D:
+  m_CorrespondingSourceObject: {fileID: 5947124273412368064, guid: 70ef5e92aa710c04aabaad9dcdf1f2d8,
+    type: 3}
+  m_PrefabInstance: {fileID: 1272062804}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -209,7 +215,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &1416257552
+--- !u!1001 &1272062804
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -219,22 +225,27 @@ PrefabInstance:
     - target: {fileID: 5947124273412368076, guid: 70ef5e92aa710c04aabaad9dcdf1f2d8,
         type: 3}
       propertyPath: m_Name
-      value: Epeiste
+      value: epeiste
+      objectReference: {fileID: 0}
+    - target: {fileID: 5947124273412368076, guid: 70ef5e92aa710c04aabaad9dcdf1f2d8,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 5947124273412368065, guid: 70ef5e92aa710c04aabaad9dcdf1f2d8,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.22361639
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5947124273412368065, guid: 70ef5e92aa710c04aabaad9dcdf1f2d8,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.14242798
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5947124273412368065, guid: 70ef5e92aa710c04aabaad9dcdf1f2d8,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.022815622
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5947124273412368065, guid: 70ef5e92aa710c04aabaad9dcdf1f2d8,
         type: 3}
@@ -276,6 +287,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5947124273412368066, guid: 70ef5e92aa710c04aabaad9dcdf1f2d8,
+        type: 3}
+      propertyPath: m_SortingLayerID
+      value: 1938468711
+      objectReference: {fileID: 0}
+    - target: {fileID: 5947124273412368066, guid: 70ef5e92aa710c04aabaad9dcdf1f2d8,
+        type: 3}
+      propertyPath: m_SortingLayer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7028686480017889325, guid: 70ef5e92aa710c04aabaad9dcdf1f2d8,
+        type: 3}
+      propertyPath: rb2D
+      value: 
+      objectReference: {fileID: 451007233}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 70ef5e92aa710c04aabaad9dcdf1f2d8, type: 3}
 --- !u!1 &1480785847
