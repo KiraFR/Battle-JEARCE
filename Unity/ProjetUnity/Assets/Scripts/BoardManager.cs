@@ -103,7 +103,7 @@ public class BoardManager : MonoBehaviour
 
         if (GetGameObject(posX,(posY+1)) != null)
         {
-            GameObject objet = GetGameObject(posX,(posY+1);
+            GameObject objet = GetGameObject(posX,(posY+1));
             if (objet.GetComponent<SpriteRenderer>().sprite == objet.GetComponent<Square>().baseSprite)
             {
                 // if (Enemy !=){
@@ -114,7 +114,7 @@ public class BoardManager : MonoBehaviour
 
         if (GetGameObject(posX,(posY-1)) != null)
         {
-            GameObject objet = GetGameObject(posX, (posY-1);
+            GameObject objet = GetGameObject(posX, (posY-1));
             if (objet.GetComponent<SpriteRenderer>().sprite == objet.GetComponent<Square>().baseSprite)
             {
                 // if (Enemy !=){
