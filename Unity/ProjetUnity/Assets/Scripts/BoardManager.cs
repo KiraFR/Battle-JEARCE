@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 public class BoardManager : MonoBehaviour
 {
     [Serializable]
@@ -14,14 +13,16 @@ public class BoardManager : MonoBehaviour
         {
             minimum = min;
             maximum = max;
-        }
+        } 
     }
     public int columns = 8;
     public int rows = 8;
     public GameObject floorTiles;
 
+    // Every Floor's gameObject from Vector3
+    public Dictionary<Vector3,GameObject> floorGameObjects = new Dictionary<Vector3, GameObject>();
+
     private List<Vector3> gridPositions = new List<Vector3>();
-    private List<GameObject> floorGameObjects = new List<GameObject>();
     private Transform boardHolder;
     void InitialiseList()
     {
@@ -41,8 +42,9 @@ public class BoardManager : MonoBehaviour
         {
             for (int y = 0; y < rows; y++)
             {
-                GameObject instance = Instantiate(floorTiles, new Vector3(x, y, 0f), Quaternion.identity) as GameObject;
-                floorGameObjects.Add(instance);
+                Vector3 pos = new Vector3(x, y, 0f);
+                GameObject instance = Instantiate(floorTiles, pos, Quaternion.identity) as GameObject;
+                floorGameObjects.Add(pos,instance);
                 // TODELETE --> DEBUG CHARACTER
                 if (x == 0 && y == 0)
                 {
@@ -67,13 +69,10 @@ public class BoardManager : MonoBehaviour
 
     public GameObject GetGameObject(int xDir, int yDir)
     {
-        for (int i = 0; i < floorGameObjects.Count; i++)
+        Vector3 pos = new Vector3(xDir, yDir);
+        if (floorGameObjects.ContainsKey(pos))
         {
-            GameObject obj = floorGameObjects[i];
-            if ((int)obj.transform.position.x == xDir && (int)obj.transform.position.y == yDir)
-            {
-                return obj;
-            }
+            return floorGameObjects[pos];
         }
         return null;
     }
