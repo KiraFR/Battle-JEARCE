@@ -3,7 +3,8 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Actions
   layers:
   - Default
   - TransparentFX
@@ -46,4 +47,7 @@ TagManager:
     locked: 0
   - name: Units
     uniqueID: 1938468711
+    locked: 0
+  - name: Actions
+    uniqueID: 1531942125
     locked: 0
