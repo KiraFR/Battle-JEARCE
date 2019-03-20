@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Square : MonoBehaviour
 {
@@ -9,6 +10,8 @@ public class Square : MonoBehaviour
     public Sprite attackSprite;
     public Sprite inaccessibleSprite;
 
+    public Text healthText;
+    public Text moveText;
 
     private GameManager gm = GameManager.instance;
     private Character character = null;
@@ -21,6 +24,7 @@ public class Square : MonoBehaviour
          */
         if (character != null)
          {
+            character.ChangeMove();
             GameObject unit = gm.GetSelectedUnit();
             if (unit == null)
             {
