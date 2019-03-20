@@ -61,5 +61,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   columns: 6
   rows: 8
+  nbObstacles: 5
   floorTiles: {fileID: 2549434862602930489, guid: d8f56b91c45dd0544bbb65e50b017e02,
     type: 3}

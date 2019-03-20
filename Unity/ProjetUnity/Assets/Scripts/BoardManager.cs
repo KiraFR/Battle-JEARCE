@@ -2,6 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
+
+
 public class BoardManager : MonoBehaviour
 {
     [Serializable]
@@ -17,6 +20,7 @@ public class BoardManager : MonoBehaviour
     }
     public int columns = 8;
     public int rows = 8;
+    public int nbObstacles;
     public GameObject floorTiles;
 
     // Every Floor's gameObject from Vector3
@@ -27,9 +31,9 @@ public class BoardManager : MonoBehaviour
     void InitialiseList()
     {
         gridPositions.Clear();
-        for (int x = 1; x < columns - 1; x++)
+        for (int x = 0; x < columns; x++)
         {
-            for (int y = 1; y < rows - 1; y++)
+            for (int y = 0; y < rows; y++)
             {
                 gridPositions.Add(new Vector3(x, y, 0f));
             }
@@ -56,10 +60,27 @@ public class BoardManager : MonoBehaviour
             }
         }
     }
+
+    void ObstaclesSetup()
+    {
+        for (int i = 0; i < nbObstacles; i++)
+        {
+            int randomIndex = UnityEngine.Random.Range(0, gridPositions.Count);
+            Vector3 randomPosition = gridPositions[randomIndex];
+            GameObject floor = GetGameObject((int)randomPosition.x, (int)randomPosition.y);
+            if(floor != null)
+            {
+                floor.GetComponent<SpriteRenderer>().sprite = floor.GetComponent<Square>().inaccessibleSprite;               
+            }
+        }
+    }
+
+
     public void SetupScene()
     {
         BoardSetup();
         InitialiseList();
+        ObstaclesSetup();
     }
 
     public Transform getBoard()
@@ -76,6 +97,9 @@ public class BoardManager : MonoBehaviour
         }
         return null;
     }
+
+
+
 
     public void VisuDeplacement(int posX, int posY, int mouvement)
     {
