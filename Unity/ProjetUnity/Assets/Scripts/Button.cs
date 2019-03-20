@@ -4,18 +4,6 @@ using UnityEngine;
 
 public class Button : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void MoveAction()
     {
         GameObject unitSquare = GameManager.instance.GetSelectedUnit();
@@ -23,7 +11,7 @@ public class Button : MonoBehaviour
         {
             GameManager.instance.RemoveInstantiatedCanvasAction();
             Square square = unitSquare.GetComponent<Square>();
-            square.ChangeSquare((int)square.gameObject.transform.position.x, (int)square.gameObject.transform.position.y);
+            GameManager.instance.MovableSquares((int)square.gameObject.transform.position.x, (int)square.gameObject.transform.position.y, square.GetCharacter().movePoint.currentStat);
             //Debug.Log("move");
         }
     }

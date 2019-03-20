@@ -7,17 +7,6 @@ using UnityEngine;
 
 public class BoardManager : MonoBehaviour
 {
-    [Serializable]
-    public class Count
-    {
-        public int minimum;
-        public int maximum;
-        public Count(int min, int max)
-        {
-            minimum = min;
-            maximum = max;
-        } 
-    }
     public int columns = 8;
     public int rows = 8;
     public int nbObstacles;
@@ -96,55 +85,5 @@ public class BoardManager : MonoBehaviour
             return floorGameObjects[pos];
         }
         return null;
-    }
-
-
-
-
-    public void VisuDeplacement(int posX, int posY, int mouvement)
-    {
-        if (GetGameObject((posX+1),posY)!=null)
-        {
-            GameObject objet = GetGameObject((posX+1), posY);
-            if (objet.GetComponent<SpriteRenderer>().sprite == objet.GetComponent<Square>().baseSprite)
-            {
-                // if (Enemy !=){
-                VisuDeplacement(posX + 1, posY, mouvement - 1);
-                //}
-            }
-        }
-
-        if (GetGameObject((posX-1),posY) != null)
-        {
-            GameObject objet = GetGameObject((posX-1), posY);
-            if (objet.GetComponent<SpriteRenderer>().sprite == objet.GetComponent<Square>().baseSprite)
-            {
-                // if (Enemy !=){
-                VisuDeplacement(posX - 1, posY, mouvement - 1);
-                //}
-            }
-        }
-
-        if (GetGameObject(posX,(posY+1)) != null)
-        {
-            GameObject objet = GetGameObject(posX,(posY+1));
-            if (objet.GetComponent<SpriteRenderer>().sprite == objet.GetComponent<Square>().baseSprite)
-            {
-                // if (Enemy !=){
-                VisuDeplacement(posX, posY+1, mouvement - 1);
-                //}
-            }
-        }
-
-        if (GetGameObject(posX,(posY-1)) != null)
-        {
-            GameObject objet = GetGameObject(posX, (posY-1));
-            if (objet.GetComponent<SpriteRenderer>().sprite == objet.GetComponent<Square>().baseSprite)
-            {
-                // if (Enemy !=){
-                VisuDeplacement(posX, posY-1, mouvement - 1);
-                //}
-            }
-        }
     }
 }
