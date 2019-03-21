@@ -182,7 +182,7 @@ public class GameManager : MonoBehaviour
                     }
                     else
                     {
-                        if (objet.GetComponent<SpriteRenderer>().sprite == objet.GetComponent<Square>().baseSprite)
+                        if (objet.GetComponent<SpriteRenderer>().sprite == objet.GetComponent<Square>().baseSprite && maxDistAttack==1)
                         {
                             AddMovingAttack(objet);
                         }
@@ -214,7 +214,7 @@ public class GameManager : MonoBehaviour
                     }
                     else
                     {
-                        if (objet.GetComponent<SpriteRenderer>().sprite == objet.GetComponent<Square>().baseSprite)
+                        if (objet.GetComponent<SpriteRenderer>().sprite == objet.GetComponent<Square>().baseSprite && maxDistAttack == 1)
                         {
                             AddMovingAttack(objet);
                         }
@@ -246,7 +246,7 @@ public class GameManager : MonoBehaviour
                     }
                     else
                     {
-                        if (objet.GetComponent<SpriteRenderer>().sprite == objet.GetComponent<Square>().baseSprite)
+                        if (objet.GetComponent<SpriteRenderer>().sprite == objet.GetComponent<Square>().baseSprite && maxDistAttack == 1)
                         {
                             AddMovingAttack(objet);
                         }
@@ -278,7 +278,7 @@ public class GameManager : MonoBehaviour
                     }
                     else
                     {
-                        if (objet.GetComponent<SpriteRenderer>().sprite == objet.GetComponent<Square>().baseSprite)
+                        if (objet.GetComponent<SpriteRenderer>().sprite == objet.GetComponent<Square>().baseSprite && maxDistAttack == 1)
                         {
                             AddMovingAttack(objet);
                         }
