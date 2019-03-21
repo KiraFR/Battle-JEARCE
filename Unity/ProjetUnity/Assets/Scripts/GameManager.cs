@@ -6,12 +6,10 @@ public class GameManager : MonoBehaviour
 {
     public BoardManager boardScript;
     public static GameManager instance = null;
-    public GameObject canvasAction = null;
 
     private List<GameObject> enemies;
     private List<GameObject> allies;
-    private GameObject instantiatedCanvasAction = null;
-    private GameObject selectedUnit = null;
+    private GameObject selectedSquare = null;
     private List<GameObject> movingTiles;
     // Start is called before the first frame update
     void Start()
@@ -43,35 +41,14 @@ public class GameManager : MonoBehaviour
         return boardScript.GetGameObject(xDir, yDir);
     }
 
-    public GameObject GetSelectedUnit()
+    public GameObject GetSelectedSquare()
     {
-        return selectedUnit;
+        return selectedSquare;
     }
 
-    public void SetSelectedUnit(GameObject unit)
+    public void SetSelectedSquare(GameObject square)
     {
-        selectedUnit = unit;
-    }
-
-    public void SetInstantiatedCanvasAction(GameObject canvas)
-    {
-        RemoveInstantiatedCanvasAction();
-
-        instantiatedCanvasAction = canvas;
-    }
-
-    public void RemoveInstantiatedCanvasAction()
-    {
-        if (instantiatedCanvasAction != null)
-        {
-            Destroy(instantiatedCanvasAction);
-            instantiatedCanvasAction = null;
-        }
-    }
-
-    public GameObject GetinstantiatedCanvasAction()
-    {
-        return instantiatedCanvasAction;
+        selectedSquare = square;
     }
 
     public void AddMovingTiles(GameObject tile)
@@ -123,7 +100,7 @@ public class GameManager : MonoBehaviour
     {
         if (mouvement == 0) return;
         GameObject objet = GetGameObject(posX + 1, posY);
-        if (objet != null && !selectedUnit.Equals(objet))
+        if (objet != null && !selectedSquare.Equals(objet))
         {
             if (objet.GetComponent<SpriteRenderer>().sprite == objet.GetComponent<Square>().baseSprite)
             {
@@ -136,7 +113,7 @@ public class GameManager : MonoBehaviour
             }
         }
         objet = GetGameObject(posX - 1, posY);
-        if (objet != null && !selectedUnit.Equals(objet))
+        if (objet != null && !selectedSquare.Equals(objet))
         {
 
             if (objet.GetComponent<SpriteRenderer>().sprite == objet.GetComponent<Square>().baseSprite)
@@ -150,7 +127,7 @@ public class GameManager : MonoBehaviour
             }
         }
         objet = GetGameObject(posX, posY + 1);
-        if (objet != null && !selectedUnit.Equals(objet))
+        if (objet != null && !selectedSquare.Equals(objet))
         {
             if (objet.GetComponent<SpriteRenderer>().sprite == objet.GetComponent<Square>().baseSprite)
             {
@@ -164,7 +141,7 @@ public class GameManager : MonoBehaviour
             }
         }
         objet = GetGameObject(posX, posY - 1);
-        if (objet != null && !selectedUnit.Equals(objet))
+        if (objet != null && !selectedSquare.Equals(objet))
         {
             if (objet.GetComponent<SpriteRenderer>().sprite == objet.GetComponent<Square>().baseSprite)
             {

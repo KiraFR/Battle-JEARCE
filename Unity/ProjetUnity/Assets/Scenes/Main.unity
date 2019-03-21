@@ -854,6 +854,26 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 3823326526175932489, guid: 91116df1dcc11ed499e312587eeecb5c,
         type: 3}
+    - target: {fileID: 7028686480017889325, guid: 70ef5e92aa710c04aabaad9dcdf1f2d8,
+        type: 3}
+      propertyPath: movePoint.baseStat
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7028686480017889325, guid: 70ef5e92aa710c04aabaad9dcdf1f2d8,
+        type: 3}
+      propertyPath: movePoint.currentStat
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 940126294804942588, guid: 70ef5e92aa710c04aabaad9dcdf1f2d8,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 940126294804942588, guid: 70ef5e92aa710c04aabaad9dcdf1f2d8,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 70ef5e92aa710c04aabaad9dcdf1f2d8, type: 3}
 --- !u!1 &1480785847
