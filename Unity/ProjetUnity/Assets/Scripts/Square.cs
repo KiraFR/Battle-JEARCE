@@ -29,6 +29,7 @@ public class Square : MonoBehaviour
                 // TOCHANGE
                 // GameManager.instance.
                 GameManager.instance.MovableSquares((int)transform.position.x, (int)transform.position.y, character.movePoint.currentStat);
+                GameManager.instance.AttackSquares((int)transform.position.x, (int)transform.position.y, character.movePoint.currentStat,character.maxDistAttack.currentStat);
             }
             else if (unit.GetComponent<Square>().GetCharacter().Equals(character))
             {

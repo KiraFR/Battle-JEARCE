@@ -61,6 +61,16 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void AddMovingAttack(GameObject tile)
+    {
+        if (tile != null)
+        {
+            tile.GetComponent<SpriteRenderer>().sprite = tile.GetComponent<Square>().attackSprite;
+            tile.GetComponent<Square>().SetMovable(true);
+            movingTiles.Add(tile);
+        }
+    }
+
     public void ClearMovingTiles()
     {
         foreach (GameObject obj in movingTiles)
@@ -102,7 +112,7 @@ public class GameManager : MonoBehaviour
         GameObject objet = GetGameObject(posX + 1, posY);
         if (objet != null && !selectedSquare.Equals(objet))
         {
-            if (objet.GetComponent<SpriteRenderer>().sprite == objet.GetComponent<Square>().baseSprite)
+            if (objet.GetComponent<SpriteRenderer>().sprite == objet.GetComponent<Square>().baseSprite || objet.GetComponent<SpriteRenderer>().sprite == objet.GetComponent<Square>().moveSprite)
             {
                 Character character = objet.GetComponent<Square>().GetCharacter();
                 if ((character != null && !IsEnemy(character.gameObject)) || character == null)
@@ -116,7 +126,7 @@ public class GameManager : MonoBehaviour
         if (objet != null && !selectedSquare.Equals(objet))
         {
 
-            if (objet.GetComponent<SpriteRenderer>().sprite == objet.GetComponent<Square>().baseSprite)
+            if (objet.GetComponent<SpriteRenderer>().sprite == objet.GetComponent<Square>().baseSprite || objet.GetComponent<SpriteRenderer>().sprite == objet.GetComponent<Square>().moveSprite)
             {
                 Character character = objet.GetComponent<Square>().GetCharacter();
                 if ((character != null && !IsEnemy(character.gameObject)) || character == null)
@@ -129,7 +139,7 @@ public class GameManager : MonoBehaviour
         objet = GetGameObject(posX, posY + 1);
         if (objet != null && !selectedSquare.Equals(objet))
         {
-            if (objet.GetComponent<SpriteRenderer>().sprite == objet.GetComponent<Square>().baseSprite)
+            if (objet.GetComponent<SpriteRenderer>().sprite == objet.GetComponent<Square>().baseSprite || objet.GetComponent<SpriteRenderer>().sprite == objet.GetComponent<Square>().moveSprite)
             {
 
                 Character character = objet.GetComponent<Square>().GetCharacter();
@@ -143,7 +153,7 @@ public class GameManager : MonoBehaviour
         objet = GetGameObject(posX, posY - 1);
         if (objet != null && !selectedSquare.Equals(objet))
         {
-            if (objet.GetComponent<SpriteRenderer>().sprite == objet.GetComponent<Square>().baseSprite)
+            if (objet.GetComponent<SpriteRenderer>().sprite == objet.GetComponent<Square>().baseSprite || objet.GetComponent<SpriteRenderer>().sprite == objet.GetComponent<Square>().moveSprite)
             {
                 Character character = objet.GetComponent<Square>().GetCharacter();
                 if ((character != null && !IsEnemy(character.gameObject)) || character == null)
@@ -155,4 +165,136 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void AttackSquares(int posX, int posY, int mouvement, int maxDistAttack)
+    {
+        if (maxDistAttack == 0) return;
+        GameObject objet = GetGameObject(posX + 1, posY);
+        if (objet != null && !selectedSquare.Equals(objet))
+        {
+            if (objet.GetComponent<SpriteRenderer>().sprite != objet.GetComponent<Square>().inaccessibleSprite)
+            {
+                Character character = objet.GetComponent<Square>().GetCharacter();
+                if ((character != null && !IsEnemy(character.gameObject)) || character == null)
+                {
+                    if (mouvement != 0)
+                    {
+                        AttackSquares(posX + 1, posY, mouvement - 1, maxDistAttack);
+                    }
+                    else
+                    {
+                        if (objet.GetComponent<SpriteRenderer>().sprite == objet.GetComponent<Square>().baseSprite)
+                        {
+                            AddMovingAttack(objet);
+                        }
+                        AttackSquares(posX + 1, posY, mouvement, maxDistAttack - 1);
+                    }
+                }
+                else
+                {
+                    AddMovingAttack(objet);
+                }
+            }
+            else
+            {
+                if(maxDistAttack==2)
+                    AttackSquares(posX + 1, posY, 0, maxDistAttack - 1);
+            }
+        }
+        objet = GetGameObject(posX - 1, posY);
+        if (objet != null && !selectedSquare.Equals(objet))
+        {
+            if (objet.GetComponent<SpriteRenderer>().sprite != objet.GetComponent<Square>().inaccessibleSprite)
+            {
+                Character character = objet.GetComponent<Square>().GetCharacter();
+                if ((character != null && !IsEnemy(character.gameObject)) || character == null)
+                {
+                    if (mouvement != 0)
+                    {
+                        AttackSquares(posX - 1, posY, mouvement - 1, maxDistAttack);
+                    }
+                    else
+                    {
+                        if (objet.GetComponent<SpriteRenderer>().sprite == objet.GetComponent<Square>().baseSprite)
+                        {
+                            AddMovingAttack(objet);
+                        }
+                        AttackSquares(posX - 1, posY, mouvement, maxDistAttack - 1);
+                    }
+                }
+                else
+                {
+                    AddMovingAttack(objet);
+                }
+            }
+            else
+            {
+                if (maxDistAttack == 2)
+                    AttackSquares(posX - 1, posY, 0, maxDistAttack - 1);
+            }
+        }
+        objet = GetGameObject(posX, posY + 1);
+        if (objet != null && !selectedSquare.Equals(objet))
+        {
+            if (objet.GetComponent<SpriteRenderer>().sprite != objet.GetComponent<Square>().inaccessibleSprite)
+            {
+                Character character = objet.GetComponent<Square>().GetCharacter();
+                if ((character != null && !IsEnemy(character.gameObject)) || character == null)
+                {
+                    if (mouvement != 0)
+                    {
+                        AttackSquares(posX, posY + 1, mouvement - 1, maxDistAttack);
+                    }
+                    else
+                    {
+                        if (objet.GetComponent<SpriteRenderer>().sprite == objet.GetComponent<Square>().baseSprite)
+                        {
+                            AddMovingAttack(objet);
+                        }
+                        AttackSquares(posX, posY + 1, mouvement, maxDistAttack - 1);
+                    }
+                }
+                else
+                {
+                    AddMovingAttack(objet);
+                }
+            }
+            else
+            {
+                if (maxDistAttack == 2)
+                    AttackSquares(posX, posY+1, 0, maxDistAttack - 1);
+            }
+        }
+        objet = GetGameObject(posX, posY - 1);
+        if (objet != null && !selectedSquare.Equals(objet))
+        {
+            if (objet.GetComponent<SpriteRenderer>().sprite != objet.GetComponent<Square>().inaccessibleSprite)
+            {
+                Character character = objet.GetComponent<Square>().GetCharacter();
+                if ((character != null && !IsEnemy(character.gameObject)) || character == null)
+                {
+                    if (mouvement != 0)
+                    {
+                        AttackSquares(posX, posY - 1, mouvement - 1, maxDistAttack);
+                    }
+                    else
+                    {
+                        if (objet.GetComponent<SpriteRenderer>().sprite == objet.GetComponent<Square>().baseSprite)
+                        {
+                            AddMovingAttack(objet);
+                        }
+                        AttackSquares(posX, posY - 1, mouvement, maxDistAttack - 1);
+                    }
+                }
+                else
+                {
+                    AddMovingAttack(objet);
+                }
+            }
+            else
+            {
+                if (maxDistAttack == 2)
+                    AttackSquares(posX, posY-1, 0, maxDistAttack - 1);
+            }
+        }
+    }
 }
