@@ -11,6 +11,8 @@ public class Character : MonoBehaviour
     public Stats attackPoint;
     public Stats movePoint;
 
+    public Equipement equipement;
+
     public Stats minDistAttack;
     public Stats maxDistAttack;
 
@@ -33,6 +35,31 @@ public class Character : MonoBehaviour
 
         //ChangeHealth();
     }
+    
+    public int GethealthPointwithEquipement()
+    {
+        if (equipement!=null)
+            return equipement.healthPoint.currentStat + healthPoint.currentStat;
+        else
+            return healthPoint.currentStat;
+    }
+
+    public int GetAttackPointwithEquipement()
+    {
+        if (equipement!=null)
+            return equipement.attackPoint.currentStat + attackPoint.currentStat;
+        else
+            return attackPoint.currentStat;
+    }
+    public int GetMovePointwithEquipement()
+    {
+        if (equipement != null)
+            return equipement.movePoint.currentStat + movePoint.currentStat;
+        else
+            return movePoint.currentStat;
+    }
+
+
 
     public void ChangeHealth()
     {
