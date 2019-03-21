@@ -12,6 +12,7 @@ public class Square : MonoBehaviour
 
     private GameManager gm = GameManager.instance;
     private Character character = null;
+    private Character lastCharacter = null;
     private bool canMoveIn = false;
     private Vector3 lastPos = new Vector3();
 
@@ -39,16 +40,37 @@ public class Square : MonoBehaviour
             }
             else
             {
-                //Verifie ennemi -> gm.IsEnemy(unit) + verifie a cote 
                 lastPos = new Vector3(unit.transform.position.x, unit.transform.position.y, 0);
+                lastCharacter = unit.GetComponent<Square>().GetCharacter();
+                //Verifie ennemi -> gm.IsEnemy(unit) + verifie a cote 
                 if (!unit.GetComponent<Square>().GetCharacter().Equals(character))
                 {
-                    if ((lastPos.x == transform.position.x + 1 && lastPos.y == transform.position.y) || (lastPos.x == transform.position.x - 1 && lastPos.y == transform.position.y) || (lastPos.x == transform.position.x && lastPos.y == transform.position.y + 1) || (lastPos.x == transform.position.x && lastPos.y == transform.position.y - 1))
+                    if (lastCharacter.GetComponent<Character>().maxDistAttack.baseStat==2) {
+                        if ((lastPos.x == transform.position.x + 2 && lastPos.y == transform.position.y) || 
+                        (lastPos.x == transform.position.x - 2 && lastPos.y == transform.position.y) || 
+                            (lastPos.x == transform.position.x && lastPos.y == transform.position.y + 2) || 
+                        (lastPos.x == transform.position.x && lastPos.y == transform.position.y - 2) ||
+                           (lastPos.x == transform.position.x+1 && lastPos.y == transform.position.y - 1)||
+                        (lastPos.x == transform.position.x -1 && lastPos.y == transform.position.y - 1) ||
+                           (lastPos.x == transform.position.x + 1 && lastPos.y == transform.position.y + 1) ||
+                        (lastPos.x == transform.position.x - 1 && lastPos.y == transform.position.y + 1))
+                        {
+                            Debug.Log("Attaque archer");
+                            Vector3 pos = unit.transform.position;
+                            Debug.Log(lastPos.x + " " + lastPos.y + " " + transform.position.x + " " + transform.position.y);
+                        }
+                        }
+                    else
                     {
-                        Debug.Log("Attaque");
-                        Vector3 pos = unit.transform.position;
-                        Debug.Log(lastPos.x + " " + lastPos.y + " " + transform.position.x + " " + transform.position.y);
+                        if ((lastPos.x == transform.position.x + 1 && lastPos.y == transform.position.y) || (lastPos.x == transform.position.x - 1 && lastPos.y == transform.position.y) || (lastPos.x == transform.position.x && lastPos.y == transform.position.y + 1) || (lastPos.x == transform.position.x && lastPos.y == transform.position.y - 1))
+                        {
+                            Debug.Log("Attaque cac");
+                            Vector3 pos = unit.transform.position;
+                            Debug.Log(lastPos.x + " " + lastPos.y + " " + transform.position.x + " " + transform.position.y);
+                        }
                     }
+
+
                 }
             }
         }
