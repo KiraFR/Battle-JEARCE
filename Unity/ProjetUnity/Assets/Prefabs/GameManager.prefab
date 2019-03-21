@@ -45,8 +45,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boardScript: {fileID: 6276495806716407530}
-  canvasAction: {fileID: 7828671901751449632, guid: addd1149d8e11b84e9075606f567641a,
-    type: 3}
 --- !u!114 &6276495806716407530
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -61,6 +59,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   columns: 6
   rows: 8
-  nbObstacles: 5
+  nbObstacles: 7
   floorTiles: {fileID: 2549434862602930489, guid: d8f56b91c45dd0544bbb65e50b017e02,
     type: 3}
