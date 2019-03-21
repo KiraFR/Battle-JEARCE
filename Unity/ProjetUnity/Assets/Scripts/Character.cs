@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Character : MonoBehaviour
 {
@@ -10,7 +11,13 @@ public class Character : MonoBehaviour
     public Stats attackPoint;
     public Stats movePoint;
 
+    public Equipement equipement;
 
+    public Stats minDistAttack;
+    public Stats maxDistAttack;
+
+    public Text healthText;
+    public Text moveText;
     private Rigidbody2D rb2D;
     public float moveTime = .1f;
 
@@ -25,11 +32,52 @@ public class Character : MonoBehaviour
     public void GetAttacked(int loss)
     {
         healthPoint.DecreaseCurrent(loss);
+
+        ChangeHealth();
     }
     
+    public int GethealthPointwithEquipement()
+    {
+        if (equipement!=null)
+            return equipement.healthPoint.currentStat + healthPoint.currentStat;
+        else
+            return healthPoint.currentStat;
+    }
+
+    public int GetAttackPointwithEquipement()
+    {
+        if (equipement!=null)
+            return equipement.attackPoint.currentStat + attackPoint.currentStat;
+        else
+            return attackPoint.currentStat;
+    }
+    public int GetMovePointwithEquipement()
+    {
+        if (equipement != null)
+            return equipement.movePoint.currentStat + movePoint.currentStat;
+        else
+            return movePoint.currentStat;
+    }
+
+
+
+    public void ChangeHealth()
+    {
+        healthText = GameObject.Find("HealthText").GetComponent<Text>();
+        healthText.text = "HP : " + healthPoint.currentStat;
+    }
+
     public void Move(int used)
     {
         movePoint.DecreaseCurrent(used);
+
+        ChangeMove();
+    }
+
+    public void ChangeMove()
+    {
+        moveText = GameObject.Find("MoveText").GetComponent<Text>();
+        moveText.text = "Mouvement : " + movePoint.currentStat;
     }
 
     public void RoundEnded()

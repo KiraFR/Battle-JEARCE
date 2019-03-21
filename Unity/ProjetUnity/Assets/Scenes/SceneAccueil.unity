@@ -290,7 +290,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -904,8 +904,8 @@ RectTransform:
   m_Father: {fileID: 651467976}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -1853,7 +1853,7 @@ GameObject:
   - component: {fileID: 811116530}
   - component: {fileID: 811116531}
   m_Layer: 5
-  m_Name: Slider (1)
+  m_Name: SliderMusic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1924,10 +1924,21 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2039731145}
+        m_MethodName: SetVolume
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Slider+SliderEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!1 &917413792
@@ -2414,7 +2425,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -2455,6 +2466,80 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1285642924}
   m_CullTransparentMesh: 0
+--- !u!1001 &1287249988
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1435121782}
+    m_Modifications:
+    - target: {fileID: 2445464240416056594, guid: 87aa6bb006dc24648875ea4bf08a535a,
+        type: 3}
+      propertyPath: m_Name
+      value: SoundManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 3075469407248679252, guid: 87aa6bb006dc24648875ea4bf08a535a,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 438.50522
+      objectReference: {fileID: 0}
+    - target: {fileID: 3075469407248679252, guid: 87aa6bb006dc24648875ea4bf08a535a,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 211.48492
+      objectReference: {fileID: 0}
+    - target: {fileID: 3075469407248679252, guid: 87aa6bb006dc24648875ea4bf08a535a,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -8.625
+      objectReference: {fileID: 0}
+    - target: {fileID: 3075469407248679252, guid: 87aa6bb006dc24648875ea4bf08a535a,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3075469407248679252, guid: 87aa6bb006dc24648875ea4bf08a535a,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3075469407248679252, guid: 87aa6bb006dc24648875ea4bf08a535a,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3075469407248679252, guid: 87aa6bb006dc24648875ea4bf08a535a,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3075469407248679252, guid: 87aa6bb006dc24648875ea4bf08a535a,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3075469407248679252, guid: 87aa6bb006dc24648875ea4bf08a535a,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3075469407248679252, guid: 87aa6bb006dc24648875ea4bf08a535a,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3075469407248679252, guid: 87aa6bb006dc24648875ea4bf08a535a,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 546453208419351030, guid: 87aa6bb006dc24648875ea4bf08a535a,
+        type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: d631df02749b6314a85b115a271832a9, type: 3}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 87aa6bb006dc24648875ea4bf08a535a, type: 3}
 --- !u!1 &1386672956
 GameObject:
   m_ObjectHideFlags: 0
@@ -2616,10 +2701,21 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2039731145}
+        m_MethodName: SetSfx
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Slider+SliderEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!1 &1395367846
@@ -2720,7 +2816,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 1
+          m_IntArgument: 2
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -2793,6 +2889,7 @@ Transform:
   m_Children:
   - {fileID: 519420032}
   - {fileID: 345942806}
+  - {fileID: 2039731142}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3226,8 +3323,8 @@ RectTransform:
   m_Father: {fileID: 1565963922}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -3938,3 +4035,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2015332366}
   m_CullTransparentMesh: 0
+--- !u!4 &2039731142 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3075469407248679252, guid: 87aa6bb006dc24648875ea4bf08a535a,
+    type: 3}
+  m_PrefabInstance: {fileID: 1287249988}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2039731145 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 122727099097953652, guid: 87aa6bb006dc24648875ea4bf08a535a,
+    type: 3}
+  m_PrefabInstance: {fileID: 1287249988}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae9cfde66d600b04d8ef081dae061311, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
