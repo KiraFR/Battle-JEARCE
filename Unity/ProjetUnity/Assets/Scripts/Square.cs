@@ -13,6 +13,7 @@ public class Square : MonoBehaviour
     private GameManager gm = GameManager.instance;
     private Character character = null;
     private bool canMoveIn = false;
+    private Vector3 lastPos = new Vector3();
 
     public void OnMouseDown()
     {
@@ -29,36 +30,35 @@ public class Square : MonoBehaviour
                 // TOCHANGE
                 // GameManager.instance.
                 GameManager.instance.MovableSquares((int)transform.position.x, (int)transform.position.y, character.movePoint.currentStat);
-                GameManager.instance.AttackSquares((int)transform.position.x, (int)transform.position.y, character.movePoint.currentStat,character.maxDistAttack.currentStat);
+                GameManager.instance.AttackSquares((int)transform.position.x, (int)transform.position.y, character.movePoint.currentStat, character.maxDistAttack.currentStat);
             }
             else if (unit.GetComponent<Square>().GetCharacter().Equals(character))
             {
-
+                gm.ClearMovingTiles();
                 gm.SetSelectedSquare(null);
             }
-            else if (unit != null)
+            else
             {
-
-                Vector3 pos = unit.transform.position;
-                if ((pos.x != transform.position.x && pos.y != transform.position.y) || (pos.x == transform.position.x && pos.y == transform.position.y))
+                //Verifie ennemi -> gm.IsEnemy(unit) + verifie a cote 
+                lastPos = new Vector3(unit.transform.position.x, unit.transform.position.y, 0);
+                if (!unit.GetComponent<Square>().GetCharacter().Equals(character))
                 {
-
-                    gm.ClearMovingTiles();
-                    gm.SetSelectedSquare(null);
+                    if ((lastPos.x == transform.position.x + 1 && lastPos.y == transform.position.y) || (lastPos.x == transform.position.x - 1 && lastPos.y == transform.position.y) || (lastPos.x == transform.position.x && lastPos.y == transform.position.y + 1) || (lastPos.x == transform.position.x && lastPos.y == transform.position.y - 1))
+                    {
+                        Debug.Log("Attaque");
+                        Vector3 pos = unit.transform.position;
+                        Debug.Log(lastPos.x + " " + lastPos.y + " " + transform.position.x + " " + transform.position.y);
+                    }
                 }
             }
         }
         else
         {
             GameObject unit = gm.GetSelectedSquare();
-            Debug.Log(unit);
             if (canMoveIn)
             {
-                Debug.Log("move in " + transform.position.x + "," + transform.position.y);
-                //TODO MOVE CHARACTER
                 gm.ClearMovingTiles();
                 character = unit.GetComponent<Square>().GetCharacter();
-                Debug.Log(character + " à " + transform.position.x + "," + transform.position.y);
                 unit.GetComponent<Square>().GetCharacter().GetComponent<Character>().Move(new Vector3(transform.position.x, transform.position.y, transform.position.z));
                 unit.GetComponent<Square>().SetCharacter(null);
                 gm.SetSelectedSquare(null);
@@ -82,7 +82,7 @@ public class Square : MonoBehaviour
     {
         this.character = character;
     }
-    
+
     public void SetMovable(bool move)
     {
         canMoveIn = move;

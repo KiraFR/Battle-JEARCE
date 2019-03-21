@@ -867,12 +867,12 @@ PrefabInstance:
     - target: {fileID: 7028686480017889325, guid: 70ef5e92aa710c04aabaad9dcdf1f2d8,
         type: 3}
       propertyPath: maxDistAttack.currentStat
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7028686480017889325, guid: 70ef5e92aa710c04aabaad9dcdf1f2d8,
         type: 3}
       propertyPath: maxDistAttack.baseStat
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 940126294804942588, guid: 70ef5e92aa710c04aabaad9dcdf1f2d8,
         type: 3}
