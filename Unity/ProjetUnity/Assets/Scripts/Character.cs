@@ -33,7 +33,7 @@ public class Character : MonoBehaviour
     {
         healthPoint.DecreaseCurrent(loss);
 
-        //ChangeHealth();
+        ChangeHealth();
     }
     
     public int GethealthPointwithEquipement()
@@ -71,7 +71,7 @@ public class Character : MonoBehaviour
     {
         movePoint.DecreaseCurrent(used);
 
-        //ChangeMove();
+        ChangeMove();
     }
 
     public void ChangeMove()

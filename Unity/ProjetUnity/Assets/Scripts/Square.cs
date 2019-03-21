@@ -10,9 +10,6 @@ public class Square : MonoBehaviour
     public Sprite attackSprite;
     public Sprite inaccessibleSprite;
 
-    public Text healthText;
-    public Text moveText;
-
     private GameManager gm = GameManager.instance;
     private Character character = null;
     private bool canMoveIn = false;
@@ -24,7 +21,6 @@ public class Square : MonoBehaviour
          */
         if (character != null)
          {
-            character.ChangeMove();
             GameObject unit = gm.GetSelectedUnit();
             if (unit == null)
             {
@@ -64,6 +60,7 @@ public class Square : MonoBehaviour
                 character = unit.GetComponent<Square>().GetCharacter();
                 unit.GetComponent<Square>().GetCharacter().GetComponent<Character>().Move(new Vector3(transform.position.x, transform.position.y, transform.position.z));
                 unit.GetComponent<Square>().SetCharacter(null);
+                character.Move(1);
             }
             else
             {
