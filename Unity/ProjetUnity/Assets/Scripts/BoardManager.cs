@@ -7,7 +7,6 @@ using UnityEngine;
 
 public class BoardManager : MonoBehaviour
 {
-
     public int columns = 8;
     public int rows = 8;
     public int nbObstacles;
@@ -16,23 +15,8 @@ public class BoardManager : MonoBehaviour
     // Every Floor's gameObject from Vector3
     public Dictionary<Vector3,GameObject> floorGameObjects = new Dictionary<Vector3, GameObject>();
 
-    private List<Vector3> gridPositions = new List<Vector3>();
     private Transform boardHolder;
     private List<GameObject> obstacles = new List<GameObject>();    //Global list so we can use it in the isBlocked() method
-
-
-    void InitialiseList()
-    {
-        gridPositions.Clear();
-        for (int x = 0; x < columns; x++)
-        {
-            for (int y = 0; y < rows; y++)
-            {
-                gridPositions.Add(new Vector3(x, y, 0f));
-            }
-        }
-    }
-
 
     void BoardSetup()
     {
@@ -44,13 +28,22 @@ public class BoardManager : MonoBehaviour
                 Vector3 pos = new Vector3(x, y, 0f);
                 GameObject instance = Instantiate(floorTiles, pos, Quaternion.identity) as GameObject;
                 floorGameObjects.Add(pos,instance);
-                // TODELETE --> DEBUG CHARACTER
+                // TODELETE --> DEBUG ALLY CHARACTER
                 if (x == 0 && y == 0)
                 {
-                    instance.GetComponent<Square>().SetCharacter(GameObject.Find("epeiste").GetComponent<Character>());
+
+                    GameObject ally = GameObject.Find("epeiste");
+                    instance.GetComponent<Square>().SetCharacter(ally.GetComponent<Character>());
+                    GameManager.instance.AddToAllies(ally);
+                }
+                // TODELETE --> DEBUG ENNEMY CHARACTER 
+                if (x == 0 && y == 1)
+                {
+                    GameObject enemy = Instantiate(GameObject.Find("epeiste"), pos, Quaternion.identity) as GameObject;
+                    instance.GetComponent<Square>().SetCharacter(enemy.GetComponent<Character>());
+                    GameManager.instance.AddToEnemies(enemy);
                 }
 
-                
                 instance.transform.SetParent(boardHolder);
             }
         }
@@ -126,7 +119,6 @@ public class BoardManager : MonoBehaviour
     public void SetupScene()
     {
         BoardSetup();
-        InitialiseList();
         ObstaclesSetup();
     }
 
