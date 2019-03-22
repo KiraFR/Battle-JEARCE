@@ -44,14 +44,24 @@ public class BoardManager : MonoBehaviour
                 Vector3 pos = new Vector3(x, y, 0f);
                 GameObject instance = Instantiate(floorTiles, pos, Quaternion.identity) as GameObject;
                 floorGameObjects.Add(pos,instance);
-                // TODELETE --> DEBUG CHARACTER
+                // TODELETE --> DEBUG ALLY CHARACTER
                 if (x == 0 && y == 0)
                 {
-                    instance.GetComponent<Square>().SetCharacter(GameObject.Find("epeiste").GetComponent<Character>());
+
+                    GameObject ally = GameObject.Find("epeiste");
+                    instance.GetComponent<Square>().SetCharacter(ally.GetComponent<Character>());
+                    GameManager.instance.AddToAllies(ally);
                 }
 
-                
-                instance.transform.SetParent(boardHolder);
+                // TODELETE --> DEBUG ENNEMY CHARACTER 
+                if (x == 0 && y == 1)
+                {
+                    GameObject enemy = Instantiate(GameObject.Find("epeiste"), pos, Quaternion.identity) as GameObject;
+                    instance.GetComponent<Square>().SetCharacter(enemy.GetComponent<Character>());
+                    GameManager.instance.AddToEnemies(enemy);
+                }
+
+                    instance.transform.SetParent(boardHolder);
             }
         }
     }
