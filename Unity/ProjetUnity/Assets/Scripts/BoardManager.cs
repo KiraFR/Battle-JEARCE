@@ -7,6 +7,7 @@ using UnityEngine;
 
 public class BoardManager : MonoBehaviour
 {
+
     public int columns = 8;
     public int rows = 8;
     public int nbObstacles;
@@ -15,8 +16,23 @@ public class BoardManager : MonoBehaviour
     // Every Floor's gameObject from Vector3
     public Dictionary<Vector3,GameObject> floorGameObjects = new Dictionary<Vector3, GameObject>();
 
+    private List<Vector3> gridPositions = new List<Vector3>();
     private Transform boardHolder;
     private List<GameObject> obstacles = new List<GameObject>();    //Global list so we can use it in the isBlocked() method
+
+
+    void InitialiseList()
+    {
+        gridPositions.Clear();
+        for (int x = 0; x < columns; x++)
+        {
+            for (int y = 0; y < rows; y++)
+            {
+                gridPositions.Add(new Vector3(x, y, 0f));
+            }
+        }
+    }
+
 
     void BoardSetup()
     {
@@ -28,22 +44,13 @@ public class BoardManager : MonoBehaviour
                 Vector3 pos = new Vector3(x, y, 0f);
                 GameObject instance = Instantiate(floorTiles, pos, Quaternion.identity) as GameObject;
                 floorGameObjects.Add(pos,instance);
-                // TODELETE --> DEBUG ALLY CHARACTER
+                // TODELETE --> DEBUG CHARACTER
                 if (x == 0 && y == 0)
                 {
-
-                    GameObject ally = GameObject.Find("epeiste");
-                    instance.GetComponent<Square>().SetCharacter(ally.GetComponent<Character>());
-                    GameManager.instance.AddToAllies(ally);
-                }
-                // TODELETE --> DEBUG ENNEMY CHARACTER 
-                if (x == 0 && y == 1)
-                {
-                    GameObject enemy = Instantiate(GameObject.Find("epeiste"), pos, Quaternion.identity) as GameObject;
-                    instance.GetComponent<Square>().SetCharacter(enemy.GetComponent<Character>());
-                    GameManager.instance.AddToEnemies(enemy);
+                    instance.GetComponent<Square>().SetCharacter(GameObject.Find("epeiste").GetComponent<Character>());
                 }
 
+                
                 instance.transform.SetParent(boardHolder);
             }
         }
@@ -51,7 +58,7 @@ public class BoardManager : MonoBehaviour
 
     //Method that will first add obstacles randomly before checking is the board is blocked
     //If so then it'll call the method isBlocked() that will remove one obstacle to set the board playable
-    void ObstaclesSetup()   
+    void RandomObstaclesSetup()   
     {
 
         obstacles.Clear();
@@ -115,11 +122,106 @@ public class BoardManager : MonoBehaviour
     }
 
 
+    // SETUP OF 4 BOARDS WITH 8 OBSTACLES PLACED SYMMETRICALLY
+
+    //Creation of obstacles that are defined and not randomly picked
+    void ObstaclesSetup1()
+    {
+        GameObject obs1 = GetGameObject(0, 2);
+        GameObject obs2 = GetGameObject(1, 3);
+        GameObject obs3 = GetGameObject(2, 2);
+        GameObject obs4 = GetGameObject(3, 2);
+
+        GameObject obs5 = GetGameObject(columns - 1, rows - 3);
+        GameObject obs6 = GetGameObject(columns - 2, rows - 4);
+        GameObject obs7 = GetGameObject(columns - 3, rows - 3);
+        GameObject obs8 = GetGameObject(columns - 4, rows - 3);
+
+        PlaceObstacles(obs1, obs2, obs3, obs4, obs5, obs6, obs7, obs8);
+    }
+
+    //Creation of obstacles that are defined and not randomly picked
+    void ObstaclesSetup2()
+    {
+        GameObject obs1 = GetGameObject(0, 2);
+        GameObject obs2 = GetGameObject(1, 3);
+        GameObject obs3 = GetGameObject(1, 4);
+        GameObject obs4 = GetGameObject(2, 5);
+
+        GameObject obs5 = GetGameObject(columns - 1, rows - 3);
+        GameObject obs6 = GetGameObject(columns - 2, rows - 4);
+        GameObject obs7 = GetGameObject(columns - 2, rows - 5);
+        GameObject obs8 = GetGameObject(columns - 3, rows - 6);
+
+        PlaceObstacles(obs1, obs2, obs3, obs4, obs5, obs6, obs7, obs8);
+    }
+
+    //Creation of obstacles that are defined and not randomly picked
+    void ObstaclesSetup3()
+    {
+        GameObject obs1 = GetGameObject(0, 5);
+        GameObject obs2 = GetGameObject(1, 2);
+        GameObject obs3 = GetGameObject(2, 3);
+        GameObject obs4 = GetGameObject(2, 4);
+
+        GameObject obs5 = GetGameObject(columns - 1, rows - 6);
+        GameObject obs6 = GetGameObject(columns - 2, rows - 3);
+        GameObject obs7 = GetGameObject(columns - 3, rows - 4);
+        GameObject obs8 = GetGameObject(columns - 3, rows - 5);
+
+        PlaceObstacles(obs1, obs2, obs3, obs4, obs5, obs6, obs7, obs8);
+    }
+
+    //Creation of obstacles that are defined and not randomly picked
+    void ObstaclesSetup4()
+    {
+        GameObject obs1 = GetGameObject(1, 3);
+        GameObject obs2 = GetGameObject(1, 4);
+        GameObject obs3 = GetGameObject(2, 4);
+        GameObject obs4 = GetGameObject(2, 5);
+
+        GameObject obs5 = GetGameObject(columns - 2, rows - 4);
+        GameObject obs6 = GetGameObject(columns - 2, rows - 5);
+        GameObject obs7 = GetGameObject(columns - 3, rows - 5);
+        GameObject obs8 = GetGameObject(columns - 3, rows - 6);
+
+        PlaceObstacles(obs1, obs2, obs3, obs4, obs5, obs6, obs7, obs8);
+    }
+
+    //Predefined obstacles are now replacing basic floors (only works for boards with 8 obstacles)
+    public void PlaceObstacles(GameObject obs1, GameObject obs2, GameObject obs3, GameObject obs4,
+        GameObject obs5, GameObject obs6, GameObject obs7, GameObject obs8)
+    {
+        obs1.GetComponent<SpriteRenderer>().sprite = obs1.GetComponent<Square>().inaccessibleSprite;
+        obs2.GetComponent<SpriteRenderer>().sprite = obs2.GetComponent<Square>().inaccessibleSprite;
+        obs3.GetComponent<SpriteRenderer>().sprite = obs3.GetComponent<Square>().inaccessibleSprite;
+        obs4.GetComponent<SpriteRenderer>().sprite = obs4.GetComponent<Square>().inaccessibleSprite;
+        obs5.GetComponent<SpriteRenderer>().sprite = obs5.GetComponent<Square>().inaccessibleSprite;
+        obs6.GetComponent<SpriteRenderer>().sprite = obs6.GetComponent<Square>().inaccessibleSprite;
+        obs7.GetComponent<SpriteRenderer>().sprite = obs7.GetComponent<Square>().inaccessibleSprite;
+        obs8.GetComponent<SpriteRenderer>().sprite = obs8.GetComponent<Square>().inaccessibleSprite;
+    }
+
+    void ChooseSetup()
+    {
+        int i = UnityEngine.Random.Range(0, 4);
+        if (i == 0)
+            RandomObstaclesSetup();
+        else if (i == 1)
+            ObstaclesSetup1();
+        else if (i == 2)
+            ObstaclesSetup2();
+        else if (i == 3)
+            ObstaclesSetup3();
+        else
+            ObstaclesSetup4();
+    }
 
     public void SetupScene()
     {
         BoardSetup();
-        ObstaclesSetup();
+        InitialiseList();
+        ChooseSetup();
     }
 
     public Transform getBoard()
