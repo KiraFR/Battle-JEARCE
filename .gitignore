@@ -1,7 +1,11 @@
+
 *.DS_Store
+<<<<<<< HEAD
 *.csproj
 *.meta
 *.sln
 Unity/ProjetUnity/Temp
 Unity/ProjetUnity/Library
 Unity/ProjetUnity/obj
+=======
+>>>>>>> parent of fcf4f85... gitignore update
