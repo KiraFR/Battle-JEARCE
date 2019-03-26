@@ -165,7 +165,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void AttackSquares(int posX, int posY, int mouvement, int maxDistAttack)
+    public void AttackSquares(int posX, int posY, int mouvement, int minDistAttack, int maxDistAttack)
     {
         if (maxDistAttack == 0) return;
         GameObject objet = GetGameObject(posX + 1, posY);
@@ -178,28 +178,31 @@ public class GameManager : MonoBehaviour
                 {
                     if (mouvement != 0)
                     {
-                        AttackSquares(posX + 1, posY, mouvement - 1, maxDistAttack);
+                        AttackSquares(posX + 1, posY, mouvement - 1,minDistAttack, maxDistAttack);
                     }
                     else
                     {
-                        if (objet.GetComponent<SpriteRenderer>().sprite == objet.GetComponent<Square>().baseSprite && maxDistAttack==1)
+                        if (objet.GetComponent<SpriteRenderer>().sprite == objet.GetComponent<Square>().baseSprite && maxDistAttack == 1)
                         {
                             AddMovingAttack(objet);
                         }
-                        AttackSquares(posX + 1, posY, mouvement, maxDistAttack - 1);
+                        AttackSquares(posX + 1, posY, mouvement,minDistAttack, maxDistAttack - 1);
                     }
                 }
                 else
                 {
-                    AddMovingAttack(objet);
-                    if (maxDistAttack == 2)
-                        AttackSquares(posX + 1, posY, 0, maxDistAttack - 1);
+
+                    //Connaitre pos ennemi pour regarde si au cac ou pas
+                    if (minDistAttack != 2)
+                        AddMovingAttack(objet);
+                    if (maxDistAttack > 1)
+                        AttackSquares(posX + 1, posY, 0, minDistAttack, maxDistAttack - 1);
                 }
             }
             else
             {
-                if(maxDistAttack==2)
-                    AttackSquares(posX + 1, posY, 0, maxDistAttack - 1);
+                if (maxDistAttack > 1)
+                    AttackSquares(posX + 1, posY, 0, minDistAttack, maxDistAttack - 1);
             }
         }
         objet = GetGameObject(posX - 1, posY);
@@ -212,7 +215,7 @@ public class GameManager : MonoBehaviour
                 {
                     if (mouvement != 0)
                     {
-                        AttackSquares(posX - 1, posY, mouvement - 1, maxDistAttack);
+                        AttackSquares(posX -1 , posY, mouvement - 1, minDistAttack, maxDistAttack);
                     }
                     else
                     {
@@ -220,20 +223,22 @@ public class GameManager : MonoBehaviour
                         {
                             AddMovingAttack(objet);
                         }
-                        AttackSquares(posX - 1, posY, mouvement, maxDistAttack - 1);
+                        AttackSquares(posX -1 , posY, mouvement, minDistAttack, maxDistAttack - 1);
                     }
                 }
                 else
                 {
-                    AddMovingAttack(objet);
-                    if (maxDistAttack == 2)
-                        AttackSquares(posX - 1, posY, 0, maxDistAttack - 1);
+                    //Connaitre pos ennemi pour regarde si au cac ou pas
+                    if (minDistAttack != 2)
+                        AddMovingAttack(objet);
+                    if (maxDistAttack > 1)
+                        AttackSquares(posX - 1, posY, 0, minDistAttack, maxDistAttack - 1);
                 }
             }
             else
             {
-                if (maxDistAttack == 2)
-                    AttackSquares(posX - 1, posY, 0, maxDistAttack - 1);
+                if (maxDistAttack > 1)
+                    AttackSquares(posX - 1, posY, 0, minDistAttack, maxDistAttack - 1);
             }
         }
         objet = GetGameObject(posX, posY + 1);
@@ -246,7 +251,7 @@ public class GameManager : MonoBehaviour
                 {
                     if (mouvement != 0)
                     {
-                        AttackSquares(posX, posY + 1, mouvement - 1, maxDistAttack);
+                        AttackSquares(posX , posY+1, mouvement - 1, minDistAttack, maxDistAttack);
                     }
                     else
                     {
@@ -254,20 +259,22 @@ public class GameManager : MonoBehaviour
                         {
                             AddMovingAttack(objet);
                         }
-                        AttackSquares(posX, posY + 1, mouvement, maxDistAttack - 1);
+                        AttackSquares(posX, posY+1, mouvement, minDistAttack, maxDistAttack - 1);
                     }
                 }
                 else
                 {
-                    AddMovingAttack(objet);
-                    if (maxDistAttack == 2)
-                        AttackSquares(posX, posY+1, 0, maxDistAttack - 1);
+                    //Connaitre pos ennemi pour regarde si au cac ou pas
+                    if (minDistAttack != 2)
+                        AddMovingAttack(objet);
+                    if (maxDistAttack > 1)
+                        AttackSquares(posX, posY+1, 0, minDistAttack, maxDistAttack - 1);
                 }
             }
             else
             {
-                if (maxDistAttack == 2)
-                    AttackSquares(posX, posY+1, 0, maxDistAttack - 1);
+                if (maxDistAttack > 1)
+                    AttackSquares(posX, posY + 1, 0, minDistAttack, maxDistAttack - 1);
             }
         }
         objet = GetGameObject(posX, posY - 1);
@@ -280,7 +287,7 @@ public class GameManager : MonoBehaviour
                 {
                     if (mouvement != 0)
                     {
-                        AttackSquares(posX, posY - 1, mouvement - 1, maxDistAttack);
+                        AttackSquares(posX, posY-1, mouvement - 1, minDistAttack, maxDistAttack);
                     }
                     else
                     {
@@ -288,20 +295,22 @@ public class GameManager : MonoBehaviour
                         {
                             AddMovingAttack(objet);
                         }
-                        AttackSquares(posX, posY - 1, mouvement, maxDistAttack - 1);
+                        AttackSquares(posX, posY-1, mouvement, minDistAttack, maxDistAttack - 1);
                     }
                 }
                 else
                 {
-                    AddMovingAttack(objet);
-                    if (maxDistAttack == 2)
-                        AttackSquares(posX, posY-1, 0, maxDistAttack - 1);
+                    //Connaitre pos ennemi pour regarde si au cac ou pas
+                    if (minDistAttack != 2)
+                        AddMovingAttack(objet);
+                    if (maxDistAttack > 1)
+                        AttackSquares(posX, posY-1, 0, minDistAttack, maxDistAttack - 1);
                 }
             }
             else
             {
-                if (maxDistAttack == 2)
-                    AttackSquares(posX, posY-1, 0, maxDistAttack - 1);
+                if (maxDistAttack > 1)
+                    AttackSquares(posX, posY - 1, 0, minDistAttack, maxDistAttack - 1);
             }
         }
     }
