@@ -2,6 +2,6 @@
 *.csproj
 *.meta
 *.sln
-Unity\ProjetUnity\Temp\*
-Unity\ProjetUnity\Library\*
-Unity\ProjetUnity\obj\*
+Unity\ProjetUnity\Temp
+Unity\ProjetUnity\Library
+Unity\ProjetUnity\obj
