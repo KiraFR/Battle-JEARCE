@@ -920,6 +920,26 @@ PrefabInstance:
       propertyPath: healthPoint.currentStat
       value: 15
       objectReference: {fileID: 0}
+    - target: {fileID: 6509496287905084261, guid: 70ef5e92aa710c04aabaad9dcdf1f2d8,
+        type: 3}
+      propertyPath: minDistAttack.baseStat
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6509496287905084261, guid: 70ef5e92aa710c04aabaad9dcdf1f2d8,
+        type: 3}
+      propertyPath: minDistAttack.currentStat
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6509496287905084261, guid: 70ef5e92aa710c04aabaad9dcdf1f2d8,
+        type: 3}
+      propertyPath: maxDistAttack.baseStat
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6509496287905084261, guid: 70ef5e92aa710c04aabaad9dcdf1f2d8,
+        type: 3}
+      propertyPath: maxDistAttack.currentStat
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 6509496289113905221, guid: 70ef5e92aa710c04aabaad9dcdf1f2d8,
         type: 3}
       propertyPath: m_Name
