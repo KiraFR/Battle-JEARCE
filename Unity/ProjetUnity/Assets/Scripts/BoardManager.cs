@@ -141,79 +141,82 @@ public class BoardManager : MonoBehaviour
     //Creation of obstacles that are defined and not randomly picked
     void ObstaclesSetup1()
     {
-        GameObject obs1 = GetGameObject(0, 2);
-        GameObject obs2 = GetGameObject(1, 3);
-        GameObject obs3 = GetGameObject(2, 2);
-        GameObject obs4 = GetGameObject(3, 2);
+        obstacles.Clear();
 
-        GameObject obs5 = GetGameObject(columns - 1, rows - 3);
-        GameObject obs6 = GetGameObject(columns - 2, rows - 4);
-        GameObject obs7 = GetGameObject(columns - 3, rows - 3);
-        GameObject obs8 = GetGameObject(columns - 4, rows - 3);
+        obstacles.Add(GetGameObject(0, 2));
+        obstacles.Add(GetGameObject(1, 3));
+        obstacles.Add(GetGameObject(2, 2));
+        obstacles.Add(GetGameObject(3, 2));
 
-        PlaceObstacles(obs1, obs2, obs3, obs4, obs5, obs6, obs7, obs8);
+        obstacles.Add(GetGameObject(columns - 1, rows - 3));
+        obstacles.Add(GetGameObject(columns - 2, rows - 4));
+        obstacles.Add(GetGameObject(columns - 3, rows - 3));
+        obstacles.Add(GetGameObject(columns - 4, rows - 3));
+
+        PlaceObstacles(obstacles);
     }
 
     //Creation of obstacles that are defined and not randomly picked
     void ObstaclesSetup2()
     {
-        GameObject obs1 = GetGameObject(0, 2);
-        GameObject obs2 = GetGameObject(1, 3);
-        GameObject obs3 = GetGameObject(1, 4);
-        GameObject obs4 = GetGameObject(2, 5);
+        obstacles.Clear();
 
-        GameObject obs5 = GetGameObject(columns - 1, rows - 3);
-        GameObject obs6 = GetGameObject(columns - 2, rows - 4);
-        GameObject obs7 = GetGameObject(columns - 2, rows - 5);
-        GameObject obs8 = GetGameObject(columns - 3, rows - 6);
+        obstacles.Add(GetGameObject(0, 2));
+        obstacles.Add(GetGameObject(1, 3));
+        obstacles.Add(GetGameObject(1, 4));
+        obstacles.Add(GetGameObject(2, 5));
 
-        PlaceObstacles(obs1, obs2, obs3, obs4, obs5, obs6, obs7, obs8);
+        obstacles.Add(GetGameObject(columns - 1, rows - 3));
+        obstacles.Add(GetGameObject(columns - 2, rows - 4));
+        obstacles.Add(GetGameObject(columns - 2, rows - 5));
+        obstacles.Add(GetGameObject(columns - 3, rows - 6));
+
+        PlaceObstacles(obstacles);
     }
 
     //Creation of obstacles that are defined and not randomly picked
     void ObstaclesSetup3()
     {
-        GameObject obs1 = GetGameObject(0, 5);
-        GameObject obs2 = GetGameObject(1, 2);
-        GameObject obs3 = GetGameObject(2, 3);
-        GameObject obs4 = GetGameObject(2, 4);
+        obstacles.Clear();
 
-        GameObject obs5 = GetGameObject(columns - 1, rows - 6);
-        GameObject obs6 = GetGameObject(columns - 2, rows - 3);
-        GameObject obs7 = GetGameObject(columns - 3, rows - 4);
-        GameObject obs8 = GetGameObject(columns - 3, rows - 5);
+        obstacles.Add(GetGameObject(0, 5));
+        obstacles.Add(GetGameObject(1, 2));
+        obstacles.Add(GetGameObject(2, 3));
+        obstacles.Add(GetGameObject(2, 4));
 
-        PlaceObstacles(obs1, obs2, obs3, obs4, obs5, obs6, obs7, obs8);
+        obstacles.Add(GetGameObject(columns - 1, rows - 6));
+        obstacles.Add(GetGameObject(columns - 2, rows - 3));
+        obstacles.Add(GetGameObject(columns - 3, rows - 4));
+        obstacles.Add(GetGameObject(columns - 3, rows - 5));
+
+        PlaceObstacles(obstacles);
     }
 
     //Creation of obstacles that are defined and not randomly picked
     void ObstaclesSetup4()
     {
-        GameObject obs1 = GetGameObject(1, 3);
-        GameObject obs2 = GetGameObject(1, 4);
-        GameObject obs3 = GetGameObject(2, 4);
-        GameObject obs4 = GetGameObject(2, 5);
+        obstacles.Clear();
 
-        GameObject obs5 = GetGameObject(columns - 2, rows - 4);
-        GameObject obs6 = GetGameObject(columns - 2, rows - 5);
-        GameObject obs7 = GetGameObject(columns - 3, rows - 5);
-        GameObject obs8 = GetGameObject(columns - 3, rows - 6);
+        obstacles.Add(GetGameObject(1, 3));
+        obstacles.Add(GetGameObject(1, 4));
+        obstacles.Add(GetGameObject(2, 4));
+        obstacles.Add(GetGameObject(2, 5));
 
-        PlaceObstacles(obs1, obs2, obs3, obs4, obs5, obs6, obs7, obs8);
+        obstacles.Add(GetGameObject(columns - 2, rows - 4));
+        obstacles.Add(GetGameObject(columns - 2, rows - 5));
+        obstacles.Add(GetGameObject(columns - 3, rows - 5));
+        obstacles.Add(GetGameObject(columns - 3, rows - 6));
+
+        PlaceObstacles(obstacles);
     }
 
-    //Predefined obstacles are now replacing basic floors (only works for boards with 8 obstacles)
-    public void PlaceObstacles(GameObject obs1, GameObject obs2, GameObject obs3, GameObject obs4,
-        GameObject obs5, GameObject obs6, GameObject obs7, GameObject obs8)
+    //Predefined obstacles are now replacing basic floors
+    public void PlaceObstacles(List<GameObject> obtacles)
     {
-        obs1.GetComponent<SpriteRenderer>().sprite = obs1.GetComponent<Square>().inaccessibleSprite;
-        obs2.GetComponent<SpriteRenderer>().sprite = obs2.GetComponent<Square>().inaccessibleSprite;
-        obs3.GetComponent<SpriteRenderer>().sprite = obs3.GetComponent<Square>().inaccessibleSprite;
-        obs4.GetComponent<SpriteRenderer>().sprite = obs4.GetComponent<Square>().inaccessibleSprite;
-        obs5.GetComponent<SpriteRenderer>().sprite = obs5.GetComponent<Square>().inaccessibleSprite;
-        obs6.GetComponent<SpriteRenderer>().sprite = obs6.GetComponent<Square>().inaccessibleSprite;
-        obs7.GetComponent<SpriteRenderer>().sprite = obs7.GetComponent<Square>().inaccessibleSprite;
-        obs8.GetComponent<SpriteRenderer>().sprite = obs8.GetComponent<Square>().inaccessibleSprite;
+        for(int i = 0; i < obstacles.Count; i++)
+        {
+            obstacles[i].GetComponent<SpriteRenderer>().sprite = obstacles[i].GetComponent<Square>().inaccessibleSprite;
+        }
     }
 
     void ChooseSetup()
