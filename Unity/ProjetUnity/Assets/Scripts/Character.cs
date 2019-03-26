@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,26 +8,37 @@ public class Character : MonoBehaviour
     public Stats healthPoint;
     public Stats attackPoint;
     public Stats movePoint;
-
-    public Equipement equipement;
-
     public Stats minDistAttack;
     public Stats maxDistAttack;
 
+    public Equipement equipement;
+    public GameObject canvas;
+    public Sprite ally;
+    public Sprite enemy;
+
+
     public Text healthText;
     public Text moveText;
-    private Rigidbody2D rb2D;
     public float moveTime = .1f;
 
     private float inverseMoveTime;
+    private Rigidbody2D rb2D;
+    private Image image;
 
-    protected virtual void Start()
+    void Start()
     {
         inverseMoveTime = 1f / moveTime;
         rb2D = GetComponent<Rigidbody2D>();
+        
+    }
+    void Awake()
+    {
+        GameObject canvasGO = Instantiate(canvas, transform.position, Quaternion.identity);
+        canvasGO.transform.SetParent(transform);
+        image = canvasGO.transform.GetChild(0).gameObject.GetComponent<Image>();
     }
 
-    public void GetAttacked(int loss)
+public void GetAttacked(int loss)
     {
         healthPoint.DecreaseCurrent(loss);
 
@@ -110,6 +119,19 @@ public class Character : MonoBehaviour
 
             //Return and loop until sqrRemainingDistance is close enough to zero to end the function
             yield return null;
+        }
+    }
+
+
+    public void SetState (bool isAlly)
+    {
+        if (isAlly)
+        {
+            image.sprite = ally;
+        }
+        else
+        {
+            image.sprite = enemy;
         }
     }
 }

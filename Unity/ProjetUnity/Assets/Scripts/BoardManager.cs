@@ -7,16 +7,33 @@ using UnityEngine;
 
 public class BoardManager : MonoBehaviour
 {
+
     public int columns = 8;
     public int rows = 8;
     public int nbObstacles;
     public GameObject floorTiles;
+    public List<GameObject> Units;
 
     // Every Floor's gameObject from Vector3
-    public Dictionary<Vector3,GameObject> floorGameObjects = new Dictionary<Vector3, GameObject>();
+    private Dictionary<Vector3,GameObject> floorGameObjects = new Dictionary<Vector3, GameObject>();
 
+    private List<Vector3> gridPositions = new List<Vector3>();
     private Transform boardHolder;
     private List<GameObject> obstacles = new List<GameObject>();    //Global list so we can use it in the isBlocked() method
+    
+
+    void InitialiseList()
+    {
+        gridPositions.Clear();
+        for (int x = 0; x < columns; x++)
+        {
+            for (int y = 0; y < rows; y++)
+            {
+                gridPositions.Add(new Vector3(x, y, 0f));
+            }
+        }
+    }
+
 
     void BoardSetup()
     {
@@ -34,13 +51,17 @@ public class BoardManager : MonoBehaviour
 
                     GameObject ally = GameObject.Find("epeiste");
                     instance.GetComponent<Square>().SetCharacter(ally.GetComponent<Character>());
+                    ally.GetComponent<Character>().SetState(true);
                     GameManager.instance.AddToAllies(ally);
+
                 }
+
                 // TODELETE --> DEBUG ENNEMY CHARACTER 
                 if (x == 0 && y == 1)
                 {
                     GameObject enemy = Instantiate(GameObject.Find("epeiste"), pos, Quaternion.identity) as GameObject;
                     instance.GetComponent<Square>().SetCharacter(enemy.GetComponent<Character>());
+                    enemy.GetComponent<Character>().SetState(false);
                     GameManager.instance.AddToEnemies(enemy);
                 }
 
@@ -51,7 +72,7 @@ public class BoardManager : MonoBehaviour
 
     //Method that will first add obstacles randomly before checking is the board is blocked
     //If so then it'll call the method isBlocked() that will remove one obstacle to set the board playable
-    void ObstaclesSetup()   
+    void RandomObstaclesSetup()   
     {
 
         obstacles.Clear();
@@ -115,11 +136,109 @@ public class BoardManager : MonoBehaviour
     }
 
 
+    // SETUP OF 4 BOARDS WITH 8 OBSTACLES PLACED SYMMETRICALLY
+
+    //Creation of obstacles that are defined and not randomly picked
+    void ObstaclesSetup1()
+    {
+        obstacles.Clear();
+
+        obstacles.Add(GetGameObject(0, 2));
+        obstacles.Add(GetGameObject(1, 3));
+        obstacles.Add(GetGameObject(2, 2));
+        obstacles.Add(GetGameObject(3, 2));
+
+        obstacles.Add(GetGameObject(columns - 1, rows - 3));
+        obstacles.Add(GetGameObject(columns - 2, rows - 4));
+        obstacles.Add(GetGameObject(columns - 3, rows - 3));
+        obstacles.Add(GetGameObject(columns - 4, rows - 3));
+
+        PlaceObstacles(obstacles);
+    }
+
+    //Creation of obstacles that are defined and not randomly picked
+    void ObstaclesSetup2()
+    {
+        obstacles.Clear();
+
+        obstacles.Add(GetGameObject(0, 2));
+        obstacles.Add(GetGameObject(1, 3));
+        obstacles.Add(GetGameObject(1, 4));
+        obstacles.Add(GetGameObject(2, 5));
+
+        obstacles.Add(GetGameObject(columns - 1, rows - 3));
+        obstacles.Add(GetGameObject(columns - 2, rows - 4));
+        obstacles.Add(GetGameObject(columns - 2, rows - 5));
+        obstacles.Add(GetGameObject(columns - 3, rows - 6));
+
+        PlaceObstacles(obstacles);
+    }
+
+    //Creation of obstacles that are defined and not randomly picked
+    void ObstaclesSetup3()
+    {
+        obstacles.Clear();
+
+        obstacles.Add(GetGameObject(0, 5));
+        obstacles.Add(GetGameObject(1, 2));
+        obstacles.Add(GetGameObject(2, 3));
+        obstacles.Add(GetGameObject(2, 4));
+
+        obstacles.Add(GetGameObject(columns - 1, rows - 6));
+        obstacles.Add(GetGameObject(columns - 2, rows - 3));
+        obstacles.Add(GetGameObject(columns - 3, rows - 4));
+        obstacles.Add(GetGameObject(columns - 3, rows - 5));
+
+        PlaceObstacles(obstacles);
+    }
+
+    //Creation of obstacles that are defined and not randomly picked
+    void ObstaclesSetup4()
+    {
+        obstacles.Clear();
+
+        obstacles.Add(GetGameObject(1, 3));
+        obstacles.Add(GetGameObject(1, 4));
+        obstacles.Add(GetGameObject(2, 4));
+        obstacles.Add(GetGameObject(2, 5));
+
+        obstacles.Add(GetGameObject(columns - 2, rows - 4));
+        obstacles.Add(GetGameObject(columns - 2, rows - 5));
+        obstacles.Add(GetGameObject(columns - 3, rows - 5));
+        obstacles.Add(GetGameObject(columns - 3, rows - 6));
+
+        PlaceObstacles(obstacles);
+    }
+
+    //Predefined obstacles are now replacing basic floors
+    public void PlaceObstacles(List<GameObject> obtacles)
+    {
+        for(int i = 0; i < obstacles.Count; i++)
+        {
+            obstacles[i].GetComponent<SpriteRenderer>().sprite = obstacles[i].GetComponent<Square>().inaccessibleSprite;
+        }
+    }
+
+    void ChooseSetup()
+    {
+        int i = UnityEngine.Random.Range(0, 4);
+        if (i == 0)
+            RandomObstaclesSetup();
+        else if (i == 1)
+            ObstaclesSetup1();
+        else if (i == 2)
+            ObstaclesSetup2();
+        else if (i == 3)
+            ObstaclesSetup3();
+        else
+            ObstaclesSetup4();
+    }
 
     public void SetupScene()
     {
         BoardSetup();
-        ObstaclesSetup();
+        InitialiseList();
+        ChooseSetup();
     }
 
     public Transform getBoard()

@@ -62,3 +62,9 @@ MonoBehaviour:
   nbObstacles: 7
   floorTiles: {fileID: 2549434862602930489, guid: d8f56b91c45dd0544bbb65e50b017e02,
     type: 3}
+  Units:
+  - {fileID: 7872663113161967436, guid: 8501e40d4732e9344a2af1530b6f6c4c, type: 3}
+  - {fileID: 4390466726134420277, guid: c9139c55313aec0449a50ec1acbaae42, type: 3}
+  - {fileID: 6509496287905084262, guid: 70ef5e92aa710c04aabaad9dcdf1f2d8, type: 3}
+  - {fileID: 4420496456459494127, guid: 38966eb50442de84c873e0de2e2c150e, type: 3}
+  - {fileID: 8624980803997006181, guid: 20170c765fa7a894f87d7be4e64ae00f, type: 3}

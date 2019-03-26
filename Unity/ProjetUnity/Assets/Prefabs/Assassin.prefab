@@ -170,10 +170,16 @@ MonoBehaviour:
   movePoint:
     baseStat: 3
     currentStat: 3
+  equipement: {fileID: 0}
+  canvas: {fileID: 8668104189063890159, guid: 393b86c5e6ab35c459b156c748b24f6f, type: 3}
+  ally: {fileID: 21300000, guid: 80026ed1d0ec47046be842cfe39e2400, type: 3}
+  enemy: {fileID: 21300000, guid: c13ebbf33dc6a214996d77f72b350b3e, type: 3}
   minDistAttack:
     baseStat: 1
     currentStat: 1
   maxDistAttack:
     baseStat: 1
     currentStat: 1
+  healthText: {fileID: 0}
+  moveText: {fileID: 0}
   moveTime: 0.1

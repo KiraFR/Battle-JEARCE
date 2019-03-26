@@ -12,8 +12,8 @@ using System.Collections;
 
     private float musicVolume = 1f;
     private float sfxVolume = 1f;
-
-    void Awake()
+    
+void Awake()
         {
             //Check if there is already an instance of SoundManager
             if (instance == null)
@@ -25,7 +25,7 @@ using System.Collections;
                 Destroy(gameObject);
 
             //Set SoundManager to DontDestroyOnLoad so that it won't be destroyed when reloading our scene.
-            DontDestroyOnLoad(gameObject);
+            DontDestroyOnLoad(this.gameObject);
         
     }
     void Update()
