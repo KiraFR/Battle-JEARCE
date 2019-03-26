@@ -12,14 +12,15 @@ public class BoardManager : MonoBehaviour
     public int rows = 8;
     public int nbObstacles;
     public GameObject floorTiles;
+    public List<GameObject> Units;
 
     // Every Floor's gameObject from Vector3
-    public Dictionary<Vector3,GameObject> floorGameObjects = new Dictionary<Vector3, GameObject>();
+    private Dictionary<Vector3,GameObject> floorGameObjects = new Dictionary<Vector3, GameObject>();
 
     private List<Vector3> gridPositions = new List<Vector3>();
     private Transform boardHolder;
     private List<GameObject> obstacles = new List<GameObject>();    //Global list so we can use it in the isBlocked() method
-
+    
 
     void InitialiseList()
     {
@@ -50,7 +51,9 @@ public class BoardManager : MonoBehaviour
 
                     GameObject ally = GameObject.Find("epeiste");
                     instance.GetComponent<Square>().SetCharacter(ally.GetComponent<Character>());
+                    ally.GetComponent<Character>().SetState(true);
                     GameManager.instance.AddToAllies(ally);
+
                 }
 
                 // TODELETE --> DEBUG ENNEMY CHARACTER 
@@ -58,10 +61,11 @@ public class BoardManager : MonoBehaviour
                 {
                     GameObject enemy = Instantiate(GameObject.Find("epeiste"), pos, Quaternion.identity) as GameObject;
                     instance.GetComponent<Square>().SetCharacter(enemy.GetComponent<Character>());
+                    enemy.GetComponent<Character>().SetState(false);
                     GameManager.instance.AddToEnemies(enemy);
                 }
 
-                    instance.transform.SetParent(boardHolder);
+                instance.transform.SetParent(boardHolder);
             }
         }
     }
