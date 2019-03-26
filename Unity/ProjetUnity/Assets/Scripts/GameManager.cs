@@ -192,6 +192,8 @@ public class GameManager : MonoBehaviour
                 else
                 {
                     AddMovingAttack(objet);
+                    if (maxDistAttack == 2)
+                        AttackSquares(posX + 1, posY, 0, maxDistAttack - 1);
                 }
             }
             else
@@ -224,6 +226,8 @@ public class GameManager : MonoBehaviour
                 else
                 {
                     AddMovingAttack(objet);
+                    if (maxDistAttack == 2)
+                        AttackSquares(posX - 1, posY, 0, maxDistAttack - 1);
                 }
             }
             else
@@ -256,6 +260,8 @@ public class GameManager : MonoBehaviour
                 else
                 {
                     AddMovingAttack(objet);
+                    if (maxDistAttack == 2)
+                        AttackSquares(posX, posY+1, 0, maxDistAttack - 1);
                 }
             }
             else
@@ -288,6 +294,8 @@ public class GameManager : MonoBehaviour
                 else
                 {
                     AddMovingAttack(objet);
+                    if (maxDistAttack == 2)
+                        AttackSquares(posX, posY-1, 0, maxDistAttack - 1);
                 }
             }
             else

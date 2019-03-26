@@ -43,35 +43,15 @@ public class Square : MonoBehaviour
             {
                 lastPos = new Vector3(unit.transform.position.x, unit.transform.position.y, 0);
                 lastCharacter = unit.GetComponent<Square>().GetCharacter();
+                int distance = (int)Mathf.Abs(lastPos.x - transform.position.x) + (int)Mathf.Abs(lastPos.y - transform.position.y);
+
                 //Verifie ennemi -> gm.IsEnemy(unit) + verifie a cote 
                 if (!unit.GetComponent<Square>().GetCharacter().Equals(character))
                 {
-                    if (lastCharacter.GetComponent<Character>().maxDistAttack.baseStat==2) {
-                        if ((lastPos.x == transform.position.x + 2 && lastPos.y == transform.position.y) || 
-                        (lastPos.x == transform.position.x - 2 && lastPos.y == transform.position.y) || 
-                            (lastPos.x == transform.position.x && lastPos.y == transform.position.y + 2) || 
-                        (lastPos.x == transform.position.x && lastPos.y == transform.position.y - 2) ||
-                           (lastPos.x == transform.position.x+1 && lastPos.y == transform.position.y - 1)||
-                        (lastPos.x == transform.position.x -1 && lastPos.y == transform.position.y - 1) ||
-                           (lastPos.x == transform.position.x + 1 && lastPos.y == transform.position.y + 1) ||
-                        (lastPos.x == transform.position.x - 1 && lastPos.y == transform.position.y + 1))
-                        {
-                            Debug.Log("Attaque archer");
-                            Vector3 pos = unit.transform.position;
-                            Debug.Log(lastPos.x + " " + lastPos.y + " " + transform.position.x + " " + transform.position.y);
-                        }
-                        }
-                    else
+                    if(lastCharacter.GetComponent<Character>().maxDistAttack.baseStat >= distance && lastCharacter.GetComponent<Character>().minDistAttack.baseStat <= distance)
                     {
-                        if ((lastPos.x == transform.position.x + 1 && lastPos.y == transform.position.y) || (lastPos.x == transform.position.x - 1 && lastPos.y == transform.position.y) || (lastPos.x == transform.position.x && lastPos.y == transform.position.y + 1) || (lastPos.x == transform.position.x && lastPos.y == transform.position.y - 1))
-                        {
-                            Debug.Log("Attaque cac");
-                            Vector3 pos = unit.transform.position;
-                            Debug.Log(lastPos.x + " " + lastPos.y + " " + transform.position.x + " " + transform.position.y);
-                        }
+                        Debug.Log("Attaque ");
                     }
-
-
                 }
             }
         }
@@ -99,7 +79,6 @@ public class Square : MonoBehaviour
                 gm.SetSelectedSquare(null);
             }
         }
-
     }
 
 
