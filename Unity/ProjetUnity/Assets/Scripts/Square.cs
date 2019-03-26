@@ -85,71 +85,13 @@ public class Square : MonoBehaviour
                 unit.GetComponent<Square>().GetCharacter().GetComponent<Character>().Move(new Vector3(transform.position.x, transform.position.y, transform.position.z));
                 unit.GetComponent<Square>().SetCharacter(null);
                 gm.SetSelectedSquare(null);
-                Vector3 pos = unit.transform.position;
-                if ((transform.position.x == pos.x + 1) && (transform.position.y == pos.y + 1))
-                {
-                    character.Move(2);
-                }
-                else if ((transform.position.x == pos.x - 1) && (transform.position.y == pos.y - 1))
-                {
-                    character.Move(2);
-                }
-                else if ((transform.position.x == pos.x + 1) && (transform.position.y == pos.y - 1))
-                {
-                    character.Move(2);
-                }
-                else if ((transform.position.x == pos.x - 1) && (transform.position.y == pos.y + 1))
-                {
-                    character.Move(2);
-                }
-                else if ((transform.position.x == pos.x - 2) && (transform.position.y == pos.y + 1))
-                {
-                    character.Move(3);
-                }
-                else if ((transform.position.x == pos.x - 2) && (transform.position.y == pos.y - 1))
-                {
-                    character.Move(3);
-                }
-                else if ((transform.position.x == pos.x - 1) && (transform.position.y == pos.y + 2))
-                {
-                    character.Move(3);
-                }
-                else if ((transform.position.x == pos.x + 1) && (transform.position.y == pos.y + 2))
-                {
-                    character.Move(3);
-                }
-                else if ((transform.position.x == pos.x + 2) && (transform.position.y == pos.y - 1))
-                {
-                    character.Move(3);
-                }
-                else if ((transform.position.x == pos.x + 2) && (transform.position.y == pos.y + 1))
-                {
-                    character.Move(3);
-                }
-                else if ((transform.position.x == pos.x + 1) || (transform.position.y == pos.y + 1))
-                {
-                    character.Move(1);
-                }
-                else if ((transform.position.x == pos.x + 2) || (transform.position.y == pos.y + 2))
-                {
-                    character.Move(2);
-                }
-                else if ((transform.position.x == pos.x + 3) || (transform.position.y == pos.y + 3))
-                {
-                    character.Move(3);
-                }
-                else if ((transform.position.x == pos.x - 1) || (transform.position.y == pos.y - 1))
-                {
-                    character.Move(1);
-                }
-                else if ((transform.position.x == pos.x - 2) || (transform.position.y == pos.y - 2))
-                {
-                    character.Move(2);
-                }
-                else if ((transform.position.x == pos.x - 3) || (transform.position.y == pos.y - 3))
-                {
-                    character.Move(3);
-                }
+
+                Vector3 start = unit.transform.position;
+                Vector3 finish = transform.position;
+                Vector3 calcul = new Vector3(Mathf.Abs(finish.x - start.x), Mathf.Abs(finish.y - start.y), 0);
+                int essai = Mathf.RoundToInt(calcul.x + calcul.y);
+                character.Move(essai);
+
             }
             else
             {
