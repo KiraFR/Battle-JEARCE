@@ -1,11 +1,8 @@
 *.DS_Store
 *.csproj
 *.meta
-*.sln
 Unity/ProjetUnity/Temp
-Unity/ProjetUnity/Library
 Unity/ProjetUnity/obj
-Unity/ProjetUnity/obj/Debug
 Unity/ProjetUnity/.vs/ProjetUnity
 node_modules/
 /dist/
