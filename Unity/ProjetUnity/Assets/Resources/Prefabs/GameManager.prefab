@@ -57,8 +57,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b38d5c55d1c5a24096b351fd1ec4003, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  columns: 8
+  columns: 6
   rows: 8
-  nbObstacles: 0
+  nbObstacles: 6
   floorTiles: {fileID: 2549434862602930489, guid: af9d3d7a468b37547ab98536b9d0bad9,
     type: 3}
