@@ -1,9 +1,4 @@
 *.DS_Store
-*.csproj
-*.meta
-Unity/ProjetUnity/Temp
-Unity/ProjetUnity/obj
-Unity/ProjetUnity/.vs/ProjetUnity
 node_modules/
 /dist/
 npm-debug.log
