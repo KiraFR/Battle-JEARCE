@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: epeisteIdle1
+  m_Name: epeisteIdle
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -20,9 +20,9 @@ AnimationClip:
   m_PPtrCurves:
   - curve:
     - time: 0
-      value: {fileID: 21300000, guid: 0ba6333e223f9d549b11c4ff304edc62, type: 3}
+      value: {fileID: 21300000, guid: 45a336d96c7b8904b86d56ab81c3048e, type: 3}
     - time: 0.083333336
-      value: {fileID: 21300000, guid: 3182acc25cf453c42b8561a620f3acc4, type: 3}
+      value: {fileID: 21300000, guid: 55b34d3a89092ad48a0e3b615f3dbd90, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -42,8 +42,8 @@ AnimationClip:
       customType: 23
       isPPtrCurve: 1
     pptrCurveMapping:
-    - {fileID: 21300000, guid: 0ba6333e223f9d549b11c4ff304edc62, type: 3}
-    - {fileID: 21300000, guid: 3182acc25cf453c42b8561a620f3acc4, type: 3}
+    - {fileID: 21300000, guid: 45a336d96c7b8904b86d56ab81c3048e, type: 3}
+    - {fileID: 21300000, guid: 55b34d3a89092ad48a0e3b615f3dbd90, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}

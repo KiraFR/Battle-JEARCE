@@ -92,7 +92,7 @@ Animator:
   m_GameObject: {fileID: 6509496287905084262}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 1a2260c06c1693841bd85c8291af1bca, type: 2}
+  m_Controller: {fileID: 9100000, guid: 8a8e7c7ab3b68b242ba63773b569be91, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -131,7 +131,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6509496287905084262}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d6981b808c7a0c44388c66af3cfa489f, type: 3}
+  m_Script: {fileID: 11500000, guid: a5a034d798a2eb04ab8369ea8b63c054, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   healthPoint:
@@ -141,19 +141,18 @@ MonoBehaviour:
     baseStat: 15
     currentStat: 15
   movePoint:
-    baseStat: 3
-    currentStat: 3
+    baseStat: 1
+    currentStat: 1
   minDistAttack:
     baseStat: 1
     currentStat: 1
   maxDistAttack:
     baseStat: 1
     currentStat: 1
-  equipement: {fileID: 3823326526175932489, guid: 91116df1dcc11ed499e312587eeecb5c,
-    type: 3}
-  canvas: {fileID: 8668104189063890159, guid: 393b86c5e6ab35c459b156c748b24f6f, type: 3}
-  ally: {fileID: 21300000, guid: 80026ed1d0ec47046be842cfe39e2400, type: 3}
-  enemy: {fileID: 21300000, guid: c13ebbf33dc6a214996d77f72b350b3e, type: 3}
+  equipement: {fileID: 0}
+  canvas: {fileID: 8668104189063890159, guid: 91d73eab9d0c1934b92194b67493d260, type: 3}
+  ally: {fileID: 21300000, guid: 1b23954e0a115424682a5a5869d2baef, type: 3}
+  enemy: {fileID: 21300000, guid: c72865c7363452c4f9306fe71b262eb5, type: 3}
   healthText: {fileID: 0}
   moveText: {fileID: 0}
   moveTime: 0.1

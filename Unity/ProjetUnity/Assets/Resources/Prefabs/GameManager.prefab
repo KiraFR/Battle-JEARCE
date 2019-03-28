@@ -41,7 +41,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6276495806716407531}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9f2a1548d2cd7b84d8f0d505ac4bc512, type: 3}
+  m_Script: {fileID: 11500000, guid: 0d3ca5b0438476c439bf52fad9dcadbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   boardScript: {fileID: 6276495806716407530}
@@ -54,17 +54,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 6276495806716407531}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea500226e1d11e846bb6bcc4556706c2, type: 3}
+  m_Script: {fileID: 11500000, guid: 3b38d5c55d1c5a24096b351fd1ec4003, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  columns: 6
+  columns: 8
   rows: 8
-  nbObstacles: 7
-  floorTiles: {fileID: 2549434862602930489, guid: d8f56b91c45dd0544bbb65e50b017e02,
+  nbObstacles: 0
+  floorTiles: {fileID: 2549434862602930489, guid: af9d3d7a468b37547ab98536b9d0bad9,
     type: 3}
-  Units:
-  - {fileID: 7872663113161967436, guid: 8501e40d4732e9344a2af1530b6f6c4c, type: 3}
-  - {fileID: 4390466726134420277, guid: c9139c55313aec0449a50ec1acbaae42, type: 3}
-  - {fileID: 6509496287905084262, guid: 70ef5e92aa710c04aabaad9dcdf1f2d8, type: 3}
-  - {fileID: 4420496456459494127, guid: 38966eb50442de84c873e0de2e2c150e, type: 3}
-  - {fileID: 8624980803997006181, guid: 20170c765fa7a894f87d7be4e64ae00f, type: 3}

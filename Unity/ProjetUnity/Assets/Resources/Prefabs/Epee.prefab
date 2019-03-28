@@ -40,16 +40,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 4147885037123454282}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f72686dfcbc9632488ca2b44ca76c0bd, type: 3}
+  m_Script: {fileID: 11500000, guid: 3517f12e0ccfada4684ad607ac959f7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nameEquipement: "Ep\xE9e de Bronze"
+  nameEquipement: "Ep\xE9e de Jimmy"
   healthPoint:
     baseStat: 0
     currentStat: 0
   attackPoint:
-    baseStat: 1
-    currentStat: 1
+    baseStat: 5
+    currentStat: 5
   movePoint:
     baseStat: 0
     currentStat: 0
