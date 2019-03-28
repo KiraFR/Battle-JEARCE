@@ -70,7 +70,7 @@ public class BoardManager : MonoBehaviour
     {
         foreach(GameObject unit in units)
         {
-            Debug.Log(unit.name);
+            //Debug.Log(unit.name);
             if (unit.name.Equals(name))
             {
                 return unit;
