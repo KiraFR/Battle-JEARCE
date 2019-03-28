@@ -58,7 +58,8 @@ public class Square : MonoBehaviour
                         {
                             if (lastCharacter.GetComponent<Character>().maxDistAttack.baseStat >= distance && lastCharacter.GetComponent<Character>().minDistAttack.baseStat <= distance)
                             {
-                                Debug.Log("Attaque ");
+                                Attaque(character, lastCharacter);
+                                character = null;
                             }
                         }
                     }
@@ -116,5 +117,12 @@ public class Square : MonoBehaviour
     {
         //Debug.Log(transform.position.x + ", " + transform.position.y + ", " + color);
         gameObject.GetComponent<SpriteRenderer>().sprite = color;
+    }
+
+    public void Attaque(Character enemi, Character charac) {
+        enemi.GetComponent<Character>().healthPoint.currentStat=enemi.GetComponent<Character>().healthPoint.currentStat - charac.GetComponent<Character>().attackPoint.baseStat;
+        if (enemi.GetComponent<Character>().healthPoint.currentStat == 0) {
+            Destroy(enemi.gameObject);
+        }
     }
 }
