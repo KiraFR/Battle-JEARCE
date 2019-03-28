@@ -28,10 +28,10 @@ public class Square : MonoBehaviour
                 gm.ChangeMove(character.movePoint.currentStat);
                 gm.ChangeHealth(character.healthPoint.currentStat);
                 gm.ChangeAttack(character.attackPoint.currentStat);
-                GameObject unit = gm.GetSelectedSquare();
+                GameObject selectedSquare = gm.GetSelectedSquare();
                 if (gm.IsAlly(character.gameObject))
                 {
-                    if (unit == null)
+                    if (selectedSquare == null)
                     {
                         gm.SetSelectedSquare(gameObject);
                         // TOCHANGE
@@ -39,7 +39,7 @@ public class Square : MonoBehaviour
                         GameManager.instance.MovableSquares((int)transform.position.x, (int)transform.position.y, character.movePoint.currentStat);
                         GameManager.instance.AttackSquares((int)transform.position.x, (int)transform.position.y, character.movePoint.currentStat, character.minDistAttack.currentStat, character.maxDistAttack.currentStat);
                     }
-                    else if (unit.GetComponent<Square>().GetCharacter().Equals(character))
+                    else if (selectedSquare.GetComponent<Square>().GetCharacter().Equals(character))
                     {
                         gm.ClearMovingTiles();
                         gm.SetSelectedSquare(null);
@@ -47,17 +47,17 @@ public class Square : MonoBehaviour
                 }
                 else
                 {
-                    if (unit != null)
+                    if (selectedSquare != null)
                     {
-                        lastPos = new Vector3(unit.transform.position.x, unit.transform.position.y, 0);
-                        lastCharacter = unit.GetComponent<Square>().GetCharacter();
+                        lastPos = new Vector3(selectedSquare.transform.position.x, selectedSquare.transform.position.y, 0);
+                        lastCharacter = selectedSquare.GetComponent<Square>().GetCharacter();
                         int distance = (int)Mathf.Abs(lastPos.x - transform.position.x) + (int)Mathf.Abs(lastPos.y - transform.position.y);
 
                         //Verifie ennemi -> gm.IsEnemy(unit) + verifie a cote 
-                        if (!unit.GetComponent<Square>().GetCharacter().Equals(character))
+                        if (gm.IsEnemy(character.gameObject))
                         {
                             if (lastCharacter.GetComponent<Character>().maxDistAttack.baseStat >= distance && lastCharacter.GetComponent<Character>().minDistAttack.baseStat <= distance)
-                            {
+                            {   
                                 Attaque(character, lastCharacter);
                                 character = null;
                             }
