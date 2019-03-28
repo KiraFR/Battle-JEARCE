@@ -134,4 +134,11 @@ public void GetAttacked(int loss)
             image.sprite = enemy;
         }
     }
+
+
+    public void resetTurn()
+    {
+        movePoint.ResetCurrent();
+    }
+
 }

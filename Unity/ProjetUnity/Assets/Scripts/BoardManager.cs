@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Random = UnityEngine.Random;
 
 
 public class BoardManager : MonoBehaviour
@@ -12,28 +12,23 @@ public class BoardManager : MonoBehaviour
     public int rows = 8;
     public int nbObstacles;
     public GameObject floorTiles;
-    public List<GameObject> Units;
+    private List<GameObject> units;
 
     // Every Floor's gameObject from Vector3
     private Dictionary<Vector3,GameObject> floorGameObjects = new Dictionary<Vector3, GameObject>();
 
+    private Dictionary<Vector3, GameObject> enemies = new Dictionary<Vector3, GameObject>();
+    private Dictionary<Vector3, GameObject> allies = new Dictionary<Vector3, GameObject>();
+
     private List<Vector3> gridPositions = new List<Vector3>();
     private Transform boardHolder;
     private List<GameObject> obstacles = new List<GameObject>();    //Global list so we can use it in the isBlocked() method
-    
 
-    void InitialiseList()
+
+    void Awake()
     {
-        gridPositions.Clear();
-        for (int x = 0; x < columns; x++)
-        {
-            for (int y = 0; y < rows; y++)
-            {
-                gridPositions.Add(new Vector3(x, y, 0f));
-            }
-        }
+        units = new List<GameObject>(Resources.LoadAll<GameObject>("Prefabs"));
     }
-
 
     void BoardSetup()
     {
@@ -49,7 +44,7 @@ public class BoardManager : MonoBehaviour
                 if (x == 0 && y == 0)
                 {
 
-                    GameObject ally = GameObject.Find("epeiste");
+                    GameObject ally = Instantiate(GetUnit("epeiste"), pos, Quaternion.identity) as GameObject;
                     instance.GetComponent<Square>().SetCharacter(ally.GetComponent<Character>());
                     ally.GetComponent<Character>().SetState(true);
                     GameManager.instance.AddToAllies(ally);
@@ -59,7 +54,7 @@ public class BoardManager : MonoBehaviour
                 // TODELETE --> DEBUG ENNEMY CHARACTER 
                 if (x == 0 && y == 1)
                 {
-                    GameObject enemy = Instantiate(GameObject.Find("epeiste"), pos, Quaternion.identity) as GameObject;
+                    GameObject enemy = Instantiate(GetUnit("epeiste"), pos, Quaternion.identity) as GameObject;
                     instance.GetComponent<Square>().SetCharacter(enemy.GetComponent<Character>());
                     enemy.GetComponent<Character>().SetState(false);
                     GameManager.instance.AddToEnemies(enemy);
@@ -68,6 +63,20 @@ public class BoardManager : MonoBehaviour
                 instance.transform.SetParent(boardHolder);
             }
         }
+    }
+
+
+    GameObject GetUnit(string name)
+    {
+        foreach(GameObject unit in units)
+        {
+            Debug.Log(unit.name);
+            if (unit.name.Equals(name))
+            {
+                return unit;
+            }
+        }
+        return null;
     }
 
     //Method that will first add obstacles randomly before checking is the board is blocked
@@ -79,8 +88,8 @@ public class BoardManager : MonoBehaviour
 
         for (int i = 0; i < nbObstacles; i++)
         {
-            int x = UnityEngine.Random.Range(0, columns);   //Choosing a random x
-            int y = UnityEngine.Random.Range(2, rows - 2);  //Choosing a random y letting some space for the spawn of characters
+            int x = Random.Range(0, columns);   //Choosing a random x
+            int y = Random.Range(2, rows - 2);  //Choosing a random y letting some space for the spawn of characters
 
             Vector3 randomPosition = new Vector3(x, y, 0f);
 
@@ -102,6 +111,40 @@ public class BoardManager : MonoBehaviour
         }
     }
 
+    /*
+    void SpawnEnemies()
+    {
+        enemies.Add(new Vector3(2f, 7f, 0f), Units[Random.Range(0, Units.Count - 1)]);
+        enemies.Add(new Vector3(2f, 6f, 0f), Units[Random.Range(0, Units.Count - 1)]);
+        enemies.Add(new Vector3(3f, 7f, 0f), Units[Random.Range(0, Units.Count - 1)]);
+        enemies.Add(new Vector3(3f, 6f, 0f), Units[Random.Range(0, Units.Count - 1)]);
+        foreach (KeyValuePair<Vector3, GameObject> unit in enemies)
+        {
+            GameObject enemy = Instantiate(unit.Value, unit.Key, Quaternion.identity) as GameObject;
+            GetGameObject((int)unit.Key.x, (int)unit.Key.y).GetComponent<Square>().SetCharacter(enemy.GetComponent<Character>());
+            enemy.GetComponent<Character>().SetState(false);
+            GameManager.instance.AddToEnemies(enemy);
+        }
+    }
+
+
+    void SpawnAllies()
+    {
+        allies.Add(new Vector3(2f, 1f, 0f), Units[Random.Range(0, Units.Count - 1)]);
+        allies.Add(new Vector3(2f, 0f, 0f), Units[Random.Range(0, Units.Count - 1)]);
+        allies.Add(new Vector3(3f, 1f, 0f), Units[Random.Range(0, Units.Count - 1)]);
+        allies.Add(new Vector3(3f, 0f, 0f), Units[Random.Range(0, Units.Count - 1)]);
+        foreach (KeyValuePair<Vector3, GameObject> unit in allies)
+        {
+            GameObject ally = Instantiate(unit.Value, unit.Key, Quaternion.identity) as GameObject;
+            GameObject square = GetGameObject((int)unit.Key.x, (int)unit.Key.y);
+            Debug.Log("(" + square.transform.position.x + "," + square.transform.position.y + "), " + ally);
+            square.GetComponent<Square>().SetCharacter(ally.GetComponent<Character>());
+            ally.GetComponent<Character>().SetState(true);
+            GameManager.instance.AddToAllies(ally);
+        }
+    }
+    */
 
     //Recursive method that will check is there is a line of obstacle blocking the way
     //If so the last blocking obstacle will be removed
@@ -221,7 +264,7 @@ public class BoardManager : MonoBehaviour
 
     void ChooseSetup()
     {
-        int i = UnityEngine.Random.Range(0, 4);
+        int i = Random.Range(0, 4);
         if (i == 0)
             RandomObstaclesSetup();
         else if (i == 1)
@@ -237,8 +280,9 @@ public class BoardManager : MonoBehaviour
     public void SetupScene()
     {
         BoardSetup();
-        InitialiseList();
         ChooseSetup();
+        //SpawnEnemies();
+        //SpawnAllies();
     }
 
     public Transform getBoard()

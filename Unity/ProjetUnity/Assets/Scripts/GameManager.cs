@@ -11,6 +11,9 @@ public class GameManager : MonoBehaviour
     private List<GameObject> allies;
     private GameObject selectedSquare = null;
     private List<GameObject> movingTiles;
+    private bool playerTurn;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -28,6 +31,9 @@ public class GameManager : MonoBehaviour
         enemies = new List<GameObject>();
         allies = new List<GameObject>();
         InitGame();
+
+
+        playerTurn = true;
     }
 
     void InitGame()
@@ -66,7 +72,7 @@ public class GameManager : MonoBehaviour
         if (tile != null)
         {
             tile.GetComponent<SpriteRenderer>().sprite = tile.GetComponent<Square>().attackSprite;
-            tile.GetComponent<Square>().SetMovable(true);
+            tile.GetComponent<Square>().SetMovable(false);
             movingTiles.Add(tile);
         }
     }
@@ -191,10 +197,14 @@ public class GameManager : MonoBehaviour
                 }
                 else
                 {
-
-                    //Connaitre pos ennemi pour regarde si au cac ou pas
-                    if (minDistAttack != 2)
+                    if(mouvement!=0)
                         AddMovingAttack(objet);
+                    for (int i = 0; i < enemies.Count; i++)
+                    {
+                        int distance = (int)(Mathf.Abs(GetSelectedSquare().transform.position.x - enemies[i].transform.position.x) + (int)Mathf.Abs(GetSelectedSquare().transform.position.y - enemies[i].transform.position.y));
+                        if (minDistAttack <= distance)
+                            AddMovingAttack(objet);
+                    }
                     if (maxDistAttack > 1)
                         AttackSquares(posX + 1, posY, 0, minDistAttack, maxDistAttack - 1);
                 }
@@ -228,9 +238,14 @@ public class GameManager : MonoBehaviour
                 }
                 else
                 {
-                    //Connaitre pos ennemi pour regarde si au cac ou pas
-                    if (minDistAttack != 2)
+                    if (mouvement != 0)
                         AddMovingAttack(objet);
+                    for (int i = 0; i < enemies.Count; i++)
+                    {
+                        int distance = (int)(Mathf.Abs(GetSelectedSquare().transform.position.x - enemies[i].transform.position.x) + (int)Mathf.Abs(GetSelectedSquare().transform.position.y - enemies[i].transform.position.y));
+                        if (minDistAttack <= distance)
+                            AddMovingAttack(objet);
+                    }
                     if (maxDistAttack > 1)
                         AttackSquares(posX - 1, posY, 0, minDistAttack, maxDistAttack - 1);
                 }
@@ -264,9 +279,14 @@ public class GameManager : MonoBehaviour
                 }
                 else
                 {
-                    //Connaitre pos ennemi pour regarde si au cac ou pas
-                    if (minDistAttack != 2)
+                    if (mouvement != 0)
                         AddMovingAttack(objet);
+                    for (int i = 0; i < enemies.Count; i++)
+                    {
+                        int distance = (int)(Mathf.Abs(GetSelectedSquare().transform.position.x - enemies[i].transform.position.x) + (int)Mathf.Abs(GetSelectedSquare().transform.position.y - enemies[i].transform.position.y));
+                        if (minDistAttack <= distance)
+                            AddMovingAttack(objet);
+                    }
                     if (maxDistAttack > 1)
                         AttackSquares(posX, posY+1, 0, minDistAttack, maxDistAttack - 1);
                 }
@@ -300,9 +320,14 @@ public class GameManager : MonoBehaviour
                 }
                 else
                 {
-                    //Connaitre pos ennemi pour regarde si au cac ou pas
-                    if (minDistAttack != 2)
+                    if (mouvement != 0)
                         AddMovingAttack(objet);
+                    for (int i = 0; i < enemies.Count; i++)
+                    {
+                        int distance = (int)(Mathf.Abs(GetSelectedSquare().transform.position.x - enemies[i].transform.position.x) + (int)Mathf.Abs(GetSelectedSquare().transform.position.y - enemies[i].transform.position.y));
+                        if (minDistAttack<=distance)
+                            AddMovingAttack(objet);
+                    }
                     if (maxDistAttack > 1)
                         AttackSquares(posX, posY-1, 0, minDistAttack, maxDistAttack - 1);
                 }
@@ -314,4 +339,23 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+
+    public bool GetPlayerTurn()
+    {
+        return playerTurn;
+    }
+
+
+    public void EndTurn()
+    {
+        playerTurn = false;
+
+        foreach(GameObject ally in allies)
+        {
+            ally.GetComponent<Character>().resetTurn();
+        }
+
+        playerTurn = true;
+    }
+
 }
