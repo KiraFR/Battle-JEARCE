@@ -25,7 +25,9 @@ public class Square : MonoBehaviour
         {
             if (character != null)
             {
-                character.ChangeMove();
+                gm.ChangeMove(character.movePoint.currentStat);
+                gm.ChangeHealth(character.healthPoint.currentStat);
+                gm.ChangeAttack(character.attackPoint.currentStat);
                 GameObject unit = gm.GetSelectedSquare();
                 if (gm.IsAlly(character.gameObject))
                 {

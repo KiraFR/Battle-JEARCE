@@ -1,11 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
     public BoardManager boardScript;
     public static GameManager instance = null;
+
+    private Text healthText;
+    private Text moveText;
+    private Text attackText;
 
     private List<GameObject> enemies;
     private List<GameObject> allies;
@@ -30,6 +35,9 @@ public class GameManager : MonoBehaviour
         movingTiles = new List<GameObject>();
         enemies = new List<GameObject>();
         allies = new List<GameObject>();
+        healthText = GameObject.Find("HealthText").GetComponent<Text>();
+        moveText = GameObject.Find("MoveText").GetComponent<Text>();
+        attackText = GameObject.Find("AttackText").GetComponent<Text>();
         InitGame();
 
 
@@ -338,6 +346,21 @@ public class GameManager : MonoBehaviour
                     AttackSquares(posX, posY - 1, 0, minDistAttack, maxDistAttack - 1);
             }
         }
+    }
+
+    public void ChangeHealth(int healthPoint)
+    {
+        healthText.text = "HP : " + healthPoint;
+    }
+
+    public void ChangeMove(int movePoint)
+    {
+        moveText.text = "Mouvement : " + movePoint;
+    }
+
+    public void ChangeAttack(int attackPoint)
+    {
+        attackText.text = "Attaque : " + attackPoint;
     }
 
     public bool GetPlayerTurn()

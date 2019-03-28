@@ -16,9 +16,6 @@ public class Character : MonoBehaviour
     public Sprite ally;
     public Sprite enemy;
 
-
-    public Text healthText;
-    public Text moveText;
     public float moveTime = .1f;
 
     private float inverseMoveTime;
@@ -42,7 +39,7 @@ public void GetAttacked(int loss)
     {
         healthPoint.DecreaseCurrent(loss);
 
-        ChangeHealth();
+        GameManager.instance.ChangeHealth(healthPoint.currentStat);
     }
     
     public int GethealthPointwithEquipement()
@@ -68,25 +65,11 @@ public void GetAttacked(int loss)
             return movePoint.currentStat;
     }
 
-
-
-    public void ChangeHealth()
-    {
-        healthText = GameObject.Find("HealthText").GetComponent<Text>();
-        healthText.text = "HP : " + healthPoint.currentStat;
-    }
-
     public void Move(int used)
     {
         movePoint.DecreaseCurrent(used);
 
-        ChangeMove();
-    }
-
-    public void ChangeMove()
-    {
-        moveText = GameObject.Find("MoveText").GetComponent<Text>();
-        moveText.text = "Mouvement : " + movePoint.currentStat;
+        GameManager.instance.ChangeMove(movePoint.currentStat);
     }
 
     public void RoundEnded()
