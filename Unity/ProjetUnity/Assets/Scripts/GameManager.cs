@@ -191,10 +191,14 @@ public class GameManager : MonoBehaviour
                 }
                 else
                 {
-
-                    //Connaitre pos ennemi pour regarde si au cac ou pas
-                    if (minDistAttack != 2)
+                    if(mouvement!=0)
                         AddMovingAttack(objet);
+                    for (int i = 0; i < enemies.Count; i++)
+                    {
+                        int distance = (int)(Mathf.Abs(GetSelectedSquare().transform.position.x - enemies[i].transform.position.x) + (int)Mathf.Abs(GetSelectedSquare().transform.position.y - enemies[i].transform.position.y));
+                        if (minDistAttack <= distance)
+                            AddMovingAttack(objet);
+                    }
                     if (maxDistAttack > 1)
                         AttackSquares(posX + 1, posY, 0, minDistAttack, maxDistAttack - 1);
                 }
@@ -228,9 +232,14 @@ public class GameManager : MonoBehaviour
                 }
                 else
                 {
-                    //Connaitre pos ennemi pour regarde si au cac ou pas
-                    if (minDistAttack != 2)
+                    if (mouvement != 0)
                         AddMovingAttack(objet);
+                    for (int i = 0; i < enemies.Count; i++)
+                    {
+                        int distance = (int)(Mathf.Abs(GetSelectedSquare().transform.position.x - enemies[i].transform.position.x) + (int)Mathf.Abs(GetSelectedSquare().transform.position.y - enemies[i].transform.position.y));
+                        if (minDistAttack <= distance)
+                            AddMovingAttack(objet);
+                    }
                     if (maxDistAttack > 1)
                         AttackSquares(posX - 1, posY, 0, minDistAttack, maxDistAttack - 1);
                 }
@@ -264,9 +273,14 @@ public class GameManager : MonoBehaviour
                 }
                 else
                 {
-                    //Connaitre pos ennemi pour regarde si au cac ou pas
-                    if (minDistAttack != 2)
+                    if (mouvement != 0)
                         AddMovingAttack(objet);
+                    for (int i = 0; i < enemies.Count; i++)
+                    {
+                        int distance = (int)(Mathf.Abs(GetSelectedSquare().transform.position.x - enemies[i].transform.position.x) + (int)Mathf.Abs(GetSelectedSquare().transform.position.y - enemies[i].transform.position.y));
+                        if (minDistAttack <= distance)
+                            AddMovingAttack(objet);
+                    }
                     if (maxDistAttack > 1)
                         AttackSquares(posX, posY+1, 0, minDistAttack, maxDistAttack - 1);
                 }
@@ -300,9 +314,14 @@ public class GameManager : MonoBehaviour
                 }
                 else
                 {
-                    //Connaitre pos ennemi pour regarde si au cac ou pas
-                    if (minDistAttack != 2)
+                    if (mouvement != 0)
                         AddMovingAttack(objet);
+                    for (int i = 0; i < enemies.Count; i++)
+                    {
+                        int distance = (int)(Mathf.Abs(GetSelectedSquare().transform.position.x - enemies[i].transform.position.x) + (int)Mathf.Abs(GetSelectedSquare().transform.position.y - enemies[i].transform.position.y));
+                        if (minDistAttack<=distance)
+                            AddMovingAttack(objet);
+                    }
                     if (maxDistAttack > 1)
                         AttackSquares(posX, posY-1, 0, minDistAttack, maxDistAttack - 1);
                 }
