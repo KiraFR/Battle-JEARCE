@@ -1,9 +1,16 @@
 fileFormatVersion: 2
-guid: d6981b808c7a0c44388c66af3cfa489f
+guid: a5a034d798a2eb04ab8369ea8b63c054
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - equipement: {instanceID: 0}
+  - canvas: {fileID: 8668104189063890159, guid: 91d73eab9d0c1934b92194b67493d260,
+      type: 3}
+  - ally: {fileID: 21300000, guid: 1b23954e0a115424682a5a5869d2baef, type: 3}
+  - enemy: {fileID: 21300000, guid: c72865c7363452c4f9306fe71b262eb5, type: 3}
+  - healthText: {instanceID: 0}
+  - moveText: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

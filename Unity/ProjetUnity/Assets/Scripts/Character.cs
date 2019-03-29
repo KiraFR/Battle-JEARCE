@@ -15,10 +15,6 @@ public class Character : MonoBehaviour
     public GameObject canvas;
     public Sprite ally;
     public Sprite enemy;
-
-
-    public Text healthText;
-    public Text moveText;
     public float moveTime = .1f;
 
     private float inverseMoveTime;
@@ -29,7 +25,7 @@ public class Character : MonoBehaviour
     {
         inverseMoveTime = 1f / moveTime;
         rb2D = GetComponent<Rigidbody2D>();
-        
+
     }
     void Awake()
     {
@@ -42,9 +38,9 @@ public void GetAttacked(int loss)
     {
         healthPoint.DecreaseCurrent(loss);
 
-        ChangeHealth();
+        GameManager.instance.ChangeHealth(healthPoint.currentStat);
     }
-    
+
     public int GethealthPointwithEquipement()
     {
         if (equipement!=null)
@@ -68,25 +64,10 @@ public void GetAttacked(int loss)
             return movePoint.currentStat;
     }
 
-
-
-    public void ChangeHealth()
-    {
-        healthText = GameObject.Find("HealthText").GetComponent<Text>();
-        healthText.text = "HP : " + healthPoint.currentStat;
-    }
-
     public void Move(int used)
     {
         movePoint.DecreaseCurrent(used);
-
-        ChangeMove();
-    }
-
-    public void ChangeMove()
-    {
-        moveText = GameObject.Find("MoveText").GetComponent<Text>();
-        moveText.text = "Mouvement : " + movePoint.currentStat;
+        GameManager.instance.ChangeMove(movePoint.currentStat);
     }
 
     public void RoundEnded()
@@ -101,7 +82,7 @@ public void GetAttacked(int loss)
 
     protected IEnumerator SmoothMovement(Vector3 end)
     {
-        //Calculate the remaining distance to move based on the square magnitude of the difference between current position and end parameter. 
+        //Calculate the remaining distance to move based on the square magnitude of the difference between current position and end parameter.
         //Square magnitude is used instead of magnitude because it's computationally cheaper.
         float sqrRemainingDistance = (transform.position - end).sqrMagnitude;
 
@@ -133,5 +114,10 @@ public void GetAttacked(int loss)
         {
             image.sprite = enemy;
         }
+    }
+
+    public void resetTurn()
+    {
+        movePoint.ResetCurrent();
     }
 }
