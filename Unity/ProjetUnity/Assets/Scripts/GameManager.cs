@@ -48,6 +48,13 @@ public class GameManager : MonoBehaviour
     {
         movingTiles.Clear();
         boardScript.SetupScene();
+        boardScript.InitPlacement();
+    }
+
+
+    public void StartGame()
+    {
+        
     }
 
     public GameObject GetGameObject(int xDir, int yDir)
@@ -87,6 +94,7 @@ public class GameManager : MonoBehaviour
 
     public void ClearMovingTiles()
     {
+        selectedSquare.GetComponent<SpriteRenderer>().sprite = selectedSquare.GetComponent<Square>().baseSprite;
         foreach (GameObject obj in movingTiles)
         {
             obj.GetComponent<SpriteRenderer>().sprite = obj.GetComponent<Square>().baseSprite;

@@ -41,7 +41,7 @@ public class BoardManager : MonoBehaviour
                 GameObject instance = Instantiate(floorTiles, pos, Quaternion.identity) as GameObject;
                 floorGameObjects.Add(pos,instance);
                 // TODELETE --> DEBUG ALLY CHARACTER
-                if (x == 0 && y == 0)
+                /*if (x == 0 && y == 0)
                 {
 
                     GameObject ally = Instantiate(GetUnit("epeiste"), pos, Quaternion.identity) as GameObject;
@@ -58,26 +58,26 @@ public class BoardManager : MonoBehaviour
                     instance.GetComponent<Square>().SetCharacter(enemy.GetComponent<Character>());
                     enemy.GetComponent<Character>().SetState(false);
                     GameManager.instance.AddToEnemies(enemy);
-                }
+                }*/
 
                 instance.transform.SetParent(boardHolder);
             }
         }
     }
 
-
-    GameObject GetUnit(string name)
+    internal void InitPlacement()
     {
-        foreach(GameObject unit in units)
+        bool placement = false;
+        bool side = true;
+        // Spawn allies 
+        List<string> list = new List<string>()
         {
-            //Debug.Log(unit.name);
-            if (unit.name.Equals(name))
-            {
-                return unit;
-            }
-        }
-        return null;
+            "Tank" , "epeiste" , "Assassin" , "Archer"
+        };
+        SpawnUnits(list, placement, side);
+        //PlacementSquares(placement);
     }
+
 
     //Method that will first add obstacles randomly before checking is the board is blocked
     //If so then it'll call the method isBlocked() that will remove one obstacle to set the board playable
@@ -85,7 +85,6 @@ public class BoardManager : MonoBehaviour
     {
 
         obstacles.Clear();
-
         for (int i = 0; i < nbObstacles; i++)
         {
             int x = Random.Range(0, columns);   //Choosing a random x
@@ -112,39 +111,43 @@ public class BoardManager : MonoBehaviour
     }
 
     /*
-    void SpawnEnemies()
+     * Placement : 
+     * true = Top
+     * false = Down
+     * 
+     * Side : 
+     * true = Allies
+     * false = Enemies
+     * */
+    void SpawnUnits(List<string> characters, bool placement, bool side)
     {
-        enemies.Add(new Vector3(2f, 7f, 0f), Units[Random.Range(0, Units.Count - 1)]);
-        enemies.Add(new Vector3(2f, 6f, 0f), Units[Random.Range(0, Units.Count - 1)]);
-        enemies.Add(new Vector3(3f, 7f, 0f), Units[Random.Range(0, Units.Count - 1)]);
-        enemies.Add(new Vector3(3f, 6f, 0f), Units[Random.Range(0, Units.Count - 1)]);
-        foreach (KeyValuePair<Vector3, GameObject> unit in enemies)
+        List<Vector3> pos = GetPosFromSide(placement);
+        int i = 0;
+        Dictionary<Vector3, GameObject> units = new Dictionary<Vector3, GameObject>();
+        foreach (string name in characters){
+            GameObject unit = GetUnit(name);
+            if(unit != null)
+            {
+                units.Add(pos[i++], unit);
+            }
+        }
+        foreach (KeyValuePair<Vector3, GameObject> unit_vector in units)
         {
-            GameObject enemy = Instantiate(unit.Value, unit.Key, Quaternion.identity) as GameObject;
-            GetGameObject((int)unit.Key.x, (int)unit.Key.y).GetComponent<Square>().SetCharacter(enemy.GetComponent<Character>());
-            enemy.GetComponent<Character>().SetState(false);
-            GameManager.instance.AddToEnemies(enemy);
+            GameObject unit = Instantiate(unit_vector.Value, unit_vector.Key, Quaternion.identity) as GameObject;
+            GameObject square = GetGameObject((int)unit_vector.Key.x, (int)unit_vector.Key.y);
+            square.GetComponent<Square>().SetCharacter(unit.GetComponent<Character>());
+            unit.GetComponent<Character>().SetState(side);
+            if (side)
+            {
+                GameManager.instance.AddToAllies(unit);
+            }
+            else
+            {
+                GameManager.instance.AddToEnemies(unit);
+            }
         }
     }
-
-
-    void SpawnAllies()
-    {
-        allies.Add(new Vector3(2f, 1f, 0f), Units[Random.Range(0, Units.Count - 1)]);
-        allies.Add(new Vector3(2f, 0f, 0f), Units[Random.Range(0, Units.Count - 1)]);
-        allies.Add(new Vector3(3f, 1f, 0f), Units[Random.Range(0, Units.Count - 1)]);
-        allies.Add(new Vector3(3f, 0f, 0f), Units[Random.Range(0, Units.Count - 1)]);
-        foreach (KeyValuePair<Vector3, GameObject> unit in allies)
-        {
-            GameObject ally = Instantiate(unit.Value, unit.Key, Quaternion.identity) as GameObject;
-            GameObject square = GetGameObject((int)unit.Key.x, (int)unit.Key.y);
-            Debug.Log("(" + square.transform.position.x + "," + square.transform.position.y + "), " + ally);
-            square.GetComponent<Square>().SetCharacter(ally.GetComponent<Character>());
-            ally.GetComponent<Character>().SetState(true);
-            GameManager.instance.AddToAllies(ally);
-        }
-    }
-    */
+    
 
     //Recursive method that will check is there is a line of obstacle blocking the way
     //If so the last blocking obstacle will be removed
@@ -285,6 +288,10 @@ public class BoardManager : MonoBehaviour
         //SpawnAllies();
     }
 
+
+
+
+
     public Transform getBoard()
     {
         return boardHolder;
@@ -299,4 +306,52 @@ public class BoardManager : MonoBehaviour
         }
         return null;
     }
+
+    GameObject GetUnit(string name)
+    {
+        foreach (GameObject unit in units)
+        {
+            //Debug.Log(unit.name);
+            if (unit.name.Equals(name))
+            {
+                return unit;
+            }
+        }
+        return null;
+    }
+
+    List<Vector3> GetPosFromSide(bool side)
+    {
+        List<Vector3> list = new List<Vector3>();
+        if (side)
+        {
+            list.Add(new Vector3(2f, 8f, 0f));
+            list.Add(new Vector3(2f, 7f, 0f));
+            list.Add(new Vector3(3f, 8f, 0f));
+            list.Add(new Vector3(3f, 7f, 0f));
+        }
+        else{
+            list.Add(new Vector3(2f, 1f, 0f));
+            list.Add(new Vector3(2f, 0f, 0f));
+            list.Add(new Vector3(3f, 1f, 0f));
+            list.Add(new Vector3(3f, 0f, 0f));
+        }
+        return list;
+    }
+
+    /*void PlacementSquares(bool placement)
+    {
+        int[] xs = { 7, 8 };
+        int[] ys = { 2, 3 };
+        if (placement)
+        {
+            xs[0] = 0;
+            xs[1] = 1;
+        }
+
+        for(int x = xs[0])
+        {
+
+        }
+    }*/
 }
