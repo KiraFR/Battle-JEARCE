@@ -198,22 +198,28 @@ public class GameManager : MonoBehaviour
                 Character character = objet.GetComponent<Square>().GetCharacter();
                 if ((character != null && !IsEnemy(character.gameObject)) || character == null)
                 {
-                    if (mouvement != 0)
+                    if (mouvement > 0)
                     {
                         AttackSquares(posX + 1, posY, mouvement - 1,minDistAttack, maxDistAttack);
                     }
                     else
                     {
-                        if (objet.GetComponent<SpriteRenderer>().sprite == objet.GetComponent<Square>().baseSprite && maxDistAttack == 1)
+                        int distance = (int)(Mathf.Abs(GetSelectedSquare().transform.position.x - posX-1) + (int)Mathf.Abs(GetSelectedSquare().transform.position.y - posY));
+                        if (distance >= minDistAttack)
                         {
-                            AddMovingAttack(objet);
+                            Debug.Log(GetSelectedSquare().transform.position.x + " " + GetSelectedSquare().transform.position.y + " - " + posX + " " + posY + "distance = " + distance);
+
+                            if (objet.GetComponent<SpriteRenderer>().sprite == objet.GetComponent<Square>().baseSprite)
+                            {
+                                AddMovingAttack(objet);
+                            }
                         }
-                        AttackSquares(posX + 1, posY, mouvement,minDistAttack, maxDistAttack - 1);
+                        AttackSquares(posX + 1, posY, mouvement, minDistAttack, maxDistAttack - 1);
                     }
                 }
                 else
                 {
-                    if(mouvement!=0)
+                    if(mouvement>0)
                         AddMovingAttack(objet);
                     for (int i = 0; i < enemies.Count; i++)
                     {
@@ -239,22 +245,28 @@ public class GameManager : MonoBehaviour
                 Character character = objet.GetComponent<Square>().GetCharacter();
                 if ((character != null && !IsEnemy(character.gameObject)) || character == null)
                 {
-                    if (mouvement != 0)
+                    if (mouvement > 0)
                     {
                         AttackSquares(posX -1 , posY, mouvement - 1, minDistAttack, maxDistAttack);
                     }
                     else
                     {
-                        if (objet.GetComponent<SpriteRenderer>().sprite == objet.GetComponent<Square>().baseSprite && maxDistAttack == 1)
+                        int distance = (int)(Mathf.Abs(GetSelectedSquare().transform.position.x - posX+1) + (int)Mathf.Abs(GetSelectedSquare().transform.position.y - posY));
+                        if (distance >= minDistAttack)
                         {
-                            AddMovingAttack(objet);
+                            //Debug.Log(GetSelectedSquare().transform.position.x + " " + GetSelectedSquare().transform.position.y + " - " + posX + " " + posY + "distance = " + distance);
+
+                            if (objet.GetComponent<SpriteRenderer>().sprite == objet.GetComponent<Square>().baseSprite)
+                            {
+                                AddMovingAttack(objet);
+                            }
                         }
-                        AttackSquares(posX -1 , posY, mouvement, minDistAttack, maxDistAttack - 1);
+                            AttackSquares(posX - 1, posY, mouvement, minDistAttack, maxDistAttack - 1);
                     }
                 }
                 else
                 {
-                    if (mouvement != 0)
+                    if (mouvement > 0)
                         AddMovingAttack(objet);
                     for (int i = 0; i < enemies.Count; i++)
                     {
@@ -280,22 +292,29 @@ public class GameManager : MonoBehaviour
                 Character character = objet.GetComponent<Square>().GetCharacter();
                 if ((character != null && !IsEnemy(character.gameObject)) || character == null)
                 {
-                    if (mouvement != 0)
+                    if (mouvement > 0)
                     {
                         AttackSquares(posX , posY+1, mouvement - 1, minDistAttack, maxDistAttack);
                     }
                     else
                     {
-                        if (objet.GetComponent<SpriteRenderer>().sprite == objet.GetComponent<Square>().baseSprite && maxDistAttack == 1)
+                        int distance = (int)(Mathf.Abs(GetSelectedSquare().transform.position.x - posX) + (int)Mathf.Abs(GetSelectedSquare().transform.position.y - posY-1));
+
+                        if (distance >= minDistAttack)
                         {
-                            AddMovingAttack(objet);
+                            //Debug.Log(GetSelectedSquare().transform.position.x + " " + GetSelectedSquare().transform.position.y + " - " + posX + " " + posY + "distance = " + distance);
+
+                            if (objet.GetComponent<SpriteRenderer>().sprite == objet.GetComponent<Square>().baseSprite)
+                            {
+                                AddMovingAttack(objet);
+                            }
                         }
-                        AttackSquares(posX, posY+1, mouvement, minDistAttack, maxDistAttack - 1);
+                            AttackSquares(posX, posY+1, mouvement, minDistAttack, maxDistAttack - 1);
                     }
                 }
                 else
                 {
-                    if (mouvement != 0)
+                    if (mouvement > 0)
                         AddMovingAttack(objet);
                     for (int i = 0; i < enemies.Count; i++)
                     {
@@ -321,22 +340,29 @@ public class GameManager : MonoBehaviour
                 Character character = objet.GetComponent<Square>().GetCharacter();
                 if ((character != null && !IsEnemy(character.gameObject)) || character == null)
                 {
-                    if (mouvement != 0)
+                    if (mouvement > 0)
                     {
                         AttackSquares(posX, posY-1, mouvement - 1, minDistAttack, maxDistAttack);
                     }
                     else
                     {
-                        if (objet.GetComponent<SpriteRenderer>().sprite == objet.GetComponent<Square>().baseSprite && maxDistAttack == 1)
+                        int distance = (int)(Mathf.Abs(GetSelectedSquare().transform.position.x - posX) + (int)Mathf.Abs(GetSelectedSquare().transform.position.y - posY+1));
+
+                        if (distance>=minDistAttack)
                         {
-                            AddMovingAttack(objet);
+                            //Debug.Log(GetSelectedSquare().transform.position.x + " " + GetSelectedSquare().transform.position.y + " - " + posX + " " + posY + "distance = " + distance);
+
+                            if (objet.GetComponent<SpriteRenderer>().sprite == objet.GetComponent<Square>().baseSprite)
+                            {
+                                AddMovingAttack(objet);
+                            }
                         }
-                        AttackSquares(posX, posY-1, mouvement, minDistAttack, maxDistAttack - 1);
+                            AttackSquares(posX , posY-1, mouvement, minDistAttack, maxDistAttack - 1);
                     }
                 }
                 else
                 {
-                    if (mouvement != 0)
+                    if (mouvement > 0)
                         AddMovingAttack(objet);
                     for (int i = 0; i < enemies.Count; i++)
                     {
