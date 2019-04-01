@@ -36,9 +36,10 @@ public class Square : MonoBehaviour
                     if (selectedSquare == null)
                     {
                         gm.SetSelectedSquare(gameObject);
-                        GetComponent<Animator>().runtimeAnimatorController = selectedSquareAnim;
+                        //GetComponent<Animator>().runtimeAnimatorController = selectedSquareAnim;
                         // TO CHANGE
-                        GameManager.instance.MovableSquares((int)transform.position.x, (int)transform.position.y, character.movePoint.currentStat);
+
+                        //A changer nom de fonction
                         GameManager.instance.AttackSquares((int)transform.position.x, (int)transform.position.y, character.movePoint.currentStat, character.minDistAttack.currentStat, character.maxDistAttack.currentStat);
                     }
                     else if (selectedSquare.GetComponent<Square>().GetCharacter().Equals(character))
