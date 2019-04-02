@@ -75,6 +75,13 @@ public class BoardManager : MonoBehaviour
             "Tank" , "epeiste" , "Assassin" , "Archer"
         };
         SpawnUnits(list, placement, side);
+
+        list = new List<string>()
+        {
+            "epeiste" , "epeiste" , "epeiste" , "epeiste"
+        };
+        SpawnUnits(list, !placement, !side);
+
         //PlacementSquares(placement);
     }
 
