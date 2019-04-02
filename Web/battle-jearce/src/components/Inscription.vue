@@ -20,6 +20,13 @@
                           placeholder="enter password">
             </b-form-input>
           </b-form-group>
+          <b-form-group id="PasswordVerif"
+                        label-for="Inputpw">
+            <b-form-input id="Inputpw"
+                          required
+                          placeholder="re-enter password">
+            </b-form-input>
+          </b-form-group>
           <b-form-group id="Pseudo"
                         label="Pseudo"
                         label-for="Inputpseudo">

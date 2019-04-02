@@ -6,8 +6,8 @@
       </b-col>
       <b-col lg="3" offset-lg="4" align-self="center">
           <b-nav>
-              <b-nav-item><router-link to="/Battle-Jearce/Inscription"class="lien">S'inscrire</router-link></b-nav-item>
-              <b-nav-item><router-link to="/Battle-Jearce/Connexion"class="lien">Se connecter</router-link></b-nav-item>
+              <b-nav-item><router-link to="/Battle-Jearce/Inscription" class="lien">S'inscrire</router-link></b-nav-item>
+              <b-nav-item><router-link to="/Battle-Jearce/Connexion" class="lien">Se connecter</router-link></b-nav-item>
           </b-nav>
       </b-col>
     </b-row>
