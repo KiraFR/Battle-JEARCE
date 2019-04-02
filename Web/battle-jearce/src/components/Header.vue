@@ -2,12 +2,12 @@
   <b-container id="size">
     <b-row>
       <b-col lg="4" offset-lg="1">
-        <a href="Accueil.html" class="lien"><h1>Battle-JEARCE</h1></a>
+        <router-link to="/Battle-Jearce/Accueil" class="lien"><h1>Battle-JEARCE</h1></router-link>
       </b-col>
       <b-col lg="3" offset-lg="4" align-self="center">
           <b-nav>
-              <b-nav-item active>S'inscrire</b-nav-item>
-              <b-nav-item active>Se connecter</b-nav-item>
+              <b-nav-item><router-link to="/Battle-Jearce/Inscription"class="lien">S'inscrire</router-link></b-nav-item>
+              <b-nav-item><router-link to="/Battle-Jearce/Connexion"class="lien">Se connecter</router-link></b-nav-item>
           </b-nav>
       </b-col>
     </b-row>

@@ -9,6 +9,11 @@ import BootstrapVue from 'bootstrap-vue'
 import Navbar from '@/components/Navbar'
 import Profil from '@/components/Profil'
 import Boutique from '@/components/Boutique'
+import Presentation from '@/components/Presentation'
+import Inscription from '@/components/Inscription'
+import Connexion from '@/components/Connexion'
+import Reglement from '@/components/Reglement'
+import Contact from '@/components/Contact'
 
 Vue.use(Router)
 Vue.use(BootstrapVue)
@@ -17,13 +22,53 @@ export default new Router({
   routes: [
     {
       path: '/',
-      redirect:'/Battle-Jearce/Classement'
+      redirect:'/Battle-Jearce/Accueil'
     },
     {
       path: '/Battle-Jearce',
       name: 'Battle-Jearce',
       component: Accueil,
       children: [
+        {
+          path: 'Accueil',
+          components: {
+            default: Header,
+            body: Presentation,
+            navBar: Navbar
+          }
+        },
+        {
+          path: 'Reglement',
+          components: {
+            default: Header,
+            body: Reglement,
+            navBar: Navbar
+          }
+        },
+        {
+          path: 'Contact',
+          components: {
+            default: Header,
+            body: Contact,
+            navBar: Navbar
+          }
+        },
+        {
+          path: 'Inscription',
+          components: {
+            default: Header,
+            body: Inscription,
+            navBar: Navbar
+          }
+        },
+        {
+          path: 'Connexion',
+          components: {
+            default: Header,
+            body: Connexion,
+            navBar: Navbar
+          }
+        },
         {
           path: 'Classement',
           components: {
@@ -49,6 +94,6 @@ export default new Router({
           }
         }
       ]
-    }
+    },
   ]
 })
