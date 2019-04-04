@@ -1,6 +1,8 @@
 <template>
   <b-container>
-    <h1>en cours</h1>
+    <b-row>
+      <b-col><h2>Nous contacter</h2></b-col>
+    </b-row>
   </b-container>
 </template>
 
@@ -11,4 +13,3 @@
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 </style>
-

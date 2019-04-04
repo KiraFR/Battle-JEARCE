@@ -15,6 +15,7 @@
     "bootstrap": "^4.3.1",
     "bootstrap-vue": "^2.0.0-rc.16",
     "jquery": "^1.9.1",
+    "mongodb": "^3.2.2",
     "vue": "^2.6.10",
     "vue-router": "^3.0.1"
   },
