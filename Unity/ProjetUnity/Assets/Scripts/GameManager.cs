@@ -96,13 +96,16 @@ public class GameManager : MonoBehaviour
 
     public void ClearMovingTiles()
     {
-        selectedSquare.GetComponent<SpriteRenderer>().sprite = selectedSquare.GetComponent<Square>().baseSprite;
-        foreach (GameObject obj in movingTiles)
+        if (movingTiles.Count > 0)
         {
-            obj.GetComponent<SpriteRenderer>().sprite = obj.GetComponent<Square>().baseSprite;
-            obj.GetComponent<Square>().SetMovable(false);
+            selectedSquare.GetComponent<SpriteRenderer>().sprite = selectedSquare.GetComponent<Square>().baseSprite;
+            foreach (GameObject obj in movingTiles)
+            {
+                obj.GetComponent<SpriteRenderer>().sprite = obj.GetComponent<Square>().baseSprite;
+                obj.GetComponent<Square>().SetMovable(false);
+            }
+            movingTiles.Clear();
         }
-        movingTiles.Clear();
     }
 
     public void AddToEnemies(GameObject unit)
@@ -192,9 +195,9 @@ public class GameManager : MonoBehaviour
                 {
                     if (mouvement > 0)
                         AddMovingAttack(objet);
-                    for (int i = 0; i < enemies.Count; i++)
+                    else
                     {
-                        if (minDistAttack <= DistanceEntrePoint((int)enemies[i].transform.position.x, (int)enemies[i].transform.position.y, (int)GetSelectedSquare().transform.position.x, (int)GetSelectedSquare().transform.position.y))
+                        if (DistanceEntrePoint(posX, posY, (int)GetSelectedSquare().transform.position.x, (int)GetSelectedSquare().transform.position.y) >= minDistAttack)
                             AddMovingAttack(objet);
                     }
                     if (maxDistAttack > 1)

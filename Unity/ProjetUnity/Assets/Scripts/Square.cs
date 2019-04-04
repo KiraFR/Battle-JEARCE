@@ -61,9 +61,9 @@ public class Square : MonoBehaviour
                         if (gm.IsEnemy(character.gameObject))
                         {
                             if (lastCharacter.GetComponent<Character>().maxDistAttack.baseStat >= distance && lastCharacter.GetComponent<Character>().minDistAttack.baseStat <= distance)
-                            {   
-                                Attaque(character, lastCharacter);
-                                character = null;
+                            {
+                                if (Attaque(character, lastCharacter))
+                                    character = null;
                                 gm.ClearMovingTiles();
                                 gm.SetSelectedSquare(null);
                                 GetComponent<Animator>().runtimeAnimatorController = null;
@@ -128,10 +128,14 @@ public class Square : MonoBehaviour
         gameObject.GetComponent<SpriteRenderer>().sprite = color;
     }
 
-    public void Attaque(Character enemi, Character charac) {
-        enemi.GetComponent<Character>().healthPoint.currentStat=enemi.GetComponent<Character>().healthPoint.currentStat - charac.GetComponent<Character>().attackPoint.baseStat;
-        if (enemi.GetComponent<Character>().healthPoint.currentStat == 0) {
+    public bool Attaque(Character enemi, Character charac)
+    {
+        enemi.GetComponent<Character>().healthPoint.currentStat = enemi.GetComponent<Character>().healthPoint.currentStat - charac.GetComponent<Character>().attackPoint.baseStat;
+        if (enemi.GetComponent<Character>().healthPoint.currentStat <= 0)
+        {
             Destroy(enemi.gameObject);
+            return true;
         }
+        return false;
     }
 }
