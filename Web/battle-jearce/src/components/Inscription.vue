@@ -16,6 +16,7 @@
                         label="Password"
                         label-for="Inputpw">
             <b-form-input id="Inputpw"
+                          type="password"
                           required
                           placeholder="enter password">
             </b-form-input>
@@ -23,6 +24,7 @@
           <b-form-group id="PasswordVerif"
                         label-for="Inputpw">
             <b-form-input id="Inputpw"
+                          type="password"
                           required
                           placeholder="re-enter password">
             </b-form-input>
@@ -31,6 +33,7 @@
                         label="Pseudo"
                         label-for="Inputpseudo">
             <b-form-input id="Inputpseudo"
+                          type="text"
                           required
                           placeholder="enter pseudo">
             </b-form-input>

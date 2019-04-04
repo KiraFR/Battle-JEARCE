@@ -7,7 +7,7 @@
         <b-nav-item><router-link to="/Battle-Jearce/Classement" class="lien">Classement</router-link></b-nav-item>
         <b-nav-item><router-link to="/Battle-Jearce/Accueil" class="lien">accueil</router-link></b-nav-item>
         <b-nav-item><router-link to="/Battle-Jearce/Reglement" class="lien">Reglement</router-link></b-nav-item>
-        <b-nav-item><router-link to="/Battle-Jearce/Contact" class="lien">Contact</router-link></b-nav-item>
+        <b-nav-item><router-link to="/Battle-Jearce/Contact" class="lien">Nous contacter</router-link></b-nav-item>
       </b-nav>
     </b-row>
   </b-container>

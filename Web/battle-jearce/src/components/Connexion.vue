@@ -1,7 +1,7 @@
 <template>
   <b-container>
     <b-row>
-      <b-col lg="6" offset-lg="4">
+      <b-col lg="6" offset-lg="3">
         <b-form>
           <b-form-group id="Mail"
                         label="Mail"
@@ -16,7 +16,7 @@
                         label="Password"
                         label-for="InputId">
             <b-form-input id="InputId"
-                          type="email"
+                          type="password"
                           required
                           placeholder="enter password">
             </b-form-input>
