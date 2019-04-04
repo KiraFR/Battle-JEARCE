@@ -21,10 +21,9 @@ public class GameManager : MonoBehaviour
     private GameObject selectedSquare = null;
     private List<GameObject> movingTiles;
     private bool playerTurn;
-    private bool placementPhase;
+    private bool phase;
 
 
-    // Start is called before the first frame update
     void Start()
     {
         if (instance == null)
@@ -44,7 +43,7 @@ public class GameManager : MonoBehaviour
         moveText = GameObject.Find("MoveText").GetComponent<Text>();
         attackText = GameObject.Find("AttackText").GetComponent<Text>();
         ButtonEnd = GameObject.Find("EndTurn");
-        placementPhase = true;
+        phase = true;
         ButtonEnd.GetComponentInChildren<Text>().text = "Ready";
 
         InitGame();
@@ -63,7 +62,7 @@ public class GameManager : MonoBehaviour
     public void StartGame()
     {
         ClearMovingTiles();
-        placementPhase = false;
+        phase = false;
     }
 
     public GameObject GetGameObject(int xDir, int yDir)
@@ -257,7 +256,7 @@ public class GameManager : MonoBehaviour
 
     public bool GetPhase()
     {
-        return placementPhase;
+        return phase;
     }
 
     public void EndTurn()
@@ -271,5 +270,4 @@ public class GameManager : MonoBehaviour
 
         playerTurn = true;
     }
-
 }
