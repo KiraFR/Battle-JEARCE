@@ -36,7 +36,7 @@ public class Square : MonoBehaviour
                     if (selectedSquare == null)
                     {
                         gm.SetSelectedSquare(gameObject);
-                        //GetComponent<Animator>().runtimeAnimatorController = selectedSquareAnim;
+                        GetComponent<Animator>().runtimeAnimatorController = selectedSquareAnim;
                         // TO CHANGE
 
                         //A changer nom de fonction
@@ -45,8 +45,8 @@ public class Square : MonoBehaviour
                     else if (selectedSquare.GetComponent<Square>().GetCharacter().Equals(character))
                     {
                         gm.ClearMovingTiles();
-                        gm.SetSelectedSquare(null);
                         GetComponent<Animator>().runtimeAnimatorController = null;
+                        gm.SetSelectedSquare(null);
                     }
                 }
                 else
@@ -65,8 +65,8 @@ public class Square : MonoBehaviour
                                 if (Attaque(character, lastCharacter))
                                     character = null;
                                 gm.ClearMovingTiles();
-                                gm.SetSelectedSquare(null);
                                 GetComponent<Animator>().runtimeAnimatorController = null;
+                                gm.SetSelectedSquare(null);
                             }
                         }
                     }
@@ -74,17 +74,17 @@ public class Square : MonoBehaviour
             }
             else
             {
-                GameObject unit = gm.GetSelectedSquare();
+                GameObject selectedSquare = gm.GetSelectedSquare();
                 if (canMoveIn)
                 {
                     gm.ClearMovingTiles();
-                    character = unit.GetComponent<Square>().GetCharacter();
-                    unit.GetComponent<Square>().GetCharacter().GetComponent<Character>().Move(new Vector3(transform.position.x, transform.position.y, transform.position.z));
-                    unit.GetComponent<Square>().SetCharacter(null);
+                    character = selectedSquare.GetComponent<Square>().GetCharacter();
+                    selectedSquare.GetComponent<Square>().GetCharacter().GetComponent<Character>().Move(new Vector3(transform.position.x, transform.position.y, transform.position.z));
+                    selectedSquare.GetComponent<Square>().SetCharacter(null);
+                    selectedSquare.gameObject.GetComponent<Animator>().runtimeAnimatorController = null;
                     gm.SetSelectedSquare(null);
-                    GetComponent<Animator>().runtimeAnimatorController = null;
 
-                    Vector3 start = unit.transform.position;
+                    Vector3 start = selectedSquare.transform.position;
                     Vector3 finish = transform.position;
                     Vector3 calcul = new Vector3(Mathf.Abs(finish.x - start.x), Mathf.Abs(finish.y - start.y), 0);
                     int essai = Mathf.RoundToInt(calcul.x + calcul.y);
@@ -94,8 +94,11 @@ public class Square : MonoBehaviour
                 else
                 {
                     gm.ClearMovingTiles();
+                    if (selectedSquare != null)
+                    {
+                        selectedSquare.gameObject.GetComponent<Animator>().runtimeAnimatorController = null;
+                    }
                     gm.SetSelectedSquare(null);
-                    GetComponent<Animator>().runtimeAnimatorController = null;
                 }
             }
         }
