@@ -112,6 +112,49 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &352416690
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 352416692}
+  - component: {fileID: 352416691}
+  m_Layer: 0
+  m_Name: ButtonManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &352416691
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 352416690}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e652c0e447e7bcd4696d7f6d43773a50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &352416692
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 352416690}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -34.66547, y: 322.74854, z: -15}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &470638231
 GameObject:
   m_ObjectHideFlags: 0
@@ -444,7 +487,7 @@ GameObject:
   - component: {fileID: 584581700}
   - component: {fileID: 584581699}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: CanvasBottom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -529,7 +572,7 @@ RectTransform:
   - {fileID: 470638232}
   - {fileID: 1091880287}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -702,12 +745,12 @@ GameObject:
   - component: {fileID: 858764478}
   - component: {fileID: 858764477}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: CanvasConfirm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &858764477
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -785,7 +828,7 @@ RectTransform:
   - {fileID: 1401484108}
   - {fileID: 1083456533}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1386,7 +1429,6 @@ GameObject:
   - component: {fileID: 1091880290}
   - component: {fileID: 1091880289}
   - component: {fileID: 1091880288}
-  - component: {fileID: 1091880291}
   m_Layer: 5
   m_Name: EndTurn
   m_TagString: Untagged
@@ -1454,7 +1496,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1091880291}
+      - m_Target: {fileID: 0}
         m_MethodName: Confirmation
         m_Mode: 1
         m_Arguments:
@@ -1504,22 +1546,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1091880286}
   m_CullTransparentMesh: 0
---- !u!114 &1091880291
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1091880286}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e652c0e447e7bcd4696d7f6d43773a50, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  turnCanvas: {fileID: 1576109766}
-  confirmationCanvas: {fileID: 858764476}
-  yesButton: {fileID: 1401484109}
-  noButton: {fileID: 1083456534}
 --- !u!1 &1108684788
 GameObject:
   m_ObjectHideFlags: 0
@@ -1875,12 +1901,12 @@ GameObject:
   - component: {fileID: 1576109768}
   - component: {fileID: 1576109767}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: CanvasTurn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1576109767
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1956,7 +1982,7 @@ RectTransform:
   - {fileID: 575981081}
   - {fileID: 1975163016}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}

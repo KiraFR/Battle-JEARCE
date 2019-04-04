@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviour
     private Text moveText;
     private Text attackText;
 
+    private GameObject ButtonEnd;
+
     private int[,] plateauDeJeux = new int[6, 9];
 
     private List<GameObject> enemies;
@@ -19,6 +21,7 @@ public class GameManager : MonoBehaviour
     private GameObject selectedSquare = null;
     private List<GameObject> movingTiles;
     private bool playerTurn;
+    private bool placementPhase;
 
 
     // Start is called before the first frame update
@@ -40,9 +43,12 @@ public class GameManager : MonoBehaviour
         healthText = GameObject.Find("HealthText").GetComponent<Text>();
         moveText = GameObject.Find("MoveText").GetComponent<Text>();
         attackText = GameObject.Find("AttackText").GetComponent<Text>();
+        ButtonEnd = GameObject.Find("EndTurn");
+        placementPhase = true;
+        ButtonEnd.GetComponentInChildren<Text>().text = "Ready";
+
         InitGame();
-
-
+        
         playerTurn = true;
     }
 
@@ -56,7 +62,8 @@ public class GameManager : MonoBehaviour
 
     public void StartGame()
     {
-
+        ClearMovingTiles();
+        placementPhase = false;
     }
 
     public GameObject GetGameObject(int xDir, int yDir)
@@ -78,7 +85,7 @@ public class GameManager : MonoBehaviour
     {
         if (tile != null)
         {
-            tile.GetComponent<SpriteRenderer>().sprite = tile.GetComponent<Square>().moveSprite;
+            tile.transform.Find("FloorBase").GetComponent<SpriteRenderer>().sprite = tile.GetComponent<Square>().moveSprite;
             tile.GetComponent<Square>().SetMovable(true);
             movingTiles.Add(tile);
         }
@@ -88,7 +95,7 @@ public class GameManager : MonoBehaviour
     {
         if (tile != null)
         {
-            tile.GetComponent<SpriteRenderer>().sprite = tile.GetComponent<Square>().attackSprite;
+            tile.transform.Find("FloorBase").GetComponent<SpriteRenderer>().sprite = tile.GetComponent<Square>().attackSprite;
             tile.GetComponent<Square>().SetMovable(false);
             movingTiles.Add(tile);
         }
@@ -98,10 +105,13 @@ public class GameManager : MonoBehaviour
     {
         if (movingTiles.Count > 0)
         {
-            selectedSquare.GetComponent<SpriteRenderer>().sprite = selectedSquare.GetComponent<Square>().baseSprite;
+            if (selectedSquare != null)
+            {
+                selectedSquare.transform.Find("FloorBase").GetComponent<SpriteRenderer>().sprite = selectedSquare.GetComponent<Square>().baseSprite;
+            }
             foreach (GameObject obj in movingTiles)
             {
-                obj.GetComponent<SpriteRenderer>().sprite = obj.GetComponent<Square>().baseSprite;
+                obj.transform.Find("FloorBase").GetComponent<SpriteRenderer>().sprite = obj.GetComponent<Square>().baseSprite;
                 obj.GetComponent<Square>().SetMovable(false);
             }
             movingTiles.Clear();
@@ -169,7 +179,7 @@ public class GameManager : MonoBehaviour
         GameObject objet = GetGameObject(posX, posY);
         if (objet != null && !selectedSquare.Equals(objet))
         {
-            if (objet.GetComponent<SpriteRenderer>().sprite != objet.GetComponent<Square>().inaccessibleSprite)
+            if (objet.transform.Find("FloorBase").GetComponent<SpriteRenderer>().sprite != objet.GetComponent<Square>().inaccessibleSprite)
             {
                 Character character = objet.GetComponent<Square>().GetCharacter();
                 if ((character != null && !IsEnemy(character.gameObject)) || character == null)
@@ -183,7 +193,7 @@ public class GameManager : MonoBehaviour
                     {
                         if (minDistAttack <= DistanceEntrePoint((int)GetSelectedSquare().transform.position.x, (int)GetSelectedSquare().transform.position.y, posX , posY))
                         {
-                            if (objet.GetComponent<SpriteRenderer>().sprite == objet.GetComponent<Square>().baseSprite)
+                            if (objet.transform.Find("FloorBase").GetComponent<SpriteRenderer>().sprite == objet.GetComponent<Square>().baseSprite)
                             {
                                 AddMovingAttack(objet);
                             }
@@ -245,6 +255,10 @@ public class GameManager : MonoBehaviour
         return playerTurn;
     }
 
+    public bool GetPhase()
+    {
+        return placementPhase;
+    }
 
     public void EndTurn()
     {
