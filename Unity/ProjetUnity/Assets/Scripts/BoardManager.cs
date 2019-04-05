@@ -8,14 +8,14 @@ using Random = UnityEngine.Random;
 public class BoardManager : MonoBehaviour
 {
 
-    public int columns = 8;
-    public int rows = 8;
+    public int columns = 6;
+    public int rows = 9;
     public int nbObstacles;
     public GameObject floorTiles;
     private List<GameObject> units;
 
     // Every Floor's gameObject from Vector3
-    private Dictionary<Vector3,GameObject> floorGameObjects = new Dictionary<Vector3, GameObject>();
+    private Dictionary<Vector3, GameObject> floorGameObjects = new Dictionary<Vector3, GameObject>();
 
     private Dictionary<Vector3, GameObject> enemies = new Dictionary<Vector3, GameObject>();
     private Dictionary<Vector3, GameObject> allies = new Dictionary<Vector3, GameObject>();
@@ -39,7 +39,7 @@ public class BoardManager : MonoBehaviour
             {
                 Vector3 pos = new Vector3(x, y, 0f);
                 GameObject instance = Instantiate(floorTiles, pos, Quaternion.identity) as GameObject;
-                floorGameObjects.Add(pos,instance);
+                floorGameObjects.Add(pos, instance);
                 // TODELETE --> DEBUG ALLY CHARACTER
                 /*if (x == 0 && y == 0)
                 {
@@ -88,7 +88,7 @@ public class BoardManager : MonoBehaviour
 
     //Method that will first add obstacles randomly before checking is the board is blocked
     //If so then it'll call the method isBlocked() that will remove one obstacle to set the board playable
-    void RandomObstaclesSetup()   
+    void RandomObstaclesSetup()
     {
 
         obstacles.Clear();
@@ -102,20 +102,24 @@ public class BoardManager : MonoBehaviour
             GameObject obstacle = GetGameObject((int)randomPosition.x, (int)randomPosition.y);
             obstacles.Add(obstacle);    //Adding our obstacle in the global obstacles list
 
-            if(obstacle != null)
+            if (obstacle != null)
             {
-                obstacle.transform.Find("FloorBase").GetComponent<SpriteRenderer>().sprite = obstacle.GetComponent<Square>().inaccessibleSprite;               
+                obstacle.transform.Find("FloorBase").GetComponent<SpriteRenderer>().sprite = obstacle.GetComponent<Square>().inaccessibleSprite;
             }
+        }
 
-           
-            if((int)obstacle.transform.position.x == 1)  //Condition to verify to start the isBlocked() method
+
+        for (int i = 0; i < obstacles.Count; i++)   //Condition to verify to start the isBlocked() method
+        {
+            if ((int)obstacles[i].transform.position.x == 0)  //Condition to verify to start the isBlocked() method
             {
                 int increment = 1;  //increment that will count the number of obstacles that can block the board (blocked if increment = columns)
-                isBlocked(obstacle, increment);
+                isBlocked(obstacles[i], increment);
             }
-
         }
+
     }
+
 
     /*
      * Placement : 
@@ -131,9 +135,10 @@ public class BoardManager : MonoBehaviour
         List<Vector3> pos = GetPosFromSide(placement);
         int i = 0;
         Dictionary<Vector3, GameObject> units = new Dictionary<Vector3, GameObject>();
-        foreach (string name in characters){
+        foreach (string name in characters)
+        {
             GameObject unit = GetUnit(name);
-            if(unit != null)
+            if (unit != null)
             {
                 units.Add(pos[i++], unit);
             }
@@ -154,32 +159,35 @@ public class BoardManager : MonoBehaviour
             }
         }
     }
-    
+
 
     //Recursive method that will check is there is a line of obstacle blocking the way
     //If so the last blocking obstacle will be removed
-    void isBlocked(GameObject obstacle, int increment) 
+
+
+
+    void isBlocked(GameObject obstacle, int increment)
     {
 
         int xObs = (int)obstacle.transform.position.x;
         int yObs = (int)obstacle.transform.position.y;
 
-        if (increment == columns) //Is the game is bocked the last blocking obstacle will be removed and replaced by a normal floor
+        if (increment >= columns) //Is the game is bocked the last blocking obstacle will be removed and replaced by a normal floor
         {
-            obstacle.transform.Find("FloorBase").GetComponent<SpriteRenderer>().sprite = obstacle.GetComponent<Square>().baseSprite; 
+            obstacle.transform.Find("FloorBase").GetComponent<SpriteRenderer>().sprite = obstacle.GetComponent<Square>().baseSprite;
         }
 
-        else 
+        else
         {
-            for(int i = 0; i < obstacles.Count; i++)
+            for (int i = 0; i < obstacles.Count; i++)
             {
 
                 int xObsi = (int)obstacles[i].transform.position.x;
                 int yObsi = (int)obstacles[i].transform.position.y;
 
                 //If there is another potential blocking obstacle then
-                if (xObsi == xObs + 1 && (yObsi == yObs -1 || yObsi == yObs || yObsi == yObs + 1))
-                
+                if (xObsi == xObs + 1 && (yObsi == yObs - 1 || yObsi == yObs || yObsi == yObs + 1))
+
                 {
                     increment++;
                     isBlocked(obstacles[i], increment);
@@ -189,7 +197,7 @@ public class BoardManager : MonoBehaviour
     }
 
 
-    // SETUP OF 4 BOARDS WITH 8 OBSTACLES PLACED SYMMETRICALLY
+    // SETUP OF 4 BOARDS WITH OBSTACLES PLACED SYMMETRICALLY
 
     //Creation of obstacles that are defined and not randomly picked
     void ObstaclesSetup1()
@@ -266,7 +274,7 @@ public class BoardManager : MonoBehaviour
     //Predefined obstacles are now replacing basic floors
     public void PlaceObstacles(List<GameObject> obtacles)
     {
-        for(int i = 0; i < obstacles.Count; i++)
+        for (int i = 0; i < obstacles.Count; i++)
         {
             obstacles[i].transform.Find("FloorBase").GetComponent<SpriteRenderer>().sprite = obstacles[i].GetComponent<Square>().inaccessibleSprite;
         }
@@ -337,7 +345,8 @@ public class BoardManager : MonoBehaviour
             list.Add(new Vector3(3f, 8f, 0f));
             list.Add(new Vector3(3f, 7f, 0f));
         }
-        else{
+        else
+        {
             list.Add(new Vector3(2f, 1f, 0f));
             list.Add(new Vector3(2f, 0f, 0f));
             list.Add(new Vector3(3f, 1f, 0f));
