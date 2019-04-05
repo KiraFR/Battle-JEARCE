@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -77,9 +78,13 @@ public void GetAttacked(int loss)
         movePoint.ResetCurrent();
     }
 
-    public void Move(Vector3 end)
+    public void Move(List<Vector3> follow)
     {
-        StartCoroutine(SmoothMovement(end));
+        follow.Reverse();
+        foreach (Vector3 pos in follow)
+        {
+            StartCoroutine(SmoothMovement(pos));
+        }
     }
 
     protected IEnumerator SmoothMovement(Vector3 end)
@@ -103,6 +108,7 @@ public void GetAttacked(int loss)
             //Return and loop until sqrRemainingDistance is close enough to zero to end the function
             yield return null;
         }
+
     }
 
 

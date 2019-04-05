@@ -83,7 +83,11 @@ public class Square : MonoBehaviour
                     {
                         gm.ClearMovingTiles();
                         character = selectedSquare.GetComponent<Square>().GetCharacter();
-                        selectedSquare.GetComponent<Square>().GetCharacter().GetComponent<Character>().Move(new Vector3(transform.position.x, transform.position.y, transform.position.z));
+
+                        character = selectedSquare.GetComponent<Square>().GetCharacter();
+
+                        Deplacement((int)transform.position.x, (int)transform.position.y, (int)character.transform.position.x, (int)character.transform.position.y);
+                        selectedSquare.GetComponent<Square>().GetCharacter().GetComponent<Character>().Move(chemin);
                         selectedSquare.GetComponent<Square>().SetCharacter(null);
                         selectedSquare.gameObject.transform.Find("UnderFloor").GetComponent<Animator>().runtimeAnimatorController = null;
                         gm.SetSelectedSquare(null);
@@ -93,8 +97,6 @@ public class Square : MonoBehaviour
                         Vector3 calcul = new Vector3(Mathf.Abs(finish.x - start.x), Mathf.Abs(finish.y - start.y), 0);
                         int essai = Mathf.RoundToInt(calcul.x + calcul.y);
                         character.Move(essai);
-
-                        if (gm.IsEnemy(character.gameObject))
                     }
                     else
                     {
@@ -135,16 +137,9 @@ public class Square : MonoBehaviour
                 GameObject selectedSquare = gm.GetSelectedSquare();
                 if (canMoveIn)
                 {
-                    gm.ClearMovingTiles();
-                    character = unit.GetComponent<Square>().GetCharacter();
-
-                    Deplacement((int)transform.position.x, (int)transform.position.y, (int)character.transform.position.x, (int)character.transform.position.y);
-
-                    unit.GetComponent<Square>().GetCharacter().GetComponent<Character>().Move(new Vector3(transform.position.x, transform.position.y, transform.position.z));
-                    unit.GetComponent<Square>().SetCharacter(null);
-                    character = selectedSquare.GetComponent<Square>().GetCharacter();
-                    selectedSquare.GetComponent<Square>().GetCharacter().GetComponent<Character>().Move(new Vector3(transform.position.x, transform.position.y, transform.position.z));
+                    selectedSquare.GetComponent<Square>().GetCharacter().transform.position =  new Vector3(transform.position.x, transform.position.y, transform.position.z);
                     selectedSquare.GetComponent<Square>().SetCharacter(null);
+                    character = selectedSquare.GetComponent<Square>().GetCharacter();
                     selectedSquare.gameObject.transform.Find("UnderFloor").GetComponent<Animator>().runtimeAnimatorController = null;
                     gm.SetSelectedSquare(null);
 
@@ -230,7 +225,7 @@ public class Square : MonoBehaviour
         GameObject objet = gm.GetGameObject(x, y);
         if (objet != null && !gm.GetSelectedSquare().Equals(objet))
         {
-            if (objet.GetComponent<SpriteRenderer>().sprite != objet.GetComponent<Square>().inaccessibleSprite)
+            if (objet.transform.Find("FloorBase").GetComponent<SpriteRenderer>().sprite != objet.GetComponent<Square>().inaccessibleSprite)
             {
                 Character character = objet.GetComponent<Square>().GetCharacter();
                 if ((character != null && !gm.IsEnemy(character.gameObject)) || character == null)
