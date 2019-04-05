@@ -106,6 +106,7 @@ public class Square : MonoBehaviour
                             selectedSquare.gameObject.transform.Find("UnderFloor").GetComponent<Animator>().runtimeAnimatorController = null;
                         }
                         gm.SetSelectedSquare(null);
+                        gm.ResetStats();
                     }
                 }
             }

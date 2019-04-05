@@ -249,6 +249,13 @@ public class GameManager : MonoBehaviour
         attackText.text = "Attaque : " + attackPoint;
     }
 
+    public void ResetStats()
+    {
+        healthText.text = "";
+        moveText.text = "";
+        attackText.text = "";
+    }
+
     public bool GetPlayerTurn()
     {
         return playerTurn;
