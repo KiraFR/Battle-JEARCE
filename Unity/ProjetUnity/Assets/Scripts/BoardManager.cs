@@ -82,7 +82,7 @@ public class BoardManager : MonoBehaviour
         };
         SpawnUnits(list, !placement, !side);
 
-        PlacementSquares(placement);
+        //PlacementSquares(placement);
     }
 
 
@@ -104,7 +104,7 @@ public class BoardManager : MonoBehaviour
 
             if(obstacle != null)
             {
-                obstacle.transform.Find("FloorBase").GetComponent<SpriteRenderer>().sprite = obstacle.GetComponent<Square>().inaccessibleSprite;               
+                obstacle.GetComponent<SpriteRenderer>().sprite = obstacle.GetComponent<Square>().inaccessibleSprite;               
             }
 
            
@@ -166,7 +166,7 @@ public class BoardManager : MonoBehaviour
 
         if (increment == columns) //Is the game is bocked the last blocking obstacle will be removed and replaced by a normal floor
         {
-            obstacle.transform.Find("FloorBase").GetComponent<SpriteRenderer>().sprite = obstacle.GetComponent<Square>().baseSprite; 
+            obstacle.GetComponent<SpriteRenderer>().sprite = obstacle.GetComponent<Square>().baseSprite; 
         }
 
         else 
@@ -268,7 +268,7 @@ public class BoardManager : MonoBehaviour
     {
         for(int i = 0; i < obstacles.Count; i++)
         {
-            obstacles[i].transform.Find("FloorBase").GetComponent<SpriteRenderer>().sprite = obstacles[i].GetComponent<Square>().inaccessibleSprite;
+            obstacles[i].GetComponent<SpriteRenderer>().sprite = obstacles[i].GetComponent<Square>().inaccessibleSprite;
         }
     }
 
@@ -346,20 +346,19 @@ public class BoardManager : MonoBehaviour
         return list;
     }
 
-    void PlacementSquares(bool placement)
+    /*void PlacementSquares(bool placement)
     {
-        for (int x = 0; x < columns; x++)
+        int[] xs = { 7, 8 };
+        int[] ys = { 2, 3 };
+        if (placement)
         {
-            if (placement)
-            {
-                GameManager.instance.AddMovingTiles(GetGameObject(x, 7));
-                GameManager.instance.AddMovingTiles(GetGameObject(x, 8));
-            }
-            else
-            {
-                GameManager.instance.AddMovingTiles(GetGameObject(x, 0));
-                GameManager.instance.AddMovingTiles(GetGameObject(x, 1));
-            }
+            xs[0] = 0;
+            xs[1] = 1;
         }
-    }
+
+        for(int x = xs[0])
+        {
+
+        }
+    }*/
 }

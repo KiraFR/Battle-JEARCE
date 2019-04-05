@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: SelectedFloor
+  m_Name: selectedSquare
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -20,9 +20,9 @@ AnimationClip:
   m_PPtrCurves:
   - curve:
     - time: 0
-      value: {fileID: 21300000, guid: f8b24c8178a8cf447a4dafb47988f5e9, type: 3}
+      value: {fileID: 21300000, guid: 87bcda8a8ce2edb41b8e9f8de1cae776, type: 3}
     - time: 0.083333336
-      value: {fileID: 21300000, guid: c9361aa6bdf3c494891ee303e9153554, type: 3}
+      value: {fileID: 21300000, guid: 6e4be27cae016f24a82c662480f3d388, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -42,8 +42,8 @@ AnimationClip:
       customType: 23
       isPPtrCurve: 1
     pptrCurveMapping:
-    - {fileID: 21300000, guid: f8b24c8178a8cf447a4dafb47988f5e9, type: 3}
-    - {fileID: 21300000, guid: c9361aa6bdf3c494891ee303e9153554, type: 3}
+    - {fileID: 21300000, guid: 87bcda8a8ce2edb41b8e9f8de1cae776, type: 3}
+    - {fileID: 21300000, guid: 6e4be27cae016f24a82c662480f3d388, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
