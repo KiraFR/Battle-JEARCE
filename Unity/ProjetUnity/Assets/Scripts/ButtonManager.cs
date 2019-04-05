@@ -63,5 +63,7 @@ public class ButtonManager : MonoBehaviour
         StartCoroutine("TurnStart");
 
         GameObject.Find("EndTurn").GetComponent<Button>().onClick.AddListener(EndTurn);
+        GameObject.Find("EndTurn").transform.Find("Text").GetComponent<Text>().text = "Fin de tour";
+        GameManager.instance.ResetStats();
     }
 }

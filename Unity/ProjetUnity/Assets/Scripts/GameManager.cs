@@ -274,7 +274,7 @@ public class GameManager : MonoBehaviour
         {
             ally.GetComponent<Character>().resetTurn();
         }
-
+        ResetStats();
         playerTurn = true;
     }
 }

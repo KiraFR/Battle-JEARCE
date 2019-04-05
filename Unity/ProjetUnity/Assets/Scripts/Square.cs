@@ -50,6 +50,7 @@ public class Square : MonoBehaviour
                             gm.ClearMovingTiles();
                             transform.Find("UnderFloor").GetComponent<Animator>().runtimeAnimatorController = null;
                             gm.SetSelectedSquare(null);
+                            gm.ResetStats();
                         }
                     }
                     else
@@ -70,6 +71,13 @@ public class Square : MonoBehaviour
                                     gm.ClearMovingTiles();
                                     selectedSquare.transform.Find("UnderFloor").GetComponent<Animator>().runtimeAnimatorController = null;
                                     gm.SetSelectedSquare(null);
+                                    gm.ResetStats();
+                                }
+                                else
+                                {
+                                    gm.ChangeMove(character.movePoint.currentStat);
+                                    gm.ChangeHealth(character.healthPoint.currentStat);
+                                    gm.ChangeAttack(character.attackPoint.currentStat);
                                 }
                             }
                         }
@@ -87,6 +95,8 @@ public class Square : MonoBehaviour
                         character = selectedSquare.GetComponent<Square>().GetCharacter();
 
                         Deplacement((int)transform.position.x, (int)transform.position.y, (int)character.transform.position.x, (int)character.transform.position.y);
+                        chemin.RemoveAt(0);
+                        chemin.Reverse();
                         selectedSquare.GetComponent<Square>().GetCharacter().GetComponent<Character>().Move(chemin);
                         selectedSquare.GetComponent<Square>().SetCharacter(null);
                         selectedSquare.gameObject.transform.Find("UnderFloor").GetComponent<Animator>().runtimeAnimatorController = null;
@@ -110,6 +120,15 @@ public class Square : MonoBehaviour
                     }
                 }
             }
+            else
+            {
+                if(character != null)
+                {
+                    gm.ChangeMove(character.movePoint.currentStat);
+                    gm.ChangeHealth(character.healthPoint.currentStat);
+                    gm.ChangeAttack(character.attackPoint.currentStat);
+                }
+            }
         }
         else
         {
@@ -130,6 +149,7 @@ public class Square : MonoBehaviour
                     {
                         transform.Find("UnderFloor").GetComponent<Animator>().runtimeAnimatorController = null;
                         gm.SetSelectedSquare(null);
+                        gm.ResetStats();
                     }
                 }
             }
@@ -138,12 +158,16 @@ public class Square : MonoBehaviour
                 GameObject selectedSquare = gm.GetSelectedSquare();
                 if (canMoveIn)
                 {
-                    selectedSquare.GetComponent<Square>().GetCharacter().transform.position =  new Vector3(transform.position.x, transform.position.y, transform.position.z);
-                    selectedSquare.GetComponent<Square>().SetCharacter(null);
-                    character = selectedSquare.GetComponent<Square>().GetCharacter();
-                    selectedSquare.gameObject.transform.Find("UnderFloor").GetComponent<Animator>().runtimeAnimatorController = null;
-                    gm.SetSelectedSquare(null);
-
+                    if (selectedSquare != null)
+                    {
+                        Debug.Log(selectedSquare);
+                        character = selectedSquare.GetComponent<Square>().GetCharacter();
+                        character.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+                        selectedSquare.GetComponent<Square>().SetCharacter(null);
+                        selectedSquare.gameObject.transform.Find("UnderFloor").GetComponent<Animator>().runtimeAnimatorController = null;
+                        gm.SetSelectedSquare(null);
+                        gm.ResetStats();
+                    }
                 }
                 else
                 {
@@ -152,6 +176,7 @@ public class Square : MonoBehaviour
                         selectedSquare.gameObject.transform.Find("UnderFloor").GetComponent<Animator>().runtimeAnimatorController = null;
                     }
                     gm.SetSelectedSquare(null);
+                    gm.ResetStats();
                 }
             }
         }
