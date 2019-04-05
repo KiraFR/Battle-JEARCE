@@ -80,7 +80,6 @@ public void GetAttacked(int loss)
 
     public void Move(List<Vector3> follow)
     {
-        follow.Reverse();
         foreach (Vector3 pos in follow)
         {
             StartCoroutine(SmoothMovement(pos));
