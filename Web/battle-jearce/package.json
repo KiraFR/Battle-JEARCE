@@ -15,11 +15,8 @@
     "body-parser": "^1.5.2",
     "bootstrap": "^4.3.1",
     "bootstrap-vue": "^2.0.0-rc.16",
-    "express": "~4.7.2",
     "jquery": "^1.9.1",
     "method-override": "~2.1.2",
-    "mongodb": "^3.2.2",
-    "mongoose": "~3.6.2",
     "morgan": "^1.9.0",
     "vue": "^2.6.10",
     "vue-router": "^3.0.1"

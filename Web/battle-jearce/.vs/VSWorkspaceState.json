@@ -4,10 +4,9 @@
     "\\config",
     "\\src",
     "\\src\\assets",
-    "\\src\\back",
     "\\src\\components",
     "\\src\\router"
   ],
-  "SelectedNode": "\\src\\back\\user.js",
+  "SelectedNode": "\\src\\main.js",
   "PreviewInSolutionExplorer": false
 }
