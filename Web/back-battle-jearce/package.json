@@ -1,6 +1,7 @@
 {
   "name": "back-battle-jearce",
   "version": "1.0.0",
+  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -9,11 +10,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "body-parser": "^1.18.3",
     "express": "^4.16.4",
     "mongodb": "^3.2.3",
-    "mongoose": "^5.5.0"
-  },
-  "devDependencies": {},
-  "description": ""
+    "mongoose": "^5.4.22"
+  }
 }
