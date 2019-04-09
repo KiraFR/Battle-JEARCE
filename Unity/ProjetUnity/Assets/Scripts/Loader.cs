@@ -5,6 +5,7 @@ using UnityEngine;
 public class Loader : MonoBehaviour
 {
     public GameObject gameManager;
+    public GameObject networkManager;
 
     void Start()
     {
@@ -54,6 +55,7 @@ public class Loader : MonoBehaviour
         if (GameManager.instance == null)
         {
             Instantiate(gameManager);
+            //Instantiate(networkManager); // wait until finished
         }
     }
 }

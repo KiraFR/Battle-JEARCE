@@ -415,4 +415,9 @@ public class GameManager : MonoBehaviour
         }
         RecuDeplacementAttaque(posX, posY, porte ,mouvement - 1);
     }
+
+    public void MoveCharacter(Character character, List<Vector3> path)
+    {
+        character.Move(path);
+    }
 }

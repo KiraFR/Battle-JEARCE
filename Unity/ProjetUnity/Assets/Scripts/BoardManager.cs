@@ -314,7 +314,7 @@ public class BoardManager : MonoBehaviour
 
     public GameObject GetGameObject(int xDir, int yDir)
     {
-        Vector3 pos = new Vector3(xDir, yDir);
+        Vector3 pos = new Vector3(xDir, yDir, 0f);
         if (floorGameObjects.ContainsKey(pos))
         {
             return floorGameObjects[pos];

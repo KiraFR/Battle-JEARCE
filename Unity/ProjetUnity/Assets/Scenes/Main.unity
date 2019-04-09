@@ -344,6 +344,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameManager: {fileID: 6276495806716407531, guid: f119ee08d6ce94c4a930b8b0d58a43a7,
     type: 3}
+  networkManager: {fileID: 2943099190279999089, guid: 20001899ecd1d494284a125395f0a844,
+    type: 3}
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0
