@@ -11,7 +11,6 @@ public class Square : MonoBehaviour
     public Sprite inaccessibleSprite;
     public RuntimeAnimatorController selectedSquareAnim;
 
-    private List<Vector3> chemin = null;
 
     private GameManager gm = GameManager.instance;
     private Character character = null;
@@ -94,9 +93,9 @@ public class Square : MonoBehaviour
 
                         character = selectedSquare.GetComponent<Square>().GetCharacter();
 
-                        Deplacement((int)transform.position.x, (int)transform.position.y, (int)character.transform.position.x, (int)character.transform.position.y);
-                        chemin.RemoveAt(0);
-                        chemin.Reverse();
+                        gm.Deplacement((int)transform.position.x, (int)transform.position.y, (int)character.transform.position.x, (int)character.transform.position.y);
+                        List<Vector3> chemin = new List<Vector3>(gm.GetChemin());
+
                         selectedSquare.GetComponent<Square>().GetCharacter().GetComponent<Character>().Move(chemin);
                         selectedSquare.GetComponent<Square>().SetCharacter(null);
                         selectedSquare.gameObject.transform.Find("UnderFloor").GetComponent<Animator>().runtimeAnimatorController = null;
@@ -219,92 +218,5 @@ public class Square : MonoBehaviour
         return false;
     }
 
-    public void Deplacement(int xArrive, int yArrive, int xDepart, int yDepart)
-    {
-        List<Vector3> cheminTest = new List<Vector3>();
-        Vector3 objet = new Vector3(xArrive, yArrive, 0);
-        cheminTest.Add(objet);
-        objet = new Vector3(xDepart, yDepart, 0);
-        cheminTest.Add(objet);
 
-        //Debug.Log(xDepart + " " + yDepart + " et " + xArrive + " " + yArrive+" distance = "+ gm.DistanceEntrePoint(xArrive, yArrive, xDepart, yDepart));
-
-        if (gm.DistanceEntrePoint(xArrive, yArrive, xDepart, yDepart) != 1)
-        {
-            RecuDeplacement(cheminTest, gm.DistanceEntrePoint(xArrive, yArrive, xDepart, yDepart));
-        }
-        else
-        {
-            objet = new Vector3(xArrive, yArrive, 0);
-            cheminTest.Add(objet);
-            chemin = cheminTest;
-        }
-
-        for (int i = 0; i < chemin.Count; i++)
-        {
-            Debug.Log(chemin[i].x + " " + chemin[i].y);
-        }
-    }
-
-    public bool VerifCaseDispo(int x, int y)
-    {
-        GameObject objet = gm.GetGameObject(x, y);
-        if (objet != null && !gm.GetSelectedSquare().Equals(objet))
-        {
-            if (objet.transform.Find("FloorBase").GetComponent<SpriteRenderer>().sprite != objet.GetComponent<Square>().inaccessibleSprite)
-            {
-                Character character = objet.GetComponent<Square>().GetCharacter();
-                if ((character != null && !gm.IsEnemy(character.gameObject)) || character == null)
-                {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
-    public void RecuDeplacement(List<Vector3> cheminTest, int mouvement)
-    {
-        if (mouvement > 0)
-        {
-            if (cheminTest[cheminTest.Count - 1].y < 8)
-            {
-                List<Vector3> nouveau = new List<Vector3>(cheminTest);
-                VerifDeplacement(nouveau, (int)cheminTest[cheminTest.Count - 1].x, (int)cheminTest[cheminTest.Count - 1].y + 1, mouvement - 1);
-            }
-            if (cheminTest[cheminTest.Count - 1].y > 0)
-            {
-                List<Vector3> nouveau = new List<Vector3>(cheminTest);
-                VerifDeplacement(nouveau, (int)cheminTest[cheminTest.Count - 1].x, (int)cheminTest[cheminTest.Count - 1].y - 1, mouvement - 1);
-            }
-            if (cheminTest[cheminTest.Count - 1].x < 5)
-            {
-                List<Vector3> nouveau = new List<Vector3>(cheminTest);
-                VerifDeplacement(nouveau, (int)cheminTest[cheminTest.Count - 1].x + 1,(int) cheminTest[cheminTest.Count - 1].y,mouvement-1);
-            }
-            if (cheminTest[cheminTest.Count - 1].x > 0)
-            {
-                List<Vector3> nouveau = new List<Vector3>(cheminTest);
-                VerifDeplacement(nouveau, (int)cheminTest[cheminTest.Count - 1].x - 1, (int)cheminTest[cheminTest.Count - 1].y,mouvement-1);
-            }
-        }
-    }
-
-    public void VerifDeplacement(List<Vector3> cheminTest, int x, int y, int mouvement)
-    {
-        if (VerifCaseDispo(x, y))
-        {
-            Vector3 vecteur = new Vector3(x, y, 0);
-            cheminTest.Add(vecteur);
-            if (cheminTest[0].x == cheminTest[cheminTest.Count - 1].x && cheminTest[0].y == cheminTest[cheminTest.Count - 1].y && cheminTest.Count == gm.DistanceEntrePoint((int)cheminTest[0].x, (int)cheminTest[0].y, (int)cheminTest[1].x, (int)cheminTest[1].y) + 2 && mouvement==0)
-            {
-                chemin = new List<Vector3>(cheminTest);
-            }
-            else
-            {
-                RecuDeplacement(cheminTest, mouvement);
-            }
-
-        }
-    }
 }
