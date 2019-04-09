@@ -16,10 +16,7 @@ mongoose.connect(uri, { useNewUrlParser: true });
 
 //models
 
-var userModel = mongoose.model('user', {
-    pseudo: String,
-    password: String
-}, "User");
+var userModel = mongoose.model('user',, "User");
 
 //routage
 
@@ -33,25 +30,35 @@ app.post("/AddUser", async (request, response) => {
     }
 });
 
-// PAS ENCORE MIS A JOUR
+app.get("/GetUser", async (request, response) => {
+  try {
+        var result = await userModel.find().exec();
+        response.send(result);
 
-/*app.get("/GetUser", (request, response) => {
-  collection.find({}).toArray((error, result) => {
-    if (error) {
-      return response.status(500).send(error);
-    }
-    response.send(result);
-  });
-});*/
+} catch (error) {
+    response.statut(500).send(error);
+}
+});
 
-/*app.get("/person/:id", (request, response) => {
-  collection.findOne({ "_id": new ObjectId(request.params.id) }, (error, result) => {
-    if (error) {
-      return response.status(500).send(error);
-    }
-    response.send(result);
-  });
-});*/
+app.get("/GetUser/:id", async (request, response) => {
+   try {
+        var info = request.params.id;
+        var pseudoMDP = info.split(',');
+        var result = await userModel.find().exec();
+        var string = JSON.stringify(result);
+        var obj = JSON.parse(string);
+        for(var i in obj){
+        if(obj[i].pseudo == pseudoMDP[0] && obj[i].password == pseudoMDP[1]){
+        var id = obj[i]._id;
+        }
+        }
+        var resultUser = await userModel.findById(id).exec();
+        response.send(resultUser);
+
+} catch (error) {
+    response.statut(500).send(error);
+}
+});
 
 
 app.listen(5000, () => {
