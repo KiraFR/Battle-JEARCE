@@ -15,8 +15,22 @@ app.use(BodyParser.urlencoded({ extended: true }));
 mongoose.connect(uri, { useNewUrlParser: true });
 
 //models
-
-var userModel = mongoose.model('user',, "User");
+var personnage = new mongoose.Schema({
+    type : String
+    });
+var formation = new mongoose.Schema({
+    nom : String,
+    personnage : [personnage]});
+var joueur = new mongoose.Schema({
+    pseudo : String,
+    password : String,
+    email : String,
+    personnage : [personnage],
+    formation : [formation],
+    score : { type : Number, min : 0},
+    argent : {type : Number, min : 0}
+});
+var userModel = mongoose.model('user',joueur, "User");
 
 //routage
 
