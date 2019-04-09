@@ -17,6 +17,8 @@ public class GameManager : MonoBehaviour
     private int[,] plateauDeJeux = new int[6, 9];
     private List<Vector3> chemin = null;
 
+    public RuntimeAnimatorController selectedSquareAnim;
+
     private List<GameObject> enemies;
     private List<GameObject> allies;
     private GameObject selectedSquare = null;
@@ -367,5 +369,50 @@ public class GameManager : MonoBehaviour
     public List<Vector3> GetChemin()
     {
         return chemin;
+    }
+
+
+    public void DeplacementAttaque(int posUniteX, int posUniteY, int posEnemiX, int posEnemiY, int minDisAttaque, int maxDisAttaque)
+    {
+        int porte = maxDisAttaque - minDisAttaque;
+        if (porte == 0)
+            porte = 1;
+        RecuDeplacementAttaque(posEnemiX, posEnemiY,porte, maxDisAttaque);
+    }
+
+    public void RecuDeplacementAttaque(int posX, int posY, int porte , int mouvement)
+    {
+        if (mouvement > 0)
+        {
+            if (posX < 5)
+                VerifDeplacementAttaque(posX + 1, posY, porte, mouvement);
+            if (posY > 0)
+                VerifDeplacementAttaque(posX, posY - 1, porte, mouvement);
+            if (posX > 0)
+                VerifDeplacementAttaque(posX - 1, posY, porte, mouvement);
+            if (posY < 8)
+                VerifDeplacementAttaque(posX, posY + 1, porte, mouvement);
+        }
+    }
+
+    public void VerifDeplacementAttaque(int posX, int posY, int porte, int mouvement)
+    {
+        GameObject objet = GetGameObject(posX,posY);
+        if (objet != null && !GetSelectedSquare().Equals(objet))
+        {
+            if (objet.transform.Find("FloorBase").GetComponent<SpriteRenderer>().sprite == objet.GetComponent<Square>().moveSprite)
+            {
+                Character character = objet.GetComponent<Square>().GetCharacter();
+                if (character == null)
+                {
+                    Debug.Log(posX+" "+posY+" "+porte+" >= "+mouvement);
+                    if (porte >= mouvement)
+                    {
+                        objet.transform.Find("UnderFloor").GetComponent<Animator>().runtimeAnimatorController = objet.GetComponent<Square>().selectedSquareAnim;
+                    }
+                }
+            }
+        }
+        RecuDeplacementAttaque(posX, posY, porte ,mouvement - 1);
     }
 }

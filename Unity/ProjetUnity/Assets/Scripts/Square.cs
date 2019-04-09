@@ -58,9 +58,9 @@ public class Square : MonoBehaviour
                         {
                             lastPos = new Vector3(selectedSquare.transform.position.x, selectedSquare.transform.position.y, 0);
                             lastCharacter = selectedSquare.GetComponent<Square>().GetCharacter();
-                            int distance = (int)Mathf.Abs(lastPos.x - transform.position.x) + (int)Mathf.Abs(lastPos.y - transform.position.y);
+                            int distance = gm.DistanceEntrePoint((int)lastPos.x, (int)lastPos.y, (int)transform.position.x, (int)transform.position.y);
 
-                            //Verifie ennemi -> gm.IsEnemy(unit) + verifie a cote 
+
                             if (gm.IsEnemy(character.gameObject))
                             {
                                 if (lastCharacter.GetComponent<Character>().maxDistAttack.baseStat >= distance && lastCharacter.GetComponent<Character>().minDistAttack.baseStat <= distance)
@@ -74,6 +74,13 @@ public class Square : MonoBehaviour
                                 }
                                 else
                                 {
+
+                                    int porteMax = lastCharacter.GetComponent<Character>().movePoint.currentStat + lastCharacter.GetComponent<Character>().maxDistAttack.baseStat;
+                                    if (distance <= porteMax && lastCharacter.GetComponent<Character>().movePoint.currentStat != 0)
+                                    {
+                                        //gm.DeplacementAttaque((int)lastPos.x, (int)lastPos.y, (int)transform.position.x, (int)transform.position.y, lastCharacter.GetComponent<Character>().minDistAttack.baseStat, lastCharacter.GetComponent<Character>().maxDistAttack.baseStat);
+                                    }
+
                                     gm.ChangeMove(character.movePoint.currentStat);
                                     gm.ChangeHealth(character.healthPoint.currentStat);
                                     gm.ChangeAttack(character.attackPoint.currentStat);
