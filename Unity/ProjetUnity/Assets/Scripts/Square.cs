@@ -57,7 +57,6 @@ public class Square : MonoBehaviour
                             lastCharacter = selectedSquare.GetComponent<Square>().GetCharacter();
                             int distance = gm.DistanceEntrePoint((int)lastPos.x, (int)lastPos.y, (int)transform.position.x, (int)transform.position.y);
 
-
                             if (gm.IsEnemy(character.gameObject))
                             {
                                 if (lastCharacter.GetComponent<Character>().maxDistAttack.baseStat >= distance && lastCharacter.GetComponent<Character>().minDistAttack.baseStat <= distance)
@@ -71,11 +70,12 @@ public class Square : MonoBehaviour
                                 }
                                 else
                                 {
-
                                     int porteMax = lastCharacter.GetComponent<Character>().movePoint.currentStat + lastCharacter.GetComponent<Character>().maxDistAttack.baseStat;
                                     if (distance <= porteMax && lastCharacter.GetComponent<Character>().movePoint.currentStat != 0)
                                     {
-                                        //gm.DeplacementAttaque((int)lastPos.x, (int)lastPos.y, (int)transform.position.x, (int)transform.position.y, lastCharacter.GetComponent<Character>().minDistAttack.baseStat, lastCharacter.GetComponent<Character>().maxDistAttack.baseStat);
+                                        gm.DeplacementAttaque((int)lastPos.x, (int)lastPos.y, (int)transform.position.x, (int)transform.position.y, lastCharacter.GetComponent<Character>().minDistAttack.baseStat, lastCharacter.GetComponent<Character>().maxDistAttack.baseStat);
+                                        gm.SetCible(character);
+                                        gm.SetUnite(lastCharacter);
                                     }
 
                                     gm.ChangeMove(character.movePoint.currentStat);
@@ -89,9 +89,21 @@ public class Square : MonoBehaviour
                 else
                 {
                     GameObject selectedSquare = gm.GetSelectedSquare();
+
                     if (canMoveIn)
                     {
-                        gm.MoveCharacter(new Vector3(selectedSquare.transform.position.x, selectedSquare.transform.position.y,0f), new Vector3(transform.position.x, transform.position.y,0f));
+                        if (transform.Find("UnderFloor").GetComponent<Animator>().runtimeAnimatorController == selectedSquareAnim)
+                        {
+                            gm.MoveCharacter(new Vector3(selectedSquare.transform.position.x, selectedSquare.transform.position.y, 0f), new Vector3(transform.position.x, transform.position.y, 0f));
+                            Attaque(gm.GetCible(),gm.GetUnite());
+                            for(int i = 0; i < gm.GetCibleCase().Count; i++)
+                            {
+                                gm.GetCibleCase()[i].gameObject.transform.Find("UnderFloor").GetComponent<Animator>().runtimeAnimatorController = null;
+                            }
+                            gm.ClearCibleCase();
+                        }
+                        else
+                            gm.MoveCharacter(new Vector3(selectedSquare.transform.position.x, selectedSquare.transform.position.y,0f), new Vector3(transform.position.x, transform.position.y,0f));
                     }
                     else
                     {

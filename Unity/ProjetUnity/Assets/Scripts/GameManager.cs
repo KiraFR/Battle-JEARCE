@@ -26,6 +26,13 @@ public class GameManager : MonoBehaviour
     private bool playerTurn;
     private bool phase;
 
+    private Character cible = null;
+    private Character unite = null;
+
+    private List<GameObject> caseCible ;
+
+
+
 
     void Start()
     {
@@ -42,6 +49,7 @@ public class GameManager : MonoBehaviour
         movingTiles = new List<GameObject>();
         enemies = new List<GameObject>();
         allies = new List<GameObject>();
+        caseCible = new List<GameObject>();
         healthText = GameObject.Find("HealthText").GetComponent<Text>();
         moveText = GameObject.Find("MoveText").GetComponent<Text>();
         attackText = GameObject.Find("AttackText").GetComponent<Text>();
@@ -405,9 +413,9 @@ public class GameManager : MonoBehaviour
                 Character character = objet.GetComponent<Square>().GetCharacter();
                 if (character == null)
                 {
-                    Debug.Log(posX+" "+posY+" "+porte+" >= "+mouvement);
                     if (porte >= mouvement)
                     {
+                        AddCibleCase(objet);
                         objet.transform.Find("UnderFloor").GetComponent<Animator>().runtimeAnimatorController = objet.GetComponent<Square>().selectedSquareAnim;
                     }
                 }
@@ -434,7 +442,7 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        Debug.Log(character);
+        //Debug.Log(character);
 
         if (character != null)
         {
@@ -468,5 +476,44 @@ public class GameManager : MonoBehaviour
             SetSelectedSquare(null);
             ResetStats();
         }
+    }
+
+
+    public void SetCible(Character c)
+    {
+        cible = c;
+    }
+
+    public Character GetCible()
+    {
+        return cible;
+    }
+
+    public void SetUnite(Character c)
+    {
+        unite = c;
+    }
+
+    public Character GetUnite()
+    {
+        return unite;
+    }
+
+    public void AddCibleCase(GameObject o)
+    {
+        if (!caseCible.Contains(o))
+        {
+            caseCible.Add(o);
+        }
+    }
+
+    public List<GameObject> GetCibleCase()
+    {
+        return caseCible;
+    }
+
+    public void ClearCibleCase()
+    {
+        caseCible.Clear();
     }
 }
