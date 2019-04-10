@@ -75,6 +75,7 @@ public class NetworkManager : MonoBehaviour
 
                 if (list.Length > 0)
                 {
+                    Debug.Log(command);
                     int xStart, yStart, xFin, yFin;
                     if (list[0] == "move")
                     {
@@ -82,17 +83,7 @@ public class NetworkManager : MonoBehaviour
                         int.TryParse(list[2], out yStart);
                         int.TryParse(list[3], out xFin);
                         int.TryParse(list[4], out yFin);
-                        GameObject square = GameManager.instance.GetGameObject(xStart, yStart);
-                        GameManager.instance.Deplacement(xStart, yStart, xFin, yFin);
-                        List<Vector3> chemin = GameManager.instance.GetChemin();
-                        if (square != null)
-                        {
-                            Character character = square.GetComponent<Square>().GetCharacter();
-                            if (character != null)
-                            {
-                                GameManager.instance.MoveCharacter(character, chemin);
-                            }
-                        }
+                        GameManager.instance.MoveCharacter(new Vector3(xStart, yStart,0f),new Vector3(xFin, yFin,0f));
 
                     }
                 }
@@ -113,6 +104,7 @@ public class NetworkManager : MonoBehaviour
             if(receivedData != "")
             {
                 queueCommand.Add(receivedData);
+                Debug.Log(receivedData);
             }
         }
         Receive();

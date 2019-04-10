@@ -51,7 +51,7 @@ public class GameManager : MonoBehaviour
 
         InitGame();
         
-        playerTurn = true;
+        playerTurn = false;
     }
 
     void InitGame()
@@ -416,8 +416,57 @@ public class GameManager : MonoBehaviour
         RecuDeplacementAttaque(posX, posY, porte ,mouvement - 1);
     }
 
-    public void MoveCharacter(Character character, List<Vector3> path)
+    public void MoveCharacter(Vector3 startPos, Vector3 endPos)
+    {   
+        GameObject square = boardScript.GetGameObject((int)endPos.x, (int)endPos.y);
+        Character character = null;
+
+        if (selectedSquare != null)
+        {
+            character = selectedSquare.GetComponent<Square>().GetCharacter();
+        }
+        else
+        {
+            GameObject squareStart = boardScript.GetGameObject((int)startPos.x, (int)startPos.y);
+            if(squareStart != null)
+            {
+                character = squareStart.GetComponent<Square>().GetCharacter();
+            }
+        }
+
+        Debug.Log(character);
+
+        if (character != null)
+        {
+            square.GetComponent<Square>().SetCharacter(character);
+
+
+            ClearMovingTiles();
+
+
+            Deplacement((int)endPos.x, (int)endPos.y, (int)startPos.x, (int)startPos.y);
+            character.Move(new List<Vector3>(GetChemin()));
+
+            if (selectedSquare != null)
+            {
+                selectedSquare.GetComponent<Square>().SetCharacter(null);
+                selectedSquare.gameObject.transform.Find("UnderFloor").GetComponent<Animator>().runtimeAnimatorController = null;
+                SetSelectedSquare(null);
+            }
+            Vector3 calcul = new Vector3(Mathf.Abs(endPos.x - startPos.x), Mathf.Abs(endPos.y - startPos.y), 0);
+            int essai = Mathf.RoundToInt(calcul.x + calcul.y);
+            character.Move(essai);
+        }
+    }
+    public void MoveCharacter(Character character, Vector3 path)
     {
-        character.Move(path);
+        if (phase)
+        {
+            character.Move(path);
+            selectedSquare.GetComponent<Square>().SetCharacter(null);
+            selectedSquare.gameObject.transform.Find("UnderFloor").GetComponent<Animator>().runtimeAnimatorController = null;
+            SetSelectedSquare(null);
+            ResetStats();
+        }
     }
 }

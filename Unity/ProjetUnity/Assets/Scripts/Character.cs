@@ -66,25 +66,11 @@ public void GetAttacked(int loss)
             return movePoint.currentStat;
     }
 
-    public void Move(int used)
-    {
-        movePoint.DecreaseCurrent(used);
-
-        GameManager.instance.ChangeMove(movePoint.currentStat);
-    }
-
     public void RoundEnded()
     {
         movePoint.ResetCurrent();
     }
 
-    public void Move(List<Vector3> follow)
-    {
-        foreach (Vector3 pos in follow)
-        {
-            StartCoroutine(SmoothMovement(pos));
-        }
-    }
 
     protected IEnumerator SmoothMovement(Vector3 end)
     {
@@ -117,5 +103,29 @@ public void GetAttacked(int loss)
     {
         movePoint.ResetCurrent();
     }
+
+
+
+    public void Move(int used)
+    {
+        movePoint.DecreaseCurrent(used);
+
+        GameManager.instance.ChangeMove(movePoint.currentStat);
+    }
+    public void Move(List<Vector3> follow)
+    {
+        foreach (Vector3 pos in follow)
+        {
+            StartCoroutine(SmoothMovement(pos));
+        }
+    }
+    public void Move(Vector3 pos)
+    {
+        if (GameManager.instance.GetPhase())
+        {
+            transform.position = pos;
+        }
+    }
+
 
 }
