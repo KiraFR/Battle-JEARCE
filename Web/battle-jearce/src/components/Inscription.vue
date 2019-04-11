@@ -91,8 +91,8 @@
           console.log(response);
           router.push('/validation');
         }).catch(function (error) {
-            alert("Une erreur est survenue, l'inscription est a été interompue,\nveuillez rééseiller ulterieurement.\n" + error);
-            console.log(error);
+          alert("Une erreur est survenue, l'inscription est a été interompue,\nveuillez rééseiller ulterieurement.\n" + error);
+          console.log(error);
         });
       }
     }

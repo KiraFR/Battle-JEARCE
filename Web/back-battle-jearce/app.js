@@ -44,6 +44,8 @@ app.use(function (req, res, next) {
 app.post("/AddUser", async (request, response) => {
     try {
         var user = new userModel(request.body);
+        user.score = 0;
+        user.argent = 0;
         var result = await user.save();
         response.send(result);
     } catch (error) {
