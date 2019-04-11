@@ -41,7 +41,7 @@ app.use(function (req, res, next) {
 
 
 //routage
-app.post("/AddUser", async (request, response, next) => {
+app.post("/AddUser", async (request, response) => {
     try {
         var user = new userModel(request.body);
         var result = await user.save();
@@ -49,10 +49,9 @@ app.post("/AddUser", async (request, response, next) => {
     } catch (error) {
         response.status(500).send(error);
     }
-    next();
 });
 
-app.get("/GetUser", async (request, response, next) => {
+app.get("/GetUser", async (request, response) => {
   try {
         var result = await userModel.find().exec();
         response.send(result);
@@ -62,7 +61,7 @@ app.get("/GetUser", async (request, response, next) => {
 }
 });
 
-app.get("/GetUser/:id", async (request, response, next) => {
+app.get("/GetUser/:id", async (request, response) => {
    try {
         var info = request.params.id;
         var pseudoMDP = info.split(',');

@@ -5,8 +5,8 @@
         <b-form>
           <b-form-group id="Mail"
                         label="Mail"
-                        label-for="InputId">
-            <b-form-input id="InputId"
+                        label-for="mail">
+            <b-form-input id="mail"
                           type="email"
                           required
                           placeholder="enter email">
