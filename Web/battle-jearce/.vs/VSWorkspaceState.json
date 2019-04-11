@@ -1,12 +1,13 @@
 {
   "ExpandedNodes": [
     "",
+    "\\build",
     "\\config",
     "\\src",
     "\\src\\assets",
     "\\src\\components",
     "\\src\\router"
   ],
-  "SelectedNode": "\\src\\main.js",
+  "SelectedNode": "\\src\\components\\Inscription.vue",
   "PreviewInSolutionExplorer": false
 }

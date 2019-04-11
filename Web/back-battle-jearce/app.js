@@ -30,21 +30,29 @@ var joueur = new mongoose.Schema({
     score : { type : Number, min : 0},
     argent : {type : Number, min : 0}
 });
-var userModel = mongoose.model('user',joueur, "User");
+var userModel = mongoose.model('user', joueur, "User");
+
+//paramettrage proxy
+app.use(function (req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
+
 
 //routage
-
-app.post("/AddUser", async (request, response) => {
+app.post("/AddUser", async (request, response, next) => {
     try {
-        var user = new userModel(request.headers);//headers pour POST surement params pour get(pas encore testé)
+        var user = new userModel(request.body);
         var result = await user.save();
         response.send(result);
     } catch (error) {
         response.status(500).send(error);
     }
+    next();
 });
 
-app.get("/GetUser", async (request, response) => {
+app.get("/GetUser", async (request, response, next) => {
   try {
         var result = await userModel.find().exec();
         response.send(result);
@@ -54,7 +62,7 @@ app.get("/GetUser", async (request, response) => {
 }
 });
 
-app.get("/GetUser/:id", async (request, response) => {
+app.get("/GetUser/:id", async (request, response, next) => {
    try {
         var info = request.params.id;
         var pseudoMDP = info.split(',');

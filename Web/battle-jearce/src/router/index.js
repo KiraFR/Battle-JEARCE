@@ -15,6 +15,9 @@ import Connexion from '@/components/Connexion'
 import Reglement from '@/components/Reglement'
 import Contact from '@/components/Contact'
 
+import VueAxios from 'vue-axios';
+import axios from 'axios';
+Vue.use(VueAxios, axios);
 Vue.use(Router)
 Vue.use(BootstrapVue)
 
