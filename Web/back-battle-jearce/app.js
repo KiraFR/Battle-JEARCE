@@ -70,7 +70,7 @@ app.get("/GetUser/:id", async (request, response, next) => {
         var string = JSON.stringify(result);
         var obj = JSON.parse(string);
         for(var i in obj){
-        if(obj[i].pseudo == pseudoMDP[0] && obj[i].password == pseudoMDP[1]){
+        if(obj[i].email == pseudoMDP[0] && obj[i].password == pseudoMDP[1]){
         var id = obj[i]._id;
         }
         }
