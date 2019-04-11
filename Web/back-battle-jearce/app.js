@@ -1,5 +1,6 @@
 //import
 const Express = require("express");
+var session = require('express-session');
 const BodyParser = require("body-parser");
 const app = Express();
 var mongoose = require("mongoose");
@@ -8,6 +9,14 @@ const uri = "mongodb+srv://AdminDB:AdminDB@cluster0-0nx9f.mongodb.net/Jearce?ret
 
 //parametrage
 
+
+app.use(session({
+    secret: 'omegalul',
+    name: 'salut',
+    proxy: true,
+    resave: true,
+    saveUninitialized: true
+}));
 app.use(BodyParser.json());
 app.use(BodyParser.urlencoded({ extended: true }));
 
@@ -15,6 +24,7 @@ app.use(BodyParser.urlencoded({ extended: true }));
 mongoose.connect(uri, { useNewUrlParser: true });
 
 //models
+var sess;
 var personnage = new mongoose.Schema({
     type : String
     });
@@ -43,10 +53,12 @@ app.use(function (req, res, next) {
 //routage
 app.post("/AddUser", async (request, response) => {
     try {
+        sess = request.session;
         var user = new userModel(request.body);
         user.score = 0;
         user.argent = 0;
         var result = await user.save();
+        sess = result;
         response.send(result);
     } catch (error) {
         response.status(500).send(error);
@@ -64,7 +76,8 @@ app.get("/GetUser", async (request, response) => {
 });
 
 app.get("/GetUser/:id", async (request, response) => {
-   try {
+    try {
+        sess = request.session;
         var info = request.params.id;
         var pseudoMDP = info.split(',');
         var result = await userModel.find().exec();
@@ -76,6 +89,7 @@ app.get("/GetUser/:id", async (request, response) => {
         }
         }
         var resultUser = await userModel.findById(id).exec();
+        sess = resultUser;
         response.send(resultUser);
 
 } catch (error) {
