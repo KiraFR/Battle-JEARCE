@@ -14,6 +14,7 @@ import Inscription from '@/components/Inscription'
 import Connexion from '@/components/Connexion'
 import Reglement from '@/components/Reglement'
 import Contact from '@/components/Contact'
+import Validation from '@/components/Validation'
 
 import VueAxios from 'vue-axios';
 import axios from 'axios';
@@ -95,8 +96,13 @@ export default new Router({
             body: Boutique,
             navBar: Navbar
           }
-        }
+        },
       ]
     },
+    {
+      path: '/Validation',
+      name: 'validation',
+      component: Validation,
+    }
   ]
 })
