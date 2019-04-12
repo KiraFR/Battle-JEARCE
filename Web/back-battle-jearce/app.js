@@ -25,12 +25,18 @@ mongoose.connect(uri, { useNewUrlParser: true });
 
 //models
 var sess;
+var objet = new mongoose.Schema({
+    nom: String,
+    description: String
+});
 var personnage = new mongoose.Schema({
     type : String
     });
 var formation = new mongoose.Schema({
     nom : String,
-    personnage : [personnage]});
+    personnage: [personnage],
+    objet: [objet]
+});
 var joueur = new mongoose.Schema({
     pseudo : String,
     password : String,
@@ -40,6 +46,9 @@ var joueur = new mongoose.Schema({
     score : { type : Number, min : 0},
     argent : {type : Number, min : 0}
 });
+var formationModel = mongoose.model('Formation', formation, "Formation");
+var itemModel = mongoose.model('Item', objet, "Item");
+var characterModel = mongoose.model('Character', personnage, "Character");
 var userModel = mongoose.model('user', joueur, "User");
 
 //paramettrage proxy
@@ -64,6 +73,46 @@ app.post("/AddUser", async (request, response) => {
         response.status(500).send(error);
     }
 });
+
+app.post("/AddCharacter", async (request, response) => {
+    try {
+        var character = new characterModel(request.body);
+        var result = await character.save();
+        response.send(result);
+    } catch (error) {
+        response.status(500).send(error);
+    }
+});
+
+app.post("/AddItem", async (request, response) => {
+    try {
+        var item = new itemModel(request.body);
+        var result = await item.save();
+        response.send(result);
+    } catch (error) {
+        response.status(500).send(error);
+    }
+});
+
+app.post("/AddFormation", async (request, response) => {
+    try {
+        var formation = new formationModel(request.body);
+        var result = await character.save();
+        sess.formation.add(result._id);
+        response.send(result);
+    } catch (error) {
+        response.status(500).send(error);
+    }
+});
+
+app.put("/MajUser", async (request, response) => {
+    try { 
+        response.send(sess);
+    } catch (error) {
+        response.status(500).send(error);
+    }
+});
+
 
 app.get("/GetUser", async (request, response) => {
   try {
