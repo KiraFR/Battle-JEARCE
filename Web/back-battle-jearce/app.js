@@ -75,6 +75,30 @@ app.get("/GetUser", async (request, response) => {
 }
 });
 
+app.get("/GetSession", async (request, response) => {
+    try {
+        if (sess == null) {
+            var vide = "la variable session est vide";
+            reponse.send(vide);
+        } else {
+            response.send(sess);
+        }
+    } catch (error) {
+        response.statut(500).send(error);
+    }
+});
+
+app.delete("/DeleteSession", async (request, response) => {
+    try {
+        sess.destroy();
+        var result = "session supprimer";
+        response.send(result);
+
+    } catch (error) {
+        response.statut(500).send(error);
+    }
+});
+
 app.get("/GetUser/:id", async (request, response) => {
     try {
         sess = request.session;
