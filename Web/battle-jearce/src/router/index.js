@@ -15,6 +15,7 @@ import Connexion from '@/components/Connexion'
 import Reglement from '@/components/Reglement'
 import Contact from '@/components/Contact'
 import Validation from '@/components/Validation'
+import Formation from '@/components/Formation'
 
 import VueAxios from 'vue-axios';
 import axios from 'axios';
@@ -97,6 +98,14 @@ export default new Router({
             navBar: Navbar
           }
         },
+        {
+          path: 'Formation',
+          components: {
+            default: Header,
+            body: Boutique,
+            navBar: Navbar
+          }
+        }
       ]
     },
     {

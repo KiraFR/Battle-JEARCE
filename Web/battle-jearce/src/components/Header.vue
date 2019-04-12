@@ -5,9 +5,12 @@
         <router-link to="/Battle-Jearce/Accueil" class="lien"><h1>Battle-JEARCE</h1></router-link>
       </b-col>
       <b-col lg="3" offset-lg="4" align-self="center">
-          <b-nav>
+          <b-nav v-show=connected>
               <b-nav-item><router-link to="/Battle-Jearce/Inscription" class="lien">S'inscrire</router-link></b-nav-item>
               <b-nav-item><router-link to="/Battle-Jearce/Connexion" class="lien">Se connecter</router-link></b-nav-item>
+          </b-nav>
+          <b-nav v-show=connected>
+            <b-nav-item><router-link to="" class="lien">Se deconnecter</router-link></b-nav-item>
           </b-nav>
       </b-col>
     </b-row>
@@ -16,7 +19,14 @@
 
 <script>
   export default {
-   
+    /*data: {
+      connected:true
+    }*/
+    methods: {
+      connected() {
+
+      }
+    }
   }
 </script>
 
