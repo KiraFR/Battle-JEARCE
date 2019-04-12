@@ -1,5 +1,6 @@
 //import
 const Express = require("express");
+var session = require('express-session');
 const BodyParser = require("body-parser");
 const app = Express();
 var mongoose = require("mongoose");
@@ -8,6 +9,14 @@ const uri = "mongodb+srv://AdminDB:AdminDB@cluster0-0nx9f.mongodb.net/Jearce?ret
 
 //parametrage
 
+
+app.use(session({
+    secret: 'omegalul',
+    name: 'salut',
+    proxy: true,
+    resave: true,
+    saveUninitialized: true
+}));
 app.use(BodyParser.json());
 app.use(BodyParser.urlencoded({ extended: true }));
 
@@ -15,12 +24,19 @@ app.use(BodyParser.urlencoded({ extended: true }));
 mongoose.connect(uri, { useNewUrlParser: true });
 
 //models
+var sess;
+var objet = new mongoose.Schema({
+    nom: String,
+    description: String
+});
 var personnage = new mongoose.Schema({
     type : String
     });
 var formation = new mongoose.Schema({
     nom : String,
-    personnage : [personnage]});
+    personnage: [personnage],
+    objet: [objet]
+});
 var joueur = new mongoose.Schema({
     pseudo : String,
     password : String,
@@ -30,6 +46,9 @@ var joueur = new mongoose.Schema({
     score : { type : Number, min : 0},
     argent : {type : Number, min : 0}
 });
+var formationModel = mongoose.model('Formation', formation, "Formation");
+var itemModel = mongoose.model('Item', objet, "Item");
+var characterModel = mongoose.model('Character', personnage, "Character");
 var userModel = mongoose.model('user', joueur, "User");
 
 //paramettrage proxy
@@ -43,15 +62,57 @@ app.use(function (req, res, next) {
 //routage
 app.post("/AddUser", async (request, response) => {
     try {
+        sess = request.session;
         var user = new userModel(request.body);
         user.score = 0;
         user.argent = 0;
         var result = await user.save();
+        sess = result;
         response.send(result);
     } catch (error) {
         response.status(500).send(error);
     }
 });
+
+app.post("/AddCharacter", async (request, response) => {
+    try {
+        var character = new characterModel(request.body);
+        var result = await character.save();
+        response.send(result);
+    } catch (error) {
+        response.status(500).send(error);
+    }
+});
+
+app.post("/AddItem", async (request, response) => {
+    try {
+        var item = new itemModel(request.body);
+        var result = await item.save();
+        response.send(result);
+    } catch (error) {
+        response.status(500).send(error);
+    }
+});
+
+app.post("/AddFormation", async (request, response) => {
+    try {
+        var formation = new formationModel(request.body);
+        var result = await character.save();
+        sess.formation.add(result._id);
+        response.send(result);
+    } catch (error) {
+        response.status(500).send(error);
+    }
+});
+
+app.put("/MajUser", async (request, response) => {
+    try { 
+        response.send(sess);
+    } catch (error) {
+        response.status(500).send(error);
+    }
+});
+
 
 app.get("/GetUser", async (request, response) => {
   try {
@@ -63,8 +124,33 @@ app.get("/GetUser", async (request, response) => {
 }
 });
 
+app.get("/GetSession", async (request, response) => {
+    try {
+        if (sess == null) {
+            var vide = "la variable session est vide";
+            reponse.send(vide);
+        } else {
+            response.send(sess);
+        }
+    } catch (error) {
+        response.statut(500).send(error);
+    }
+});
+
+app.delete("/DeleteSession", async (request, response) => {
+    try {
+        sess.destroy();
+        var result = "session supprimer";
+        response.send(result);
+
+    } catch (error) {
+        response.statut(500).send(error);
+    }
+});
+
 app.get("/GetUser/:id", async (request, response) => {
-   try {
+    try {
+        sess = request.session;
         var info = request.params.id;
         var pseudoMDP = info.split(',');
         var result = await userModel.find().exec();
@@ -76,6 +162,7 @@ app.get("/GetUser/:id", async (request, response) => {
         }
         }
         var resultUser = await userModel.findById(id).exec();
+        sess = resultUser;
         response.send(resultUser);
 
 } catch (error) {
