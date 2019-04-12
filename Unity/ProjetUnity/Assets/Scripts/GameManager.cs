@@ -516,4 +516,16 @@ public class GameManager : MonoBehaviour
     {
         caseCible.Clear();
     }
+
+    public void IniUnites()
+    {
+        for(int i = 0; i < enemies.Count; i++)
+        {
+            enemies[i].GetComponent<Character>().naPasJouer.currentStat = 0;
+        }
+        for (int i = 0; i < allies.Count; i++)
+        {
+            allies[i].GetComponent<Character>().naPasJouer.currentStat = 0;
+        }
+    }
 }

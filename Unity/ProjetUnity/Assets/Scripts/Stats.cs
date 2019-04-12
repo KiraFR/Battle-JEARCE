@@ -39,4 +39,9 @@ public class Stats
     {
         currentStat = baseStat;
     }
+
+    public static implicit operator Stats(int v)
+    {
+        throw new NotImplementedException();
+    }
 }

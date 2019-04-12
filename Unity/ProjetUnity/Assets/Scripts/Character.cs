@@ -14,6 +14,8 @@ public class Character : MonoBehaviour
     public Stats minDistAttack;
     public Stats maxDistAttack;
 
+    public Stats naPasJouer;
+
     public Equipement equipement;
     public GameObject canvas;
     public Sprite ally;

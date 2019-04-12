@@ -37,6 +37,8 @@ public class ButtonManager : MonoBehaviour
     public void EndTurn()
     {
         GameManager.instance.EndTurn();
+        GameManager gm = GameManager.instance;
+        gm.IniUnites();
         confirmationCanvas.SetActive(false);
         StartCoroutine("TurnStart");
     }
