@@ -151,6 +151,8 @@ MonoBehaviour:
     currentStat: 2
   equipement: {fileID: 0}
   canvas: {fileID: 8668104189063890159, guid: 91d73eab9d0c1934b92194b67493d260, type: 3}
+  canvasHp: {fileID: 8668104189063890159, guid: 709259a782dd1d1488fe580dd9b9a56b,
+    type: 3}
   ally: {fileID: 21300000, guid: 1b23954e0a115424682a5a5869d2baef, type: 3}
   enemy: {fileID: 21300000, guid: c72865c7363452c4f9306fe71b262eb5, type: 3}
   moveTime: 0.1

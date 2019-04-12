@@ -69,7 +69,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1938468711
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -151,8 +151,8 @@ MonoBehaviour:
     currentStat: 1
   equipement: {fileID: 0}
   canvas: {fileID: 8668104189063890159, guid: 91d73eab9d0c1934b92194b67493d260, type: 3}
+  canvasHp: {fileID: 8668104189063890159, guid: 709259a782dd1d1488fe580dd9b9a56b,
+    type: 3}
   ally: {fileID: 21300000, guid: 1b23954e0a115424682a5a5869d2baef, type: 3}
   enemy: {fileID: 21300000, guid: c72865c7363452c4f9306fe71b262eb5, type: 3}
-  healthText: {fileID: 0}
-  moveText: {fileID: 0}
   moveTime: 0.1

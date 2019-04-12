@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
+
 
 public class Character : MonoBehaviour
 {
@@ -17,6 +19,8 @@ public class Character : MonoBehaviour
     public Sprite ally;
     public Sprite enemy;
 
+    private TextMeshProUGUI healthTextPerUnit;
+
     public float moveTime = .1f;
 
     private float inverseMoveTime;
@@ -27,25 +31,28 @@ public class Character : MonoBehaviour
     {
         inverseMoveTime = 0.8f / moveTime;
         rb2D = GetComponent<Rigidbody2D>();
-        
     }
     void Awake()
     {
         GameObject canvasGO = Instantiate(canvas, transform.position, Quaternion.identity);
         canvasGO.transform.SetParent(transform);
         image = canvasGO.transform.GetChild(0).gameObject.GetComponent<Image>();
+
+        healthTextPerUnit = canvasGO.transform.Find("ImageHealth").transform.Find("HealthTextPerUnit").GetComponent<TextMeshProUGUI>();
     }
 
-public void GetAttacked(int loss)
+    public void GetAttacked(int loss)
     {
         healthPoint.DecreaseCurrent(loss);
 
+        healthTextPerUnit.SetText(healthPoint.currentStat.ToString());
+
         GameManager.instance.ChangeHealth(healthPoint.currentStat);
     }
-    
+
     public int GethealthPointwithEquipement()
     {
-        if (equipement!=null)
+        if (equipement != null)
             return equipement.healthPoint.currentStat + healthPoint.currentStat;
         else
             return healthPoint.currentStat;
@@ -53,7 +60,7 @@ public void GetAttacked(int loss)
 
     public int GetAttackPointwithEquipement()
     {
-        if (equipement!=null)
+        if (equipement != null)
             return equipement.attackPoint.currentStat + attackPoint.currentStat;
         else
             return attackPoint.currentStat;
@@ -86,7 +93,7 @@ public void GetAttacked(int loss)
     }
 
 
-    public void SetState (bool isAlly)
+    public void SetState(bool isAlly)
     {
         if (isAlly)
         {
@@ -96,6 +103,7 @@ public void GetAttacked(int loss)
         {
             image.sprite = enemy;
         }
+        healthTextPerUnit.SetText(healthPoint.currentStat.ToString());
     }
 
 
