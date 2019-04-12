@@ -102,7 +102,7 @@ export default new Router({
           path: 'Formation',
           components: {
             default: Header,
-            body: Boutique,
+            body: Formation,
             navBar: Navbar
           }
         }
