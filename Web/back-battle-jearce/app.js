@@ -32,21 +32,16 @@ var objet = new mongoose.Schema({
 var personnage = new mongoose.Schema({
     type : String
     });
-var formation = new mongoose.Schema({
-    nom : String,
-    personnage: [personnage],
-    objet: [objet]
-});
 var joueur = new mongoose.Schema({
     pseudo : String,
     password : String,
     email : String,
     personnage : [personnage],
-    formation : [formation],
+    formation: [JSON],
+    amie: [JSON],
     score : { type : Number, min : 0},
     argent : {type : Number, min : 0}
 });
-var formationModel = mongoose.model('Formation', formation, "Formation");
 var itemModel = mongoose.model('Item', objet, "Item");
 var characterModel = mongoose.model('Character', personnage, "Character");
 var userModel = mongoose.model('user', joueur, "User");
@@ -64,6 +59,7 @@ app.post("/AddUser", async (request, response) => {
     try {
         sess = request.session;
         var user = new userModel(request.body);
+        console.log(user);
         user.score = 0;
         user.argent = 0;
         var result = await user.save();
@@ -96,23 +92,31 @@ app.post("/AddItem", async (request, response) => {
 
 app.post("/AddFormation", async (request, response) => {
     try {
-        var formation = new formationModel(request.body);
-        var result = await character.save();
-        sess.formation.add(result._id);
+        sess.formation.push(request.body);
+        console.log(sess);
+        var update = new userModel(sess);
+        var result = await update.save();
+        sess = null;
+        sess = result;
+        console.log(result);
         response.send(result);
     } catch (error) {
         response.status(500).send(error);
     }
 });
 
-app.put("/MajUser", async (request, response) => {
-    try { 
-        response.send(sess);
+app.get("/GetClassement", async (request, response) => {
+    try {
+        if (sess == null) {
+            var json = { classementMondial: [JSON] };
+
+        }
+        response.send(result);
+
     } catch (error) {
-        response.status(500).send(error);
+        response.statut(500).send(error);
     }
 });
-
 
 app.get("/GetUser", async (request, response) => {
   try {
@@ -163,6 +167,7 @@ app.get("/GetUser/:id", async (request, response) => {
         }
         var resultUser = await userModel.findById(id).exec();
         sess = resultUser;
+        console.log(sess);
         response.send(resultUser);
 
 } catch (error) {
