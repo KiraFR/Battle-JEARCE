@@ -9,7 +9,9 @@ const uri = "mongodb+srv://AdminDB:AdminDB@cluster0-0nx9f.mongodb.net/Jearce?ret
 
 //parametrage
 
-
+function tri(a, b) {
+    return b.score - a.score;
+}
 app.use(session({
     secret: 'omegalul',
     name: 'salut',
@@ -27,7 +29,8 @@ mongoose.connect(uri, { useNewUrlParser: true });
 var sess;
 var objet = new mongoose.Schema({
     nom: String,
-    description: String
+    description: String,
+    boost: Number
 });
 var personnage = new mongoose.Schema({
     type : String
@@ -108,12 +111,28 @@ app.post("/AddFormation", async (request, response) => {
 app.get("/GetClassement", async (request, response) => {
     try {
         if (sess == null) {
-            var json = { classementMondial: [JSON] };
+            var result = await userModel.find().exec();
+            result.sort(tri);
+            response.send(result);
+        } else {
+            var result = await userModel.find().exec();
+            result.sort(tri);
 
+            for (var i in result) {
+                if (result[i]._id == sess._id) {
+                    var position = i;
+                    var integer = parseInt(position, 10)
+                    integer += 1;
+                }
+            }
+
+            var resultuser = { "position": integer, "users": result };
+            response.send(resultuser);
         }
-        response.send(result);
+        
+    }
 
-    } catch (error) {
+     catch (error) {
         response.statut(500).send(error);
     }
 });
