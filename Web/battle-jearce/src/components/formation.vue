@@ -39,6 +39,7 @@
             </b-form-input>
           </b-form-group>
 
+
           <b-button type="submit" v-on:click="senddata" variant="light">Submit</b-button>
         </b-form>
       </b-col>
@@ -48,11 +49,13 @@
 
 <script>
   export default {
-    data: {
-      p1: '',
-      p2: '',
-      p3: '',
-      p4: ''
+    data() {
+      return {
+        p1: '',
+        p2: '',
+        p3: '',
+        p4: ''
+      }
     },
     methods:{
       senddata() {
