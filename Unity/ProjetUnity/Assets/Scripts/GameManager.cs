@@ -147,11 +147,9 @@ public class GameManager : MonoBehaviour
 
     public void RemoveFromEnemies(GameObject unit)
     {
-        Debug.Log(enemies.Count);
         if (enemies.Contains(unit))
         {
             enemies.Remove(unit);
-            Debug.Log(enemies.Count);
         }
     }
 
