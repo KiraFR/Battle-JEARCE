@@ -162,13 +162,12 @@ app.get("/GetUser/:id", async (request, response) => {
         var obj = JSON.parse(string);
         for(var i in obj){
         if(obj[i].email == pseudoMDP[0] && obj[i].password == pseudoMDP[1]){
-        var id = obj[i]._id;
+            var resultUser = obj[i];
         }
         }
-        var resultUser = await userModel.findById(id).exec();
+        
         sess = resultUser;
-        console.log(sess);
-        response.send(resultUser);
+        response.send(sess);
 
 } catch (error) {
     response.statut(500).send(error);
