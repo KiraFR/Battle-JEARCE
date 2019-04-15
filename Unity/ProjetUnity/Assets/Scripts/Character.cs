@@ -24,7 +24,6 @@ public class Character : MonoBehaviour
     private TextMeshProUGUI healthTextPerUnit;
 
     public float moveTime = .1f;
-
     private float inverseMoveTime;
     private Rigidbody2D rb2D;
     private Image image;
@@ -43,13 +42,26 @@ public class Character : MonoBehaviour
         healthTextPerUnit = canvasGO.transform.Find("ImageHealth").transform.Find("HealthTextPerUnit").GetComponent<TextMeshProUGUI>();
     }
 
-    public void GetAttacked(int loss)
-    {
+    public bool GetAttacked(int loss)
+    {        
         healthPoint.DecreaseCurrent(loss);
-
         healthTextPerUnit.SetText(healthPoint.currentStat.ToString());
-
         GameManager.instance.ChangeHealth(healthPoint.currentStat);
+        if (healthPoint.currentStat <= 0)
+        {
+            Destroy(gameObject);
+            if(image.sprite == ally)
+            {
+                GameManager.instance.RemoveFromAllies(gameObject);
+            }
+            else
+            {
+                GameManager.instance.RemoveFromEnemies(gameObject);
+            }
+            
+            return true;
+        }
+        return false;
     }
 
     public int GethealthPointwithEquipement()
@@ -136,6 +148,5 @@ public class Character : MonoBehaviour
             transform.position = pos;
         }
     }
-
 
 }

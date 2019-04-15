@@ -59,7 +59,7 @@ public class GameManager : MonoBehaviour
 
         InitGame();
         
-        playerTurn = false;
+        playerTurn = true;
     }
 
     void InitGame()
@@ -141,6 +141,25 @@ public class GameManager : MonoBehaviour
         if (!allies.Contains(unit))
         {
             allies.Add(unit);
+        }
+    }
+
+
+    public void RemoveFromEnemies(GameObject unit)
+    {
+        Debug.Log(enemies.Count);
+        if (enemies.Contains(unit))
+        {
+            enemies.Remove(unit);
+            Debug.Log(enemies.Count);
+        }
+    }
+
+    public void RemoveFromAllies(GameObject unit)
+    {
+        if (allies.Contains(unit))
+        {
+            allies.Remove(unit);
         }
     }
 

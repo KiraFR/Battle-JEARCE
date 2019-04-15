@@ -207,13 +207,7 @@ public class Square : MonoBehaviour
 
     public bool Attaque(Character enemi, Character charac)
     {
-        enemi.GetComponent<Character>().healthPoint.currentStat = enemi.GetComponent<Character>().healthPoint.currentStat - charac.GetComponent<Character>().attackPoint.baseStat;
-        if (enemi.GetComponent<Character>().healthPoint.currentStat <= 0)
-        {
-            Destroy(enemi.gameObject);
-            return true;
-        }
-        return false;
+        return enemi.GetAttacked(charac.GetComponent<Character>().attackPoint.baseStat);
     }
 
 
