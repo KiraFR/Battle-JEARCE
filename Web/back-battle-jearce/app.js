@@ -12,6 +12,11 @@ const uri = "mongodb+srv://AdminDB:AdminDB@cluster0-0nx9f.mongodb.net/Jearce?ret
 function tri(a, b) {
     return b.score - a.score;
 }
+var initperso = [{ "personnage": "5cb59bbe1c9d4400009738d6", "nombre": 1 },
+    { "personnage": "5cb59bdc1c9d4400009738d7", "nombre": 1 },
+    { "personnage": "5cb59bef1c9d4400009738d8", "nombre": 1 },
+    { "personnage": "5cb59bfd1c9d4400009738d9", "nombre": 1 },
+    { "personnage": "5cb59c0c1c9d4400009738da", "nombre": 1 },]
 app.use(session({
     secret: 'omegalul',
     name: 'salut',
@@ -36,10 +41,11 @@ var personnage = new mongoose.Schema({
     type : String
     });
 var joueur = new mongoose.Schema({
-    pseudo : String,
-    password : String,
-    email : String,
-    personnage : [personnage],
+    pseudo: String,
+    password: String,
+    email: String,
+    objet: [String],
+    personnage: [{ "personnage": String, "nombre": Number }] ,
     formation: [JSON],
     amie: [JSON],
     score : { type : Number, min : 0},
@@ -60,12 +66,45 @@ app.use(function (req, res, next) {
 //routage
 app.post("/AddUser", async (request, response) => {
     try {
+        console.log(initperso);
         sess = request.session;
         var user = new userModel(request.body);
-        console.log(user);
         user.score = 0;
         user.argent = 0;
+        user.personnage = initperso;
         var result = await user.save();
+        sess = result;
+        response.send(result);
+    } catch (error) {
+        response.status(500).send(error);
+    }
+});
+
+app.post("/AddUserItem", async (request, response) => {
+    try {
+        sess.objet.push(request.body._id);
+        var update = new userModel(sess);
+        var result = await update.save();
+        sess = null;
+        sess = result;
+        response.send(result);
+    } catch (error) {
+        response.status(500).send(error);
+    }
+});
+
+app.post("/AddUserCharacter", async (request, response) => {
+    try {
+        for (var i in sess.personnage) {
+            for (var j in request.body) {
+                if (sess.personnage[i].personnage == request.body[j].personnage) {
+                    sess.personnage[i].nombre += request.body[j].nombre;
+                }
+            }
+        }
+        var update = new userModel(sess);
+        var result = await update.save();
+        sess = null;
         sess = result;
         response.send(result);
     } catch (error) {
@@ -96,12 +135,10 @@ app.post("/AddItem", async (request, response) => {
 app.post("/AddFormation", async (request, response) => {
     try {
         sess.formation.push(request.body);
-        console.log(sess);
         var update = new userModel(sess);
         var result = await update.save();
         sess = null;
         sess = result;
-        console.log(result);
         response.send(result);
     } catch (error) {
         response.status(500).send(error);
