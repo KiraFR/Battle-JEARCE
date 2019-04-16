@@ -2,16 +2,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SocialPlatforms;
 using Random = UnityEngine.Random;
 
 
 public class BoardManager : MonoBehaviour
 {
-
     public int columns = 6;
     public int rows = 9;
     public int nbObstacles;
     public GameObject floorTiles;
+
+
     private List<GameObject> units;
 
     // Every Floor's gameObject from Vector3
@@ -84,42 +86,6 @@ public class BoardManager : MonoBehaviour
 
         PlacementSquares(placement);
     }
-
-
-    //Method that will first add obstacles randomly before checking is the board is blocked
-    //If so then it'll call the method isBlocked() that will remove one obstacle to set the board playable
-    void RandomObstaclesSetup()
-    {
-
-        obstacles.Clear();
-        for (int i = 0; i < nbObstacles; i++)
-        {
-            int x = Random.Range(0, columns);   //Choosing a random x
-            int y = Random.Range(2, rows - 2);  //Choosing a random y letting some space for the spawn of characters
-
-            Vector3 randomPosition = new Vector3(x, y, 0f);
-
-            GameObject obstacle = GetGameObject((int)randomPosition.x, (int)randomPosition.y);
-            obstacles.Add(obstacle);    //Adding our obstacle in the global obstacles list
-
-            if (obstacle != null)
-            {
-                obstacle.transform.Find("FloorBase").GetComponent<SpriteRenderer>().sprite = obstacle.GetComponent<Square>().inaccessibleSprite;
-            }
-        }
-
-
-        for (int i = 0; i < obstacles.Count; i++)   //Condition to verify to start the isBlocked() method
-        {
-            if ((int)obstacles[i].transform.position.x == 0)  //Condition to verify to start the isBlocked() method
-            {
-                int increment = 1;  //increment that will count the number of obstacles that can block the board (blocked if increment = columns)
-                isBlocked(obstacles[i], increment);
-            }
-        }
-
-    }
-
 
     /*
      * Placement : 
@@ -284,12 +250,10 @@ public class BoardManager : MonoBehaviour
     {
         int i = Random.Range(0, 4);
         if (i == 0)
-            RandomObstaclesSetup();
-        else if (i == 1)
             ObstaclesSetup1();
-        else if (i == 2)
+        else if (i == 1)
             ObstaclesSetup2();
-        else if (i == 3)
+        else if (i == 2)
             ObstaclesSetup3();
         else
             ObstaclesSetup4();
@@ -371,4 +335,5 @@ public class BoardManager : MonoBehaviour
             }
         }
     }
+
 }

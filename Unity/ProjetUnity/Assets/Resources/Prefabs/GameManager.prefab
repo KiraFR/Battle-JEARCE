@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boardScript: {fileID: 6276495806716407530}
+  selectedSquareAnim: {fileID: 0}
 --- !u!114 &6276495806716407530
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -62,3 +63,7 @@ MonoBehaviour:
   nbObstacles: 10
   floorTiles: {fileID: 2549434862602930489, guid: af9d3d7a468b37547ab98536b9d0bad9,
     type: 3}
+  spritesFloor:
+  - {fileID: 21300000, guid: 0f6c0256e4f28b34a8be7240fb881003, type: 3}
+  - {fileID: 21300002, guid: 0f6c0256e4f28b34a8be7240fb881003, type: 3}
+  - {fileID: 21300006, guid: 0f6c0256e4f28b34a8be7240fb881003, type: 3}
