@@ -184,6 +184,16 @@ app.get("/GetUser", async (request, response) => {
 }
 });
 
+app.get("/GetCharacter", async (request, response) => {
+    try {
+        var result = await characterModel.find().exec();
+        response.send(result);
+
+    } catch (error) {
+        response.statut(500).send(error);
+    }
+});
+
 app.get("/GetSession", async (request, response) => {
     try {
         if (sess == null) {
