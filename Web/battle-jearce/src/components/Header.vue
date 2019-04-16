@@ -9,7 +9,7 @@
               <b-nav-item><router-link to="/Battle-Jearce/Inscription" class="lien">S'inscrire</router-link></b-nav-item>
               <b-nav-item><router-link to="/Battle-Jearce/Connexion" class="lien">Se connecter</router-link></b-nav-item>
           </b-nav>
-          <b-nav v-show=connected>
+          <b-nav v-show=!connected>
             <b-nav-item><router-link to="" class="lien">Se deconnecter</router-link></b-nav-item>
           </b-nav>
       </b-col>
@@ -19,11 +19,13 @@
 
 <script>
   export default {
-    /*data: {
-      connected:true
-    }*/
+    data() {
+      return {
+        connected: true
+      }
+    },
     methods: {
-      connected() {
+      setConnected() {
 
       }
     }
