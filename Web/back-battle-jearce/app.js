@@ -194,6 +194,16 @@ app.get("/GetCharacter", async (request, response) => {
     }
 });
 
+app.get("/GetItem", async (request, response) => {
+    try {
+        var result = await itemModel.find().exec();
+        response.send(result);
+
+    } catch (error) {
+        response.statut(500).send(error);
+    }
+});
+
 app.get("/GetSession", async (request, response) => {
     try {
         if (sess == null) {
