@@ -42,7 +42,6 @@
       verifConnexion() {
         alert("pass");
         var router = this.$router;
-        
         var data = this.email + "," + this.password;
         this.axios({
           url: "http://localhost:5000/GetUser/" + data,

@@ -71,7 +71,6 @@
     methods: {
       senddata() {
         var router = this.$router;
-        
         this.axios({
           url: "http://localhost:5000/AddUser",
           method: "post",
