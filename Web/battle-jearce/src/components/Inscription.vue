@@ -71,19 +71,13 @@
     methods: {
       senddata() {
         var router = this.$router;
-        var crypto = require('crypto');
-        var text = this.password;
-        var algorithm = 'aes256';
-        var cle = "fUjXn2r5u7x!A%D*";
-        var cipher = crypto.createCipher(algorithm, cle);
-        var crypted = cipher.update(text, 'utf8', 'hex');
-        crypted += cipher.final('hex');
+        
         this.axios({
           url: "http://localhost:5000/AddUser",
           method: "post",
           data: {
             pseudo: this.pseudo,
-            password: crypted,
+            password: this.password,
             email: this.email
           },
           useCredentails: true
