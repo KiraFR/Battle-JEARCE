@@ -41,14 +41,8 @@
     methods: {
       verifConnexion() {
         var router = this.$router;
-        var crypto = require('crypto');
-        var text = this.password;
-        var algorithm = 'aes256';
-        var cle = "fUjXn2r5u7x!A%D*";
-        var cipher = crypto.createCipher(algorithm, cle);
-        var crypted = cipher.update(text, 'utf8', 'hex');
-        crypted += cipher.final('hex');
-        var data = this.email + "," + crypted;
+        
+        var data = this.email + "," + this.password;
         this.axios({
           url: "http://localhost:5000/GetUser/" + data,
           method: "get",

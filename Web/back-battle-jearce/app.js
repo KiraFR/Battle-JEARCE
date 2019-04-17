@@ -66,14 +66,22 @@ app.use(function (req, res, next) {
 //routage
 app.post("/AddUser", async (request, response) => {
     try {
-        console.log(initperso);
         sess = request.session;
+        var crypto = require('crypto');
+        var text = request.body.password;
+        var algorithm = 'aes256';
+        var cle = "fUjXn2r5u7x!A%D*";
+        var cipher = crypto.createCipher(algorithm, cle);
+        var crypted = cipher.update(text, 'utf8', 'hex');
+        crypted += cipher.final('hex');
         var user = new userModel(request.body);
         user.score = 0;
         user.argent = 0;
+        user.password = crypted;
         user.personnage = initperso;
         var result = await user.save();
         sess = result;
+        sess.password = "";
         response.send(result);
     } catch (error) {
         response.status(500).send(error);
@@ -175,8 +183,11 @@ app.get("/GetClassement", async (request, response) => {
 });
 
 app.get("/GetUser", async (request, response) => {
-  try {
+    try {
         var result = await userModel.find().exec();
+        for (var i in result) {
+            result[i].password = "";
+        }
         response.send(result);
 
 } catch (error) {
@@ -233,6 +244,14 @@ app.get("/GetUser/:id", async (request, response) => {
         sess = request.session;
         var info = request.params.id;
         var pseudoMDP = info.split(',');
+        var crypto = require('crypto');
+        var text = pseudoMDP[1];
+        var algorithm = 'aes256';
+        var cle = "fUjXn2r5u7x!A%D*";
+        var cipher = crypto.createCipher(algorithm, cle);
+        var crypted = cipher.update(text, 'utf8', 'hex');
+        crypted += cipher.final('hex');
+        pseudoMDP[1] = crypted;
         var result = await userModel.find().exec();
         var string = JSON.stringify(result);
         var obj = JSON.parse(string);
@@ -243,6 +262,7 @@ app.get("/GetUser/:id", async (request, response) => {
         }
         
         sess = resultUser;
+        sess.password = "";
         response.send(sess);
 
 } catch (error) {
