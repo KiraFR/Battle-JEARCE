@@ -2,20 +2,30 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
-import Classement from '@/components/Classement'
-import Header from '@/components/Header'
+import Classement from '@/components/BattleJearceBody/Classement'
+import Header from '@/components/ElementCommun/Header'
 import Accueil from '@/components/Accueil'
 import BootstrapVue from 'bootstrap-vue'
-import Navbar from '@/components/Navbar'
+import Navbar from '@/components/ElementCommun/Navbar'
 import Profil from '@/components/Profil'
 import Boutique from '@/components/Boutique'
-import Presentation from '@/components/Presentation'
-import Inscription from '@/components/Inscription'
-import Connexion from '@/components/Connexion'
-import Reglement from '@/components/Reglement'
-import Contact from '@/components/Contact'
+import Presentation from '@/components/BattleJearceBody/Presentation'
+import Inscription from '@/components/BattleJearceBody/Inscription'
+import Connexion from '@/components/BattleJearceBody/Connexion'
+import Reglement from '@/components/BattleJearceBody/Reglement'
+import Contact from '@/components/BattleJearceBody/Contact'
 import Validation from '@/components/Validation'
 import Formation from '@/components/Formation'
+import StatProfil from '@/components/ProfilBody/StatsProfil'
+import InventairePersonnages from '@/components/ProfilBody/inventairePersonnages'
+import InventaireObjets from '@/components/ProfilBody/inventaireObjets'
+import NavBarProfil from '@/components/ProfilBody/NavBarProfil'
+import NavBarBoutique from '@/components/BoutiqueBody/NavBarBoutique'
+import BoutiquePersonnages from '@/components/BoutiqueBody/BoutiquePersonnages'
+import BoutiqueObjets from '@/components/BoutiqueBody/BoutiqueObjets'
+import NavBarFormation from '@/components/FormationBody/NavBarFormation'
+import ListeFormation from '@/components/FormationBody/ListeFormation'
+import NewFormation from '@/components/FormationBody/CreationFormation'
 
 import VueAxios from 'vue-axios';
 import axios from 'axios';
@@ -31,7 +41,7 @@ export default new Router({
     },
     {
       path: '/Validation',
-      name: 'validation',
+      name: 'Validation',
       component: Validation,
     },
     {
@@ -86,29 +96,89 @@ export default new Router({
             body: Classement,
             navBar: Navbar
           }
-        },
+        }
+      ]
+    },
+    {
+      path: '/Profil',
+      name: 'Profil',
+      component: Profil,
+      children: [
         {
-          path: 'Profil',
+          path: 'Stats',
           components: {
             default: Header,
-            body: Profil,
-            navBar: Navbar
+            body: StatProfil,
+            navBar: Navbar,
+            navBarP: NavBarProfil
           }
         },
         {
-          path: 'Boutique',
+          path: 'InventairePersonnages',
           components: {
             default: Header,
-            body: Boutique,
-            navBar: Navbar
+            body: InventairePersonnages,
+            navBar: Navbar,
+            navBarP: NavBarProfil
           }
         },
         {
-          path: 'Formation',
+          path: 'InventaireObjets',
           components: {
             default: Header,
-            body: Formation,
-            navBar: Navbar
+            body: InventaireObjets,
+            navBar: Navbar,
+            navBarP: NavBarProfil
+          }
+        }
+      ]
+    },
+    {
+      path: '/Boutique',
+      name: 'Boutique',
+      component: Boutique,
+      children: [
+        {
+          path: 'BoutiquePersonnages',
+          components: {
+            default: Header,
+            body: BoutiquePersonnages,
+            navBar: Navbar,
+            navBarB: NavBarProfil
+          }
+        },
+        {
+          path: 'BoutiqueObjets',
+          components: {
+            default: Header,
+            body: BoutiqueObjets,
+            navBar: Navbar,
+            navBarB: NavBarProfil
+          }
+        }
+      ]
+    },
+    {
+      path: '/Formation',
+      name: 'Formation',
+      component: Formation,
+      children: [
+        {
+          path: 'Liste',
+          components: {
+            default: Header,
+            body: ListeFormation,
+            navBar: Navbar,
+            navBarF: NavBarProfil
+          }
+        },
+        {
+          path: 'New',
+          components: {
+            default: Header,
+            body: NewFormation,
+            navBar: Navbar,
+            navBarF: NavBarProfil
           }
         }
       ]
