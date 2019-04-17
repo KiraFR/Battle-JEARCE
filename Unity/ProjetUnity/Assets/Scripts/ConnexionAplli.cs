@@ -28,9 +28,7 @@ public class ConnexionAplli : MonoBehaviour
 
         byte[] enc = Encrypt(data, tabKey);
         string result = Encoding.UTF8.GetString(enc);*/
-
         RequetteHttpAsync();
-
     }
 
     public static byte[] Encrypt(byte[] data, byte[] key)
@@ -49,7 +47,7 @@ public class ConnexionAplli : MonoBehaviour
     {
         var values = new Dictionary<string, string> { { "mail", mail }, { "mdp", mdp } };
         var content = new FormUrlEncodedContent(values);
-        var response = await client.PostAsync("http://localhost:8080", content);
+        var response = await client.PostAsync("http://localhost:5000/GetUser", content);
         var responseString = await response.Content.ReadAsStringAsync();
     }
 }
