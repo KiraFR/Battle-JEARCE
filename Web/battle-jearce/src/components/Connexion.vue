@@ -40,6 +40,7 @@
     },
     methods: {
       verifConnexion() {
+        alert("pass");
         var router = this.$router;
         var crypto = require('crypto');
         var text = this.password;
@@ -56,6 +57,7 @@
         }).then(function (response) {
           console.log(response);
           if (response.data != "") {
+            alert('pass');
             router.push('Accueil');
           } else {
             alert("valeur erronée");

@@ -89,7 +89,7 @@
           useCredentails: true
         }).then(function (response) {
           console.log(response);
-          router.push('/validation');
+          router.push('Accueil');
         }).catch(function (error) {
           alert("Une erreur est survenue, l'inscription est a été interompue,\nveuillez rééseiller ulterieurement.\n" + error);
           console.log(error);

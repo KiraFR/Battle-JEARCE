@@ -5,12 +5,12 @@
         <router-link to="/Battle-Jearce/Accueil" class="lien"><h1>Battle-JEARCE</h1></router-link>
       </b-col>
       <b-col lg="3" offset-lg="4" align-self="center">
-          <b-nav v-if=!getConnected()>
+          <b-nav v-show=!connected>
               <b-nav-item><router-link to="/Battle-Jearce/Inscription" class="lien">S'inscrire</router-link></b-nav-item>
               <b-nav-item><router-link to="/Battle-Jearce/Connexion" class="lien">Se connecter</router-link></b-nav-item>
           </b-nav>
-          <b-nav v-if=getConnected()>
-            <b-nav-item><router-link to="" v-on:click=setdisconnected() class="lien">Se deconnecter</router-link></b-nav-item>
+          <b-nav v-show=connected>
+            <b-nav-item v-on:click=setdisconnected><router-link to=""  class="lien">Se deconnecter</router-link></b-nav-item>
           </b-nav>
       </b-col>
     </b-row>
@@ -24,34 +24,38 @@
         connected: false
       }
     },
+    created() {
+      var self = this;
+      this.axios({
+        url: "http://localhost:5000/GetSession",
+        method: "get",
+        useCredentails: true
+      }).then(function (response) {
+        console.log(response.data);
+        if (response.data != "la variable session est vide") {
+          self.connected = true;
+        } else {
+          self.connected = false;
+        }
+      }).catch(function (error) {
+        console.log(error);
+      });
+    },
     methods: {
-      getConnected() {
-        this.axios({
-          url: "http://localhost:5000/GetSession",
-          method: "get",
-          useCredentails: true
-        }).then(function (response) {
-          console.log(response);
-          if (response.data != "la variable session est vide") {
-            return true;
-          } else {
-            return true;
-          }
-
-          }).catch(function (error) {
-            console.log(error.data);
-            return false;
-        });
-      },
       setdisconnected() {
+        alert('pass func');
+        var self = this;
+        var router = this.$router;
         this.axios({
           url: "http://localhost:5000/DeleteSession",
           method: "delete",
           useCredentails: true
         }).then(function (response) {
-            this.connected = false;
-          }).catch(function (error) {
-            alert(error.response);
+          alert("pass");
+          self.connected = false;
+          router.push('Accueil');
+        }).catch(function (error) {
+          alert("pass err")
         });
       }
     }
