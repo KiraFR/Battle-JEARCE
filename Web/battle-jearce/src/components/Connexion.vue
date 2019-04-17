@@ -40,7 +40,7 @@
     },
     methods: {
       verifConnexion() {
-        alert("pass");
+        var self = this;
         var router = this.$router;
         var data = this.email + "," + this.password;
         this.axios({
@@ -50,12 +50,10 @@
         }).then(function (response) {
           console.log(response);
           if (response.data != "") {
-            alert('pass');
-            router.push('Accueil');
+            router.push('/Validation');
           } else {
             alert("valeur erronée");
           }
-
         }).catch(function (error) {
           alert("Une erreur est survenue, la connexion est a été interompue,\nveuillez rééseiller ulterieurement.\n" + error);
           console.log(error);

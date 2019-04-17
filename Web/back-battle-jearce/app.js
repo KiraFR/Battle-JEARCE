@@ -229,9 +229,9 @@ app.get("/GetSession", async (request, response) => {
     }
 });
 
-app.delete("/DeleteSession", async (request, response) => {
+app.post("/DeleteSession", async (request, response) => {
     try {
-        sess.destroy();
+        sess = null;
         var result = "session supprimer";
         response.send(result);
 

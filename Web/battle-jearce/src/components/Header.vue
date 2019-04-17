@@ -43,17 +43,15 @@
     },
     methods: {
       setdisconnected() {
-        alert('pass func');
         var self = this;
         var router = this.$router;
         this.axios({
           url: "http://localhost:5000/DeleteSession",
-          method: "delete",
+          method: "post",
           useCredentails: true
         }).then(function (response) {
-          alert("pass");
           self.connected = false;
-          router.push('Accueil');
+          router.push('/Validation');
         }).catch(function (error) {
           alert("pass err")
         });
