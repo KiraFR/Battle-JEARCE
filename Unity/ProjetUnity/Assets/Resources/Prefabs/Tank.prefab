@@ -92,7 +92,7 @@ Animator:
   m_GameObject: {fileID: 7872663113161967436}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 8a8e7c7ab3b68b242ba63773b569be91, type: 2}
+  m_Controller: {fileID: 9100000, guid: a685bc19488de624985dfe2904adf2fd, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -149,11 +149,12 @@ MonoBehaviour:
   maxDistAttack:
     baseStat: 1
     currentStat: 1
+  naPasJouer:
+    baseStat: 0
+    currentStat: 0
   equipement: {fileID: 3823326526175932489, guid: 615ce17e9e906b8459dfded07efd8f92,
     type: 3}
   canvas: {fileID: 8668104189063890159, guid: 91d73eab9d0c1934b92194b67493d260, type: 3}
-  canvasHp: {fileID: 8668104189063890159, guid: 709259a782dd1d1488fe580dd9b9a56b,
-    type: 3}
   ally: {fileID: 21300000, guid: 1b23954e0a115424682a5a5869d2baef, type: 3}
   enemy: {fileID: 21300000, guid: c72865c7363452c4f9306fe71b262eb5, type: 3}
   moveTime: 0.1
