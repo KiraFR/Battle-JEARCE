@@ -47,7 +47,7 @@
         var router = this.$router;
         this.axios({
           url: "http://localhost:5000/DeleteSession",
-          method: "post",
+          method: "delete",
           useCredentails: true
         }).then(function (response) {
           self.connected = false;

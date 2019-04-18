@@ -34,7 +34,7 @@
     <b-col offset-lg="1" lg="4">
       <h5>Ma Position</h5>
     </b-col>
-  </b-row>
+  </b-row> 
   <b-row v-show=connected>
     <b-col lg="10" offset-lg="1">
       <b-table striped small :items="PositionAmis"></b-table>
