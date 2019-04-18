@@ -20,26 +20,26 @@
         <b-table striped small :items="PositionGlobal"></b-table>
       </b-col>
     </b-row>
-    <b-row align-h="center" v-show=connected>
-      <b-col lg="5">
-        <h3 class="titrePartie">Classement Amical</h3>
-      </b-col>
-    </b-row>
-    <b-row v-show=connected>
-      <b-col lg="10" offset-lg="1">
-        <b-table striped small :items="ClassementAmis"></b-table>
-      </b-col>
-    </b-row>
-    <b-row v-show=connected>
-      <b-col offset-lg="1" lg="4">
-        <h5>Ma Position</h5>
-      </b-col>
-    </b-row>
-    <b-row v-show=connected>
-      <b-col lg="10" offset-lg="1">
-        <b-table striped small :items="PositionAmis"></b-table>
-      </b-col>
-    </b-row>
+    <!--<b-row align-h="center" v-show=connected>
+    <b-col lg="5">
+      <h3 class="titrePartie">Classement Amical</h3>
+    </b-col>
+  </b-row>
+  <b-row v-show=connected>
+    <b-col lg="10" offset-lg="1">
+      <b-table striped small :items="ClassementAmis"></b-table>
+    </b-col>
+  </b-row>
+  <b-row v-show=connected>
+    <b-col offset-lg="1" lg="4">
+      <h5>Ma Position</h5>
+    </b-col>
+  </b-row>
+  <b-row v-show=connected>
+    <b-col lg="10" offset-lg="1">
+      <b-table striped small :items="PositionAmis"></b-table>
+    </b-col>
+  </b-row>-->
   </b-container>
 </template>
 
@@ -47,17 +47,9 @@
 export default {
     data() {
       return {
-        ClassementGlobal: [
-          { "#": "1", "Pseudo": "Alusat", "Score": "1000" },
-          { "#": "2", "Pseudo": "Solymr", "Score": "970" },
-          { '#': '3', 'Pseudo': 'Zera-Light', 'Score': '930' },
-          { '#': '4', 'Pseudo': 'Itouette', 'Score': '899' },
-          { '#': '5', 'Pseudo': 'Kira', 'Score': '850' }
-        ],
-        PositionGlobal: [
-          { '#': '6', 'Pseudo': 'Valzaris', 'Score': '666' }
-        ],
-        ClassementAmis: [
+        ClassementGlobal: [],
+        PositionGlobal: [{ Rank: '', Pseudo: '', Score: '' }],
+        /*ClassementAmis: [
           { "#": "1", "Pseudo": "Alusat", "Score": "1000" },
           { "#": "2", "Pseudo": "Solymr", "Score": "970" },
           { '#': '3', 'Pseudo': 'Zera-Light', 'Score': '930' },
@@ -66,7 +58,7 @@ export default {
         ],
         PositionAmis: [
           { '#': '6', 'Pseudo': 'Valzaris', 'Score': '666' }
-        ],
+        ],*/
         connected: false
       }
     },
@@ -77,15 +69,34 @@ export default {
         method: "get",
         useCredentails: true
       }).then(function (response) {
-        console.log(response.data);
+        console.log("session");
+        console.log(response);
         if (response.data != "la variable session est vide") {
           self.connected = true;
+          self.PositionGlobal[0].Pseudo = response.data.pseudo;
+          self.PositionGlobal[0].Score = response.data.score;
+          console.log("responce session");
+          console.log(self.PositionGlobal);
         } else {
           self.connected = false;
         }
+        self.axios({
+          url: "http://localhost:5000/GetClassement",
+          method: "get",
+          useCredentails: true,
+        }).then(function (response) {
+          console.log("classement");
+          console.log(response);
+          self.PositionGlobal[0].Rank = response.data.position;
+          console.log("getC self position");
+          console.log(self.PositionGlobal);
+        }).catch(function (error) {
+          console.log(error);
+        });
       }).catch(function (error) {
         console.log(error);
       });
+
     }
   }
 </script>

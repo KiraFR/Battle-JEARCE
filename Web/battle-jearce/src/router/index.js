@@ -169,7 +169,7 @@ export default new Router({
             default: Header,
             body: ListeFormation,
             navBar: Navbar,
-            navBarF: NavBarProfil
+            navBarF: NavBarFormation
           }
         },
         {
@@ -178,7 +178,7 @@ export default new Router({
             default: Header,
             body: NewFormation,
             navBar: Navbar,
-            navBarF: NavBarProfil
+            navBarF: NavBarFormation
           }
         }
       ]

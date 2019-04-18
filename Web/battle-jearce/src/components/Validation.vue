@@ -5,7 +5,10 @@
 <script>
   export default {
     created() {
-      this.$router.push('/Battle-Jearce/Accueil');
+      var router = this.$router;
+      setTimeout(function () {
+        router.push('/Battle-Jearce/Accueil');
+      }, 5);
     }
   }
 </script>
