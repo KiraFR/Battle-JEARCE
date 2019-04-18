@@ -216,6 +216,18 @@ app.get("/GetItem", async (request, response) => {
     }
 });
 
+app.get("/GetSessionOuverte", async (request, response) => {
+    try {
+        if (sess == null) {
+            reponse.send(false);
+        } else {
+            response.send(true);
+        }
+    } catch (error) {
+        response.statut(500).send(error);
+    }
+});
+
 app.get("/GetSession", async (request, response) => {
     try {
         if (sess == null) {
