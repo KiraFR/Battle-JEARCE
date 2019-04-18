@@ -4041,11 +4041,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1681754474}
     - target: {fileID: 4960308208827088958, guid: 7fb7727298825eb4e919ad3400a1e6fc,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: 
+      value: ButtonClick
       objectReference: {fileID: 0}
     - target: {fileID: 4960308208827088958, guid: 7fb7727298825eb4e919ad3400a1e6fc,
         type: 3}
