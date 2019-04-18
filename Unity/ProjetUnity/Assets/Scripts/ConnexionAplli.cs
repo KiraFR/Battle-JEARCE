@@ -1,12 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using System.Security.Cryptography;
-using System.Text;
-using System.Net;
-using System;
-using System.IO;
 using System.Net.Http;
-using System.Collections.Generic;
+using System.Threading.Tasks;
 
 public class ConnexionAplli : MonoBehaviour
 {
@@ -14,8 +9,9 @@ public class ConnexionAplli : MonoBehaviour
     public GameObject gopwd;
 
     private static readonly HttpClient client = new HttpClient();
-    private string mail;
-    private string mdp;
+    private static string mail;
+    private static string mdp;
+
 
     public void ButtonClick()
     {
@@ -25,13 +21,22 @@ public class ConnexionAplli : MonoBehaviour
         /*string key = "fUjXn2r5u7x!A%D*";
         byte[] tabKey = System.Text.Encoding.UTF8.GetBytes(key);
         byte[] data = Encoding.UTF8.GetBytes(mdp);
-
         byte[] enc = Encrypt(data, tabKey);
         string result = Encoding.UTF8.GetString(enc);*/
-        RequetteHttpAsync();
+
+        RequetteAsync();
     }
 
-    public static byte[] Encrypt(byte[] data, byte[] key)
+
+    public async Task RequetteAsync()
+    {
+        string result = await RequetteHttpAsync();
+        //JObject ton_nom = JObject.Parse(ton_json);
+        Debug.Log(result);
+
+    }
+
+    /*public static byte[] Encrypt(byte[] data, byte[] key)
     {
         using (AesCryptoServiceProvider csp = new AesCryptoServiceProvider())
         {
@@ -41,13 +46,15 @@ public class ConnexionAplli : MonoBehaviour
             ICryptoTransform encrypter = csp.CreateEncryptor();
             return encrypter.TransformFinalBlock(data, 0, data.Length);
         }
-    }
+    }*/
 
-    public async System.Threading.Tasks.Task RequetteHttpAsync()
+    public static async Task<string> RequetteHttpAsync()
     {
-        var values = new Dictionary<string, string> { { "mail", mail }, { "mdp", mdp } };
-        var content = new FormUrlEncodedContent(values);
-        var response = await client.PostAsync("http://localhost:5000/GetUser", content);
-        var responseString = await response.Content.ReadAsStringAsync();
+        string url = "http://localhost:5000/GetUser/" + mail + "," + mdp;
+        using (var result = await client.GetAsync($"{url}"))
+        {
+            string content = await result.Content.ReadAsStringAsync();
+            return content;
+        }
     }
 }
