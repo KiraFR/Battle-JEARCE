@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1254988279202711193}
   - component: {fileID: 528493324233677966}
   - component: {fileID: 3495657902473369222}
-  - component: {fileID: 7814654404123855890}
+  - component: {fileID: 796402672091945289}
   m_Layer: 0
   m_Name: ClassementButton
   m_TagString: Untagged
@@ -116,7 +116,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7814654404123855890}
+      - m_Target: {fileID: 796402672091945289}
         m_MethodName: clickUrl
         m_Mode: 5
         m_Arguments:
@@ -124,12 +124,12 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: http://www.google.fr
           m_BoolArgument: 0
         m_CallState: 1
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
---- !u!114 &7814654404123855890
+--- !u!114 &796402672091945289
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -138,6 +138,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 4263607636140759515}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7d8f5e13f869b6448b06b8f4cfa3f86c, type: 3}
+  m_Script: {fileID: 11500000, guid: 9ff3cf30c2c3d6a4996cef85551400e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canvasForOptionCanvas: {fileID: 0}
+  buttonForOptionCanvas: {fileID: 0}

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 633454451097698236}
   - component: {fileID: 465932185907850721}
   - component: {fileID: 3483014948774806601}
+  - component: {fileID: 3159108257355253248}
   m_Layer: 0
   m_Name: OptionButton
   m_TagString: Untagged
@@ -111,7 +112,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 465932185907850721}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -139,3 +140,15 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &3159108257355253248
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5120389774033801193}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ff3cf30c2c3d6a4996cef85551400e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
