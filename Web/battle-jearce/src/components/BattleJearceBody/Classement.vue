@@ -70,27 +70,23 @@
           method: "get",
           useCredentails: true,
         }).then(function (res) {
-          self.ClassementGlobal = res.data;
+          
           self.axios({
-          url: "http://localhost:5000/GetSessionOuverte",
+          url: "http://localhost:5000/GetSession",
           method: "get",
           useCredentails: true
           }).then(function (response) {
-            if (response.data) {
-              for (var i in res.data.users) {
-                json.Rank = i;
-                json.Rank++;
-                  json.Pseudo = res.data.users[i].pseudo;
-                  json.Score = res.data.users[i].score;
-                  console.log(json);
-                  self.ClassementGlobal.push(json);
-                  json = {}; 
+            if (response.data != "la variable session est vide") {
+              console.log("test");
+              for (var j in self.ClassementGlobal) {
+                if (self.ClassementGlobal[j].Pseudo == response.data.pseudo) {
+                  self.PositionGlobal[0].Rank = self.ClassementGlobal[j].Rank;
+                }
               }
               self.connected = true;
-              self.PositionGlobal[0].Rank = res.data.position;
-              console.log(res.data.pseudo);
-            self.PositionGlobal[0].Pseudo = res.data.pseudo;
-            self.PositionGlobal[0].Score = res.data.score;
+              
+            self.PositionGlobal[0].Pseudo = response.data.pseudo;
+            self.PositionGlobal[0].Score = response.data.score;
           
             console.log("responce session");
           } else {
@@ -108,7 +104,7 @@
               self.ClassementGlobal.push(json);
               json = {};
             }
-          console.log(self.ClassementGlobal);
+          
       }).catch(function (error) {
         console.log(error);
       });
