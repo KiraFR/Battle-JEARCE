@@ -5,38 +5,22 @@
         <b-form>
           <b-form-group label="personnage1"
                         label-for="personnage1">
-            <b-form-input id="personnage1"
-                          type="text"
-                          placeholder="enter nom p1"
-                          v-model="p1">
-            </b-form-input>
+            <b-form-select id="personnage1" v-model="p1"  placeholder="choisisez le p1" :options="personnageDispo"></b-form-select>
           </b-form-group>
 
           <b-form-group label="personnage2"
                         label-for="personnage2">
-            <b-form-input id="personnage2"
-                          type="text"
-                          placeholder="enter nom p2"
-                          v-model="p2">
-            </b-form-input>
+            <b-form-select id="personnage2" v-model="p2" placeholder="choisisez le p2" :options="personnageDispo"></b-form-select>
           </b-form-group>
 
           <b-form-group label="personnage3"
                         label-for="personnage3">
-            <b-form-input id="personnage3"
-                          type="text"
-                          placeholder="enter nom p3"
-                          v-model="p3">
-            </b-form-input>
+            <b-form-select id="personnage3" v-model="p3" placeholder="choisisez le p3" :options="personnageDispo"></b-form-select>
           </b-form-group>
 
           <b-form-group label="personnage4"
                         label-for="personnage4">
-            <b-form-input id="personnage4"
-                          type="text"
-                          placeholder="enter nom p4"
-                          v-model="p4">
-            </b-form-input>
+            <b-form-select id="personnage4" v-model="p4" placeholder="choisisez le p4" :options="personnageDispo"></b-form-select>
           </b-form-group>
 
 
@@ -51,6 +35,8 @@
   export default {
     data() {
       return {
+        //nombreDispo:[], 
+        personnageDispo:[],
         p1: '',
         p2: '',
         p3: '',
@@ -76,6 +62,37 @@
           console.log(error);
         });
       }
+    },
+    created() {
+      var self = this;
+      var router = this.$router;
+      this.axios({
+        url: "http://localhost:5000/GetSession",
+        method: "get",
+        useCredentails: true
+      }).then(function (resSession) {
+        if (resSession.data == "la variable session est vide") {
+          router.push('/Validation');
+        }
+        self.axios({
+          url: "http://localhost:5000/GetCharacter",
+          method: "get",
+          useCredentails: true
+        }).then(function (resCharacter) {
+          for (var i = 0; i < resSession.data.personnage.length; i++) {
+            for (var j = 0; j < resCharacter.data.length; j++) {
+              if (resSession.data.personnage[i].personnage == resCharacter.data[j]._id) {
+                self.personnageDispo.push({ value: resCharacter.data[j]._id, text:resCharacter.data[j].type });
+                //self.nombreDispo.push(resSession.data.personnage[i].nombre)
+              }
+            }
+          }
+        }).catch(function (error) {
+          console.log(error);
+        });
+      }).catch(function (error) {
+        console.log(error);
+      });
     }
   }
 </script>

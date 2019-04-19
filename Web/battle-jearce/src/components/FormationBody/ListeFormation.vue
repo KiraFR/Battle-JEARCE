@@ -19,11 +19,10 @@
         useCredentails: true
       }).then(function (response) {
         console.log(response.data);
-        if (response.data) {
-          self.listeFormation = response.data.formation;
-        } else {
+        if (response.data == "la variable session est vide") {
           router.push('/Validation');
         }
+          self.listeFormation = response.data.formation;
       }).catch(function (error) {
         console.log(error);
       });

@@ -146,6 +146,7 @@ app.post("/AddFormation", async (request, response) => {
         sess.formation.push(request.body);
         var update = new userModel(sess);
         var result = await update.save();
+        console.log(result);
         sess = null;
         sess = result;
         response.send(result);
