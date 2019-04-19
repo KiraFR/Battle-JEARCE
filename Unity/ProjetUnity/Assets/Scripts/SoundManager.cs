@@ -13,7 +13,8 @@ public class SoundManager : MonoBehaviour
     private float musicVolume = 1f;
     private float sfxVolume = 1f;
 
-   
+    private DataManager data = DataManager.GetInstance();
+
     void Awake()
         {
             //Check if there is already an instance of SoundManager
@@ -35,6 +36,9 @@ public class SoundManager : MonoBehaviour
         // Setting volume option of Audio Source to be equal to musicVolume
         musicSource.volume = musicVolume;
         efxSource.volume = sfxVolume;
+        data.setVolume(musicVolume);
+        data.setSfx(sfxVolume);
+
     }
 
     //Used to play single sound clips.

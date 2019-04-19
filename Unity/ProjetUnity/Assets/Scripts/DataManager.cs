@@ -56,7 +56,6 @@ public class DataManager
     public float getVolume()
     {
         string[] ancien = File.ReadAllLines("data.txt");
-        Debug.Log(ancien[2]);
         return float.Parse(ancien[2], CultureInfo.InvariantCulture.NumberFormat);
 
     }
@@ -66,5 +65,19 @@ public class DataManager
         string[] ancien = File.ReadAllLines("data.txt");
         return float.Parse(ancien[3], CultureInfo.InvariantCulture.NumberFormat);
 
+    }
+
+    public void setVolume(float volume)
+    {
+        string[] ancien = File.ReadAllLines("data.txt");
+        ancien[2] = volume.ToString();
+        File.WriteAllLines("data.txt", ancien);
+    }
+
+    public void setSfx(float sfx)
+    {
+        string[] ancien = File.ReadAllLines("data.txt");
+        ancien[3] = sfx.ToString();
+        File.WriteAllLines("data.txt", ancien);
     }
 }

@@ -10,8 +10,8 @@ public class MenuLoader : MonoBehaviour
     public GameObject MainMenuPanel;
     public GameObject ConnexionPanel;
 
-    DataManager data = DataManager.GetInstance();
-    SoundManager son = SoundManager.instance;
+    private DataManager data = DataManager.GetInstance();
+    private SoundManager son;
     public static MenuLoader instance = null;
 
 
@@ -37,9 +37,9 @@ public class MenuLoader : MonoBehaviour
         {
             PlayPanel.SetActive(true);
             MainMenuPanel.SetActive(false);
+            son = SoundManager.instance;
             son.SetSfx(data.getSetSfx());
             son.SetVolume(data.getVolume());
-
         }
         else
         {
