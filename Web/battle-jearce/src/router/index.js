@@ -26,6 +26,7 @@ import BoutiqueObjets from '@/components/BoutiqueBody/BoutiqueObjets'
 import NavBarFormation from '@/components/FormationBody/NavBarFormation'
 import ListeFormation from '@/components/FormationBody/ListeFormation'
 import NewFormation from '@/components/FormationBody/CreationFormation'
+import Test from '@/components/BattleJearceBody/Test'
 
 import VueAxios from 'vue-axios';
 import axios from 'axios';
@@ -94,6 +95,14 @@ export default new Router({
           components: {
             default: Header,
             body: Classement,
+            navBar: Navbar
+          }
+        },
+        {
+          path: 'Test',
+          components: {
+            default: Header,
+            body: Test,
             navBar: Navbar
           }
         }

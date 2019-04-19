@@ -1,34 +1,33 @@
 <template>
-  <b-container>
-  </b-container>
+<b-container>
+</b-container>
 </template>
 
 <script>
   export default {
     data() {
       return {
-        listeFormation:[]
+        /* liste de si besoin variable
+         * connected: false
+         */
       }
     },
     created() {
       var self = this;
-      var router = this.$router;
       this.axios({
-        url: "http://localhost:5000/GetSession",
-        method: "get",
+        url: "http://localhost:5000/GetSessionOuverte",
+        method: "get",    // changer si besoin
+        /*data: {
+          //idem que data ci dessus
+        },*/
         useCredentails: true
       }).then(function (response) {
-        console.log(response.data);
-        if (response.data) {
-          self.listeFormation = response.data.formation;
-        } else {
-          router.push('/Validation');
-        }
+        console.log(response);
+
       }).catch(function (error) {
         console.log(error);
       });
     }
-  }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

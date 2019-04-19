@@ -27,16 +27,12 @@
     created() {
       var self = this;
       this.axios({
-        url: "http://localhost:5000/GetSession",
+        url: "http://localhost:5000/GetSessionOuverte",
         method: "get",
         useCredentails: true
       }).then(function (response) {
-        console.log(response.data);
-        if (response.data != "la variable session est vide") {
-          self.connected = true;
-        } else {
-          self.connected = false;
-        }
+        self.connected = response.data;
+
       }).catch(function (error) {
         console.log(error);
       });
@@ -47,7 +43,7 @@
         var router = this.$router;
         this.axios({
           url: "http://localhost:5000/DeleteSession",
-          method: "delete",
+          method: "post",
           useCredentails: true
         }).then(function (response) {
           self.connected = false;

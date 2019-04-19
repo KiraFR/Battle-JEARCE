@@ -12,23 +12,7 @@
 </template>
 
 <script>
-  export default {
-    created() {
-      var router = this.$router;
-      this.axios({
-        url: "http://localhost:5000/GetSession",
-        method: "get",
-        useCredentails: true
-      }).then(function (response) {
-        console.log(response.data);
-        if (response.data == "la variable session est vide") {
-          router.push('/Validation');
-        }
-      }).catch(function (error) {
-        console.log(error);
-      });
-    }
-  }
+
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
