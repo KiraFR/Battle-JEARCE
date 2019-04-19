@@ -143,13 +143,20 @@ app.post("/AddItem", async (request, response) => {
 
 app.post("/AddFormation", async (request, response) => {
     try {
+        var password = await userModel.findById(sess._id).exec();
         sess.formation.push(request.body);
-        var update = new userModel(sess);
-        var result = await update.save();
-        console.log(result);
+        sess.password = password.password;
+        var update = sess;
+        userModel.findOneAndUpdate ({ _id: sess._id }, update, { upsert: true }, (err, doc) => {
+            if (err) console.log(err);
+            else {
+                console.log("yes");
+            }
+        });
+
         sess = null;
-        sess = result;
-        response.send(result);
+        sess = update;
+        response.send(sess);
     } catch (error) {
         response.status(500).send(error);
     }
