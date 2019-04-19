@@ -13,8 +13,16 @@ public class BoardManager : MonoBehaviour
     public int nbObstacles;
     public GameObject floorTiles;
 
+    public Sprite[] grassFloors;
+    public Sprite[] sandFloors;
+    public Sprite[] dirtFloors;
+    public Sprite[] snowFloors;
 
+
+    private Sprite baseSprite;
+    private Sprite inaccessibleSprite;
     private List<GameObject> units;
+
 
     // Every Floor's gameObject from Vector3
     private Dictionary<Vector3, GameObject> floorGameObjects = new Dictionary<Vector3, GameObject>();
@@ -41,6 +49,10 @@ public class BoardManager : MonoBehaviour
             {
                 Vector3 pos = new Vector3(x, y, 0f);
                 GameObject instance = Instantiate(floorTiles, pos, Quaternion.identity) as GameObject;
+                instance.GetComponent<Square>().baseSprite = baseSprite;
+                instance.GetComponent<Square>().inaccessibleSprite = inaccessibleSprite;
+                instance.transform.GetChild(2).GetComponent<SpriteRenderer>().sprite = baseSprite;
+
                 floorGameObjects.Add(pos, instance);
                 // TODELETE --> DEBUG ALLY CHARACTER
                 /*if (x == 0 && y == 0)
@@ -127,6 +139,30 @@ public class BoardManager : MonoBehaviour
     }
 
 
+    void SetTypeTerrain(int type)
+    {
+        if(type == 0)
+        {
+            baseSprite = dirtFloors[0];
+            inaccessibleSprite = dirtFloors[4];
+        }
+        if (type == 1)
+        {
+            baseSprite = grassFloors[0];
+            inaccessibleSprite = grassFloors[4];
+        }
+        if (type == 2)
+        {
+            baseSprite = sandFloors[0];
+            inaccessibleSprite = sandFloors[4];
+        }
+        if (type == 3)
+        {
+            baseSprite = snowFloors[0];
+            inaccessibleSprite = snowFloors[4];
+        }
+    }
+
     //Recursive method that will check is there is a line of obstacle blocking the way
     //If so the last blocking obstacle will be removed
 
@@ -181,6 +217,9 @@ public class BoardManager : MonoBehaviour
         obstacles.Add(GetGameObject(columns - 4, rows - 3));
 
         PlaceObstacles(obstacles);
+
+        //GetGameObject(0, 0).transform.Find("BackgroundFloor").GetComponent<SpriteRenderer>().sprite = grassFloor1;
+
     }
 
     //Creation of obstacles that are defined and not randomly picked
@@ -199,6 +238,7 @@ public class BoardManager : MonoBehaviour
         obstacles.Add(GetGameObject(columns - 3, rows - 6));
 
         PlaceObstacles(obstacles);
+
     }
 
     //Creation of obstacles that are defined and not randomly picked
@@ -217,6 +257,7 @@ public class BoardManager : MonoBehaviour
         obstacles.Add(GetGameObject(columns - 3, rows - 5));
 
         PlaceObstacles(obstacles);
+
     }
 
     //Creation of obstacles that are defined and not randomly picked
@@ -235,6 +276,7 @@ public class BoardManager : MonoBehaviour
         obstacles.Add(GetGameObject(columns - 3, rows - 6));
 
         PlaceObstacles(obstacles);
+
     }
 
     //Predefined obstacles are now replacing basic floors
@@ -261,6 +303,8 @@ public class BoardManager : MonoBehaviour
 
     public void SetupScene()
     {
+        SetTypeTerrain(Random.Range(0, 4));
+        //floorTiles.transform.Find("FloorBase").GetComponent<SpriteRenderer>().sprite = grassFloor1;
         BoardSetup();
         ChooseSetup();
         //SpawnEnemies();
