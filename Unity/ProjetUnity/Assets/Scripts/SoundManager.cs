@@ -13,6 +13,7 @@ public class SoundManager : MonoBehaviour
     private float musicVolume = 1f;
     private float sfxVolume = 1f;
 
+   
     void Awake()
         {
             //Check if there is already an instance of SoundManager

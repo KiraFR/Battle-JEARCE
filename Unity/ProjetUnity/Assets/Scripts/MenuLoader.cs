@@ -11,6 +11,7 @@ public class MenuLoader : MonoBehaviour
     public GameObject ConnexionPanel;
 
     DataManager data = DataManager.GetInstance();
+    SoundManager son = SoundManager.instance;
     public static MenuLoader instance = null;
 
 
@@ -36,7 +37,6 @@ public class MenuLoader : MonoBehaviour
         {
             PlayPanel.SetActive(true);
             MainMenuPanel.SetActive(false);
-            SoundManager son = SoundManager.instance;
             son.SetSfx(data.getSetSfx());
             son.SetVolume(data.getVolume());
 
@@ -50,7 +50,7 @@ public class MenuLoader : MonoBehaviour
 
     public void GoodConnection()
     {
-        MainMenuPanel.SetActive(false);
+        ConnexionPanel.SetActive(false);
         PlayPanel.SetActive(true);
     }
 }
