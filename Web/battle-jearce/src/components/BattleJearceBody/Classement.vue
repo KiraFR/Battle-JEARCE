@@ -70,33 +70,33 @@
           method: "get",
           useCredentails: true,
         }).then(function (res) {
+          self.ClassementGlobal = res.data;
+          self.axios({
+          url: "http://localhost:5000/GetSessionOuverte",
+          method: "get",
+          useCredentails: true
+          }).then(function (response) {
+            if (response.data) {
+              for (var i in res.data.users) {
+                json.Rank = i;
+                json.Rank++;
+                  json.Pseudo = res.data.users[i].pseudo;
+                  json.Score = res.data.users[i].score;
+                  console.log(json);
+                  self.ClassementGlobal.push(json);
+                  json = {}; 
+              }
+              self.connected = true;
+              self.PositionGlobal[0].Rank = res.data.position;
+              console.log(res.data.pseudo);
+            self.PositionGlobal[0].Pseudo = res.data.pseudo;
+            self.PositionGlobal[0].Score = res.data.score;
           
-        self.axios({
-        url: "http://localhost:5000/GetSessionOuverte",
-        method: "get",
-        useCredentails: true
-        }).then(function (response) {
-          if (response.data) {
-          for (var i in res.data.users) {
-            json.Rank = i;
-            json.Rank++;
-              json.Pseudo = res.data.users[i].pseudo;
-              json.Score = res.data.users[i].score;
-              console.log(json);
-              self.ClassementGlobal.push(json);
-              json = {}; 
-            }
-            self.connected = true;
-            self.PositionGlobal[0].Rank = res.data.position;
-            console.log(res.data.pseudo);
-          self.PositionGlobal[0].Pseudo = res.data.pseudo;
-          self.PositionGlobal[0].Score = res.data.score;
+            console.log("responce session");
+          } else {
+            self.connected = false;
           
-          console.log("responce session");
-        } else {
-          self.connected = false;
-          
-        }   
+          }   
         }).catch(function (error) {
           console.log(error);
         });

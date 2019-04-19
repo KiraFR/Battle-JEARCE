@@ -156,29 +156,11 @@ app.post("/AddFormation", async (request, response) => {
 
 app.get("/GetClassement", async (request, response) => {
     try {
-        if (sess == null) {
-            var result = await userModel.find().exec();
-            result.sort(tri);
-            response.send(result);
-        } else {
-            var result = await userModel.find().exec();
-            result.sort(tri);
-
-            for (var i in result) {
-                if (result[i]._id == sess._id) {
-                    var position = i;
-                    var integer = parseInt(position, 10)
-                    integer += 1;
-                }
-            }
-
-            var resultuser = { "position": integer,"pseudo": sess.pseudo,"score": sess.score,"users": result };
-            response.send(resultuser);
-        }
-        
-    }
-
-     catch (error) {
+       var result = await userModel.find().exec();
+       result.sort(tri);
+       response.send(result);
+ 
+    }catch (error) {
         response.statut(500).send(error);
     }
 });
