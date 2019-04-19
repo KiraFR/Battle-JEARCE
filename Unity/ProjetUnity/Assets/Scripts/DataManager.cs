@@ -6,6 +6,17 @@ using UnityEngine;
 
 public class DataManager
 {
+    public static DataManager instance = null;
+    private DataManager() {}
+
+    public static DataManager GetInstance()
+    {
+        if(instance == null)
+        {
+            instance = new DataManager();
+        }
+        return instance;
+    }
 
     public void VerifFichier()
     {

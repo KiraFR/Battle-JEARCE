@@ -12,8 +12,8 @@ public class ConnexionAplli : MonoBehaviour
     private static readonly HttpClient client = new HttpClient();
     private static string mail;
     private static string mdp;
-
-    private MenuLoader menu = MenuLoader.instance;
+    DataManager data;
+    private MenuLoader menu;
 
     public void ButtonClick()
     {
@@ -27,7 +27,8 @@ public class ConnexionAplli : MonoBehaviour
         string result = Encoding.UTF8.GetString(enc);*/
 
         RequetteAsync();
-
+        data = DataManager.GetInstance();
+        menu = MenuLoader.instance;
         menu.GoodConnection();
     }
 
@@ -40,7 +41,7 @@ public class ConnexionAplli : MonoBehaviour
         //Si bon resultat 
         JObject json = JObject.Parse(result);
         Debug.Log(json);
-        DataManager data = new DataManager();
+        
         data.EcrirePseudoMail((string)json["pseudo"], (string)json["email"]);
 
     }

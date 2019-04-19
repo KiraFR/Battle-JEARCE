@@ -10,12 +10,22 @@ public class MenuLoader : MonoBehaviour
     public GameObject MainMenuPanel;
     public GameObject ConnexionPanel;
 
-    DataManager data = new DataManager();
+    DataManager data = DataManager.GetInstance();
     public static MenuLoader instance = null;
 
 
     void Start()
     {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else if (instance != null)
+        {
+            Destroy(gameObject);
+        }
+        DontDestroyOnLoad(gameObject);
+
         FormationPanel.SetActive(false);
         OptionsPanel.SetActive(false);
         ConnexionPanel.SetActive(false);
