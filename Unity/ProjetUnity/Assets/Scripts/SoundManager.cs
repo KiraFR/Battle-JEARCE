@@ -12,8 +12,8 @@ using System.Collections;
 
     private float musicVolume = 1f;
     private float sfxVolume = 1f;
-    
-void Awake()
+
+    void Awake()
         {
             //Check if there is already an instance of SoundManager
             if (instance == null)

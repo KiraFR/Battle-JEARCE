@@ -13,8 +13,9 @@ public class ConnexionAplli : MonoBehaviour
     private static string mail;
     private static string mdp;
 
+    private MenuLoader menu = MenuLoader.instance;
 
-    public async void ButtonClickAsync()
+    public void ButtonClick()
     {
         mail = gomail.GetComponent<InputField>().text;
         mdp = gopwd.GetComponent<InputField>().text;
@@ -25,15 +26,22 @@ public class ConnexionAplli : MonoBehaviour
         byte[] enc = Encrypt(data, tabKey);
         string result = Encoding.UTF8.GetString(enc);*/
 
-        await RequetteAsync();
+        RequetteAsync();
+
+        menu.GoodConnection();
     }
 
 
     public async Task RequetteAsync()
     {
         string result = await RequetteHttpAsync();
-        JObject ton_nom = JObject.Parse(result);
-        Debug.Log(result);
+
+
+        //Si bon resultat 
+        JObject json = JObject.Parse(result);
+        Debug.Log(json);
+        DataManager data = new DataManager();
+        data.EcrirePseudoMail((string)json["pseudo"], (string)json["email"]);
 
     }
 

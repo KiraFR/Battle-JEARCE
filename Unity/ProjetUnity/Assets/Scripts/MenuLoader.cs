@@ -10,13 +10,37 @@ public class MenuLoader : MonoBehaviour
     public GameObject MainMenuPanel;
     public GameObject ConnexionPanel;
 
+    DataManager data = new DataManager();
+    public static MenuLoader instance = null;
+
 
     void Start()
     {
         FormationPanel.SetActive(false);
         OptionsPanel.SetActive(false);
-        PlayPanel.SetActive(false);
-        MainMenuPanel.SetActive(true);
         ConnexionPanel.SetActive(false);
+
+
+        data.VerifFichier();
+        if (data.Connecter())
+        {
+            PlayPanel.SetActive(true);
+            MainMenuPanel.SetActive(false);
+            SoundManager son = SoundManager.instance;
+            son.SetSfx(data.getSetSfx());
+            son.SetVolume(data.getVolume());
+
+        }
+        else
+        {
+            MainMenuPanel.SetActive(true);
+            PlayPanel.SetActive(false);
+        }
+    }
+
+    public void GoodConnection()
+    {
+        MainMenuPanel.SetActive(false);
+        PlayPanel.SetActive(true);
     }
 }
