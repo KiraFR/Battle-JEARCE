@@ -2,6 +2,7 @@
 using UnityEngine.UI;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Newtonsoft.Json.Linq;
 
 public class ConnexionAplli : MonoBehaviour
 {
@@ -13,7 +14,7 @@ public class ConnexionAplli : MonoBehaviour
     private static string mdp;
 
 
-    public void ButtonClick()
+    public async void ButtonClickAsync()
     {
         mail = gomail.GetComponent<InputField>().text;
         mdp = gopwd.GetComponent<InputField>().text;
@@ -24,14 +25,14 @@ public class ConnexionAplli : MonoBehaviour
         byte[] enc = Encrypt(data, tabKey);
         string result = Encoding.UTF8.GetString(enc);*/
 
-        RequetteAsync();
+        await RequetteAsync();
     }
 
 
     public async Task RequetteAsync()
     {
         string result = await RequetteHttpAsync();
-        //JObject ton_nom = JObject.Parse(ton_json);
+        JObject ton_nom = JObject.Parse(result);
         Debug.Log(result);
 
     }
