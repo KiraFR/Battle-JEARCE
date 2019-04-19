@@ -34,7 +34,7 @@
     <b-col offset-lg="1" lg="4">
       <h5>Ma Position</h5>
     </b-col>
-  </b-row> 
+  </b-row>
   <b-row v-show=connected>
     <b-col lg="10" offset-lg="1">
       <b-table striped small :items="PositionAmis"></b-table>
@@ -44,7 +44,8 @@
 </template>
 
 <script>
-export default {
+  var json = { Rank: '', Pseudo: '', Score: '' };
+  export default {
     data() {
       return {
         ClassementGlobal: [],
@@ -64,35 +65,50 @@ export default {
     },
     created() {
       var self = this;
-      this.axios({
-        url: "http://localhost:5000/GetSession",
-        method: "get",
-        useCredentails: true
-      }).then(function (response) {
-        console.log("session");
-        console.log(response);
-        if (response.data != "la variable session est vide") {
-          self.connected = true;
-          self.PositionGlobal[0].Pseudo = response.data.pseudo;
-          self.PositionGlobal[0].Score = response.data.score;
-          console.log("responce session");
-          console.log(self.PositionGlobal);
-        } else {
-          self.connected = false;
-        }
-        self.axios({
+        this.axios({
           url: "http://localhost:5000/GetClassement",
           method: "get",
           useCredentails: true,
+        }).then(function (res) {
+          
+        self.axios({
+        url: "http://localhost:5000/GetSessionOuverte",
+        method: "get",
+        useCredentails: true
         }).then(function (response) {
-          console.log("classement");
-          console.log(response);
-          self.PositionGlobal[0].Rank = response.data.position;
-          console.log("getC self position");
-          console.log(self.PositionGlobal);
+          if (response.data) {
+          for (var i in res.data.users) {
+            json.Rank = i;
+            json.Rank++;
+              json.Pseudo = res.data.users[i].pseudo;
+              json.Score = res.data.users[i].score;
+              console.log(json);
+              self.ClassementGlobal.push(json);
+              json = {}; 
+            }
+            self.connected = true;
+            self.PositionGlobal[0].Rank = res.data.position;
+            console.log(res.data.pseudo);
+          self.PositionGlobal[0].Pseudo = res.data.pseudo;
+          self.PositionGlobal[0].Score = res.data.score;
+          
+          console.log("responce session");
+        } else {
+          self.connected = false;
+          
+        }   
         }).catch(function (error) {
           console.log(error);
         });
+          for (var i in res.data) {
+             json.Rank = i;
+             json.Rank++;
+              json.Pseudo = res.data[i].pseudo;
+              json.Score = res.data[i].score;
+              self.ClassementGlobal.push(json);
+              json = {};
+            }
+          console.log(self.ClassementGlobal);
       }).catch(function (error) {
         console.log(error);
       });

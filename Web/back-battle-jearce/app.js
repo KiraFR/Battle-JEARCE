@@ -172,7 +172,7 @@ app.get("/GetClassement", async (request, response) => {
                 }
             }
 
-            var resultuser = { "position": integer, "users": result };
+            var resultuser = { "position": integer,"pseudo": sess.pseudo,"score": sess.score,"users": result };
             response.send(resultuser);
         }
         
