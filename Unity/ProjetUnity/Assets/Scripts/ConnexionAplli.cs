@@ -17,6 +17,9 @@ public class ConnexionAplli : MonoBehaviour
 
     public void ButtonClick()
     {
+        data = DataManager.GetInstance();
+        menu = MenuLoader.instance;
+
         mail = gomail.GetComponent<InputField>().text;
         mdp = gopwd.GetComponent<InputField>().text;
 
@@ -27,9 +30,7 @@ public class ConnexionAplli : MonoBehaviour
         string result = Encoding.UTF8.GetString(enc);*/
 
         RequetteAsync();
-        data = DataManager.GetInstance();
-        menu = MenuLoader.instance;
-        menu.GoodConnection();
+
     }
 
 
@@ -41,7 +42,7 @@ public class ConnexionAplli : MonoBehaviour
         //Si bon resultat 
         JObject json = JObject.Parse(result);
         data.EcrirePseudoMail((string)json["pseudo"], (string)json["email"]);
-
+        menu.GoodConnection();
     }
 
     /*public static byte[] Encrypt(byte[] data, byte[] key)

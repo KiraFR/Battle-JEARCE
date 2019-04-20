@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MenuLoader : MonoBehaviour
 {
@@ -43,6 +44,9 @@ public class MenuLoader : MonoBehaviour
         }
         else
         {
+            Component[] hingeJoints = OptionsPanel.GetComponentsInChildren<Slider>();
+            hingeJoints[0].GetComponent<Slider>().value = data.getSetSfx();
+            hingeJoints[1].GetComponent<Slider>().value = data.getVolume();
             MainMenuPanel.SetActive(true);
             PlayPanel.SetActive(false);
         }
