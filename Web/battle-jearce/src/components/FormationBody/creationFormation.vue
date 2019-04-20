@@ -45,6 +45,7 @@
     },
     methods:{
       senddata() {
+        var router = this.$router;
         this.axios({
           url: "http://localhost:5000/AddFormation",
           method: "post",
@@ -57,6 +58,7 @@
           useCredentails: true
         }).then(function (response) {
           console.log(response);
+          router.push("Liste");
         }).catch(function (error) {
           alert("Une erreur est survenue, l'ajout de formation a été interompue,\nveuillez rééseiller ulterieurement.\n" + error);
           console.log(error);
@@ -71,7 +73,7 @@
         method: "get",
         useCredentails: true
       }).then(function (resSession) {
-        if (resSession.data == "la variable session est vide") {
+        if (resSession.data ==="la variable session est vide") {
           router.push('/Validation');
         }
         self.axios({

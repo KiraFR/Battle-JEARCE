@@ -1,5 +1,8 @@
 <template>
   <b-container>
+    <div>
+      <b-table hover :items="TabFormation"></b-table>
+    </div>
   </b-container>
 </template>
 
@@ -7,7 +10,16 @@
   export default {
     data() {
       return {
-        listeFormation:[]
+        TabFormation: [],
+        ListeFormation: [], 
+        ListeCharacters: [],
+        getCharacterName(namePersonnage) {
+          for (var j = 0; j < this.ListeCharacters.length; j++) {
+            if (namePersonnage == this.ListeCharacters[j]._id) {
+              return this.ListeCharacters[j].type;
+            }
+          }
+        }
       }
     },
     created() {
@@ -17,12 +29,31 @@
         url: "http://localhost:5000/GetSession",
         method: "get",
         useCredentails: true
-      }).then(function (response) {
-        console.log(response.data);
-        if (response.data == "la variable session est vide") {
+      }).then(function (resSession) {
+        console.log(resSession.data);
+        if (resSession.data === "la variable session est vide") {
           router.push('/Validation');
         }
-          self.listeFormation = response.data.formation;
+        self.ListeFormation = resSession.data.formation;
+        self.axios({
+          url: "http://localhost:5000/GetCharacter",
+          method: "get",
+          useCredentails: true
+        }).then(function (resCharacter) {
+          self.ListeCharacters = resCharacter.data;
+          for (var i = 0; i < self.ListeFormation.length; i++) {
+            var formationIncr = self.ListeFormation[i];
+            self.TabFormation.push({
+              nbFormation: i+1,
+              personnage1: self.getCharacterName(formationIncr.p1),
+              personnage2: self.getCharacterName(formationIncr.p2),
+              personnage3: self.getCharacterName(formationIncr.p3),
+              personnage4: self.getCharacterName(formationIncr.p4)
+            });
+          }
+        }).catch(function (error) {
+          console.log(error);
+        });
       }).catch(function (error) {
         console.log(error);
       });
