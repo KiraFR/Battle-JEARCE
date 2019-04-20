@@ -121,6 +121,32 @@ app.post("/AddUserCharacter", async (request, response) => {
     }
 });
 
+app.post("/UpdatePassword", async (request, response) => {
+    try {
+        var crypto = require('crypto');
+        var text = request.body.password;
+        var algorithm = 'aes256';
+        var cle = "fUjXn2r5u7x!A%D*";
+        var cipher = crypto.createCipher(algorithm, cle);
+        var crypted = cipher.update(text, 'utf8', 'hex');
+        crypted += cipher.final('hex');
+        var update = sess;
+        update.password = crypted;
+        userModel.findOneAndUpdate({ _id: sess._id }, update, { upsert: true }, (err, doc) => {
+            if (err) console.log(err);
+            else {
+                console.log("yes");
+            }
+        });
+        sess = null;
+        sess = update;
+        sess.password = "";
+        response.send(sess);
+    } catch (error) {
+        response.status(500).send(error);
+    }
+});
+
 app.post("/AddCharacter", async (request, response) => {
     try {
         var character = new characterModel(request.body);

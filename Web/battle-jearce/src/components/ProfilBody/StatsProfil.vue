@@ -1,5 +1,9 @@
 <template>
   <b-container>
+    <p>{{pseudo}}</p>
+    <p>{{email}}</p>
+    <p>{{argent}}</p>
+    <p>{{score}}</p>
   </b-container>
 </template>
 
@@ -7,7 +11,11 @@
   export default {
     data() {
       return {
-        listeFormation:[]
+        pseudo: "",
+        email: "",
+        argent: "",
+        score:""
+
       }
     },
     created() {
@@ -19,8 +27,11 @@
         useCredentails: true
       }).then(function (response) {
         console.log(response.data);
-        if (response.data) {
-          self.listeFormation = response.data.formation;
+        if (response.data != "la variable session est vide") {
+          self.pseudo = response.data.pseudo;
+          self.email = response.data.email;
+          self.argent = response.data.argent;
+          self.score = response.data.score;
         } else {
           router.push('/Validation');
         }
