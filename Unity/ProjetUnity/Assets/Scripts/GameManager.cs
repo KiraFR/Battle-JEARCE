@@ -117,11 +117,11 @@ public class GameManager : MonoBehaviour
         {
             if (selectedSquare != null)
             {
-                selectedSquare.transform.Find("FloorBase").GetComponent<SpriteRenderer>().sprite = selectedSquare.GetComponent<Square>().baseSprite;
+                selectedSquare.transform.Find("FloorBase").GetComponent<SpriteRenderer>().sprite = null;
             }
             foreach (GameObject obj in movingTiles)
             {
-                obj.transform.Find("FloorBase").GetComponent<SpriteRenderer>().sprite = obj.GetComponent<Square>().baseSprite;
+                obj.transform.Find("FloorBase").GetComponent<SpriteRenderer>().sprite = null;
                 obj.GetComponent<Square>().SetMovable(false);
             }
             movingTiles.Clear();
