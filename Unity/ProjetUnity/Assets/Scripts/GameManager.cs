@@ -220,7 +220,8 @@ public class GameManager : MonoBehaviour
                     {
                         if (minDistAttack <= DistanceEntrePoint((int)GetSelectedSquare().transform.position.x, (int)GetSelectedSquare().transform.position.y, posX , posY))
                         {
-                            if (objet.transform.Find("FloorBase").GetComponent<SpriteRenderer>().sprite == objet.GetComponent<Square>().baseSprite)
+                            if (objet.transform.Find("FloorBase").GetComponent<SpriteRenderer>().sprite != objet.GetComponent<Square>().inaccessibleSprite &&
+                            objet.transform.Find("FloorBase").GetComponent<SpriteRenderer>().sprite != objet.GetComponent<Square>().moveSprite)
                             {
                                 AddMovingAttack(objet);
                             }
