@@ -10,13 +10,12 @@ public class Formation : MonoBehaviour
 
     public GameObject roulant;
     private MenuLoader menu;
-    private JObject selection = null;
 
     public void SelectionFormation()
     {
         menu = MenuLoader.instance;
         JObject user = data.getUser();
-        menu.SetFormation(((JObject)user["formation"][roulant.GetComponent<Dropdown>().value]));
+        menu.SetFormation((JObject)user["formation"][roulant.GetComponent<Dropdown>().value]);
         menu.SelectionFormation();
     }
 }

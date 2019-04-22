@@ -22,7 +22,7 @@ public class ConnexionWeb : MonoBehaviour
         menu = MenuLoader.instance;
     }
 
-    public void ButtonClick()
+    public async void ButtonClick()
     {
         mail = gomail.GetComponent<InputField>().text;
         mdp = gopwd.GetComponent<InputField>().text;
@@ -33,7 +33,7 @@ public class ConnexionWeb : MonoBehaviour
         byte[] enc = Encrypt(data, tabKey);
         string result = Encoding.UTF8.GetString(enc);*/
 
-        RequetteAsync();
+        await RequetteAsync();
     }
 
 
@@ -71,10 +71,10 @@ public class ConnexionWeb : MonoBehaviour
         }
     }
 
-    public void FormationButon()
+    public async void FormationButon()
     {
         menu = MenuLoader.instance;
-        RequetteAsyncFormation();
+        await RequetteAsyncFormation();
     }
 
     public async Task RequetteAsyncFormation()
@@ -86,6 +86,9 @@ public class ConnexionWeb : MonoBehaviour
         menu.Formation(json);
     }
 
+
+
+
     public static async Task<string> RequetteHttpAsyncFormation()
     {
         string url = "http://localhost:5000/GetSession";
@@ -96,22 +99,22 @@ public class ConnexionWeb : MonoBehaviour
         }
     }
 
-    public void Deconnecter()
+    public async void Deconnecter()
     {
         menu = MenuLoader.instance;
-        RequetteAsyncDeconnecter();
+        await RequetteAsyncDeconnecter();
         menu.Deconnecter();
     }
 
     public async Task RequetteAsyncDeconnecter()
     {
-        RequetteHttpAsyncDesconnecter();
+        await RequetteHttpAsyncDesconnecter();
         data.Deconnecter();
     }
 
     public static async Task RequetteHttpAsyncDesconnecter()
     {
         string url = "http://localhost:5000/DeleteSession";
-        client.GetAsync($"{url}");
+        await client.GetAsync($"{url}");
     }
 }

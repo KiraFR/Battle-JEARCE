@@ -89,6 +89,17 @@ public class MenuLoader : MonoBehaviour
 
     public void SetFormation(JObject f)
     {
-        formation = f;
+        List<string> form = new List<string>();
+        form.Add(f["p1"].ToString());
+        form.Add(f["p2"].ToString());
+        form.Add(f["p3"].ToString());
+        form.Add(f["p4"].ToString());
+
+        foreach(string a in form)
+        {
+            Debug.Log(a);
+        }
+
+        //formation = f;
     }
 }
