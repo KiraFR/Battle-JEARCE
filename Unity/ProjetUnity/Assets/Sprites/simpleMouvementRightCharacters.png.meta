@@ -1,7 +1,27 @@
 fileFormatVersion: 2
 guid: 8181d30d241af2240b12443bf1ab1032
 TextureImporter:
-  fileIDToRecycleName: {}
+  fileIDToRecycleName:
+    21300000: simpleMouvementRightCharacters_0
+    21300002: simpleMouvementRightCharacters_1
+    21300004: simpleMouvementRightCharacters_2
+    21300006: simpleMouvementRightCharacters_3
+    21300008: simpleMouvementRightCharacters_4
+    21300010: simpleMouvementRightCharacters_5
+    21300012: simpleMouvementRightCharacters_6
+    21300014: simpleMouvementRightCharacters_7
+    21300016: simpleMouvementRightCharacters_8
+    21300018: simpleMouvementRightCharacters_9
+    21300020: simpleMouvementRightCharacters_10
+    21300022: simpleMouvementRightCharacters_11
+    21300024: simpleMouvementRightCharacters_12
+    21300026: simpleMouvementRightCharacters_13
+    21300028: simpleMouvementRightCharacters_14
+    21300030: simpleMouvementRightCharacters_15
+    21300032: simpleMouvementRightCharacters_16
+    21300034: simpleMouvementRightCharacters_17
+    21300036: simpleMouvementRightCharacters_18
+    21300038: simpleMouvementRightCharacters_19
   externalObjects: {}
   serializedVersion: 9
   mipmaps:
@@ -40,12 +60,12 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 128
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -69,9 +89,431 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
+  - serializedVersion: 2
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - serializedVersion: 2
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: simpleMouvementRightCharacters_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 300
+        width: 75
+        height: 75
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c7fb1be37f83c644387f15938639b57e
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: simpleMouvementRightCharacters_1
+      rect:
+        serializedVersion: 2
+        x: 75
+        y: 300
+        width: 75
+        height: 75
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6c0588a97c6a109468ce6069ccc4b89f
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: simpleMouvementRightCharacters_2
+      rect:
+        serializedVersion: 2
+        x: 150
+        y: 300
+        width: 75
+        height: 75
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 41f30638bf8d11543b04a0949b603d7f
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: simpleMouvementRightCharacters_3
+      rect:
+        serializedVersion: 2
+        x: 225
+        y: 300
+        width: 75
+        height: 75
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6c6f78d2ced25e340965a17870864c39
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: simpleMouvementRightCharacters_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 225
+        width: 75
+        height: 75
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2fb8acdb8dfa8524aa9e08f5eaddc74c
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: simpleMouvementRightCharacters_5
+      rect:
+        serializedVersion: 2
+        x: 75
+        y: 225
+        width: 75
+        height: 75
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bd33d1ae3f3cb724c9c4f52fdde11bb1
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: simpleMouvementRightCharacters_6
+      rect:
+        serializedVersion: 2
+        x: 150
+        y: 225
+        width: 75
+        height: 75
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7384b210df53bdc42bf284f4bf1026fe
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: simpleMouvementRightCharacters_7
+      rect:
+        serializedVersion: 2
+        x: 225
+        y: 225
+        width: 75
+        height: 75
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2145c43dd4ae15b40a000ced86441cef
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: simpleMouvementRightCharacters_8
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 150
+        width: 75
+        height: 75
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2e11bafc9b7efec46b82224788e173fa
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: simpleMouvementRightCharacters_9
+      rect:
+        serializedVersion: 2
+        x: 75
+        y: 150
+        width: 75
+        height: 75
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8d6cbad4fa475f84e8a93c460bda0a2f
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: simpleMouvementRightCharacters_10
+      rect:
+        serializedVersion: 2
+        x: 150
+        y: 150
+        width: 75
+        height: 75
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: db028297c5f84b84bb661870b9522ae9
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: simpleMouvementRightCharacters_11
+      rect:
+        serializedVersion: 2
+        x: 225
+        y: 150
+        width: 75
+        height: 75
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d061e8efd21c40e4db3d6a89e553ba56
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: simpleMouvementRightCharacters_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 75
+        width: 75
+        height: 75
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 06fe333e6290ee84b92c26b531855c02
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: simpleMouvementRightCharacters_13
+      rect:
+        serializedVersion: 2
+        x: 75
+        y: 75
+        width: 75
+        height: 75
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 74fa416d7c2f588479dc21f5aa5a6f34
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: simpleMouvementRightCharacters_14
+      rect:
+        serializedVersion: 2
+        x: 150
+        y: 75
+        width: 75
+        height: 75
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 281ec7784623d524fb32a887c2d41e19
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: simpleMouvementRightCharacters_15
+      rect:
+        serializedVersion: 2
+        x: 225
+        y: 75
+        width: 75
+        height: 75
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d50fd4deaca31dd4884dfef624f5669e
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: simpleMouvementRightCharacters_16
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 75
+        height: 75
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9536e99bb6241844dbac4012f235adf0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: simpleMouvementRightCharacters_17
+      rect:
+        serializedVersion: 2
+        x: 75
+        y: 0
+        width: 75
+        height: 75
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 073c3c8c06f934446940b5dbbc830912
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: simpleMouvementRightCharacters_18
+      rect:
+        serializedVersion: 2
+        x: 150
+        y: 0
+        width: 75
+        height: 75
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8086d87153c21a04184829bb79a0fc18
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: simpleMouvementRightCharacters_19
+      rect:
+        serializedVersion: 2
+        x: 225
+        y: 0
+        width: 75
+        height: 75
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8afd779f1bdd10045a5abd0eaa86ba74
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []

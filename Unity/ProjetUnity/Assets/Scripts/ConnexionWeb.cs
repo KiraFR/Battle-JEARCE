@@ -81,24 +81,17 @@ public class ConnexionWeb : MonoBehaviour
     {
         string resultForm = await RequetteHttpAsyncFormation();
         string resultCharacter = await RequetteHttpAsyncCharacter();
-        Debug.Log(resultCharacter);
-        Debug.Log(resultForm);
         JObject json = JObject.Parse(resultForm);
         JArray jsonCharacter = JArray.Parse(resultCharacter);
         JArray jArray = (JArray)json["formation"];
-        /*for (int i = 0; i < jArray.Count; i++)
-        {
-            JObject k = (JObject)json["formation"][i];
-
-            Debug.Log(i);
-            for(int x = 0; x < k.Count; x++)
-            {
-                Debug.Log(k["p" + (x+1)]);
-            }
-        }*/
         data.setUser(json);
         menu.Formation(json, jsonCharacter);
-        menu.SetFormation(0);
+        int index = menu.GetIndexFormation();
+        if (index == -1) { 
+            menu.SetFormation(0);
+        }else{
+            menu.SetFormation(index);
+        }
     }
 
 

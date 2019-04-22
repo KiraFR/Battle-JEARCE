@@ -11,12 +11,20 @@ public class MenuLoader : MonoBehaviour
     public GameObject MainMenuPanel;
     public GameObject ConnexionPanel;
 
+
+    public Sprite tank;
+    public Sprite assassin;
+    public Sprite guerrier;
+    public Sprite pretre;
+    public Sprite archer;
+
+    public static MenuLoader instance = null;
+
     private DataManager data = DataManager.GetInstance();
     private SoundManager son;
-    public static MenuLoader instance = null;
     private List<string> formation;
     private string currentFormation = null;
-
+    private int indexFormation = -1;
 
     void Start()
     {
@@ -99,7 +107,7 @@ public class MenuLoader : MonoBehaviour
             if (count == 4)
             {
                 list.Add("Formation : " + (i + 1));
-                characters.TrimEnd();
+                characters = characters.Trim();
                 formation.Add(characters);
             }
         }
@@ -115,6 +123,51 @@ public class MenuLoader : MonoBehaviour
     public void SetFormation(int index)
     {
         currentFormation = formation[index];
-        Debug.Log(currentFormation);
+        indexFormation = index;
+        SetFormation();
+    }
+
+    public void SetFormation()
+    {
+        string form = GetFormation(indexFormation);
+        List<string> units = new List<string>(form.Split(' '));
+        GameObject canvasUnit = FormationPanel.transform.GetChild(1).gameObject;
+        for (int i = 0; i < units.Count; i++)
+        {
+            GameObject unitCanvas = canvasUnit.transform.GetChild(i).gameObject;
+            Sprite sprite = GetSpriteFromName(units[i]);
+            unitCanvas.transform.GetChild(0).GetComponent<Image>().sprite = sprite;
+            unitCanvas.transform.GetChild(1).GetComponent<Text>().text = units[i];
+        }
+    }
+
+    public string GetFormation(int index)
+    {
+        return formation[index];
+    }
+
+
+    public Sprite GetSpriteFromName(string name)
+    {
+        switch (name)
+        {
+            case "Guerrier":
+                return guerrier;
+            case "Tank":
+                return tank;
+            case "Assassin":
+                return assassin;
+            case "Pretre":
+                return pretre;
+            case "Archer":
+                return archer;
+            default:
+                return null;
+        }
+    }
+
+    public int GetIndexFormation()
+    {
+        return indexFormation;
     }
 }
