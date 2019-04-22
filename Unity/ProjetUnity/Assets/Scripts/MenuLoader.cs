@@ -1,5 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using Newtonsoft.Json.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -28,9 +30,9 @@ public class MenuLoader : MonoBehaviour
         }
         DontDestroyOnLoad(gameObject);
 
-        FormationPanel.SetActive(false);
         OptionsPanel.SetActive(false);
         ConnexionPanel.SetActive(false);
+        FormationPanel.SetActive(false);
 
 
         data.VerifFichier();
@@ -65,9 +67,16 @@ public class MenuLoader : MonoBehaviour
         MainMenuPanel.SetActive(true);
     }
 
-    public void Formation()
+    public void Formation(JObject json)
     {
         PlayPanel.SetActive(false);
         FormationPanel.SetActive(true);
+        Component[] hingeJoints = FormationPanel.GetComponentsInChildren<Dropdown>();
+        List<string> list = new List<string>();
+        for(int i=0;i<= ((JArray)json["formation"]).Count; i++) 
+        {
+            list.Add("Formation : "+(i+1));
+        }
+        hingeJoints[0].GetComponent<Dropdown>().AddOptions(list);
     }
 }

@@ -6096,11 +6096,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 3944512}
+      objectReference: {fileID: 278395739}
     - target: {fileID: 5613884364288156341, guid: fc2e475887ad5334c89212149d4f94ec,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
-      value: 1
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 5613884364288156341, guid: fc2e475887ad5334c89212149d4f94ec,
         type: 3}
@@ -6116,11 +6116,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Target
       value: 
-      objectReference: {fileID: 3944512}
+      objectReference: {fileID: 1386796510}
     - target: {fileID: 5613884364288156341, guid: fc2e475887ad5334c89212149d4f94ec,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
-      value: Deconnecter
+      value: SetActive
       objectReference: {fileID: 0}
     - target: {fileID: 5613884364288156341, guid: fc2e475887ad5334c89212149d4f94ec,
         type: 3}
@@ -6140,12 +6140,12 @@ PrefabInstance:
     - target: {fileID: 5613884364288156341, guid: fc2e475887ad5334c89212149d4f94ec,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: Deconnecter
+      value: SetActive
       objectReference: {fileID: 0}
     - target: {fileID: 5613884364288156341, guid: fc2e475887ad5334c89212149d4f94ec,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
-      value: 1
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 5613884364288156341, guid: fc2e475887ad5334c89212149d4f94ec,
         type: 3}
@@ -6161,6 +6161,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 5613884364288156341, guid: fc2e475887ad5334c89212149d4f94ec,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 5613884364288156341, guid: fc2e475887ad5334c89212149d4f94ec,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6721254061020547837, guid: fc2e475887ad5334c89212149d4f94ec,
+        type: 3}
+      propertyPath: canvasForOptionCanvas
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fc2e475887ad5334c89212149d4f94ec, type: 3}
@@ -6335,7 +6350,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 1788269221}
+      objectReference: {fileID: 1386796510}
     - target: {fileID: 4960308208827088958, guid: 7fb7727298825eb4e919ad3400a1e6fc,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
@@ -6355,7 +6370,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Target
       value: 
-      objectReference: {fileID: 1788269221}
+      objectReference: {fileID: 1386796510}
     - target: {fileID: 4960308208827088958, guid: 7fb7727298825eb4e919ad3400a1e6fc,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
@@ -6369,7 +6384,7 @@ PrefabInstance:
     - target: {fileID: 4960308208827088958, guid: 7fb7727298825eb4e919ad3400a1e6fc,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_BoolArgument
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4960308208827088958, guid: 7fb7727298825eb4e919ad3400a1e6fc,
         type: 3}

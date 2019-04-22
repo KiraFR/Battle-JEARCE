@@ -38,11 +38,8 @@ public class SoundManager : MonoBehaviour
         // Setting volume option of Audio Source to be equal to musicVolume
         musicSource.volume = musicVolume;
         efxSource.volume = sfxVolume;
-        if (File.Exists("data.txt"))
-        {
-            data.setVolume(musicVolume);
-            data.setSfx(sfxVolume);
-        }
+        data.setVolume(musicVolume);
+        data.setSfx(sfxVolume);
     }
 
     //Used to play single sound clips.

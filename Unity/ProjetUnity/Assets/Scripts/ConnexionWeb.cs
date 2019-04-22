@@ -71,22 +71,16 @@ public class ConnexionWeb : MonoBehaviour
 
     public void Formation()
     {
+        menu = MenuLoader.instance;
         RequetteAsyncFormation();
     }
-
-
 
     public async Task RequetteAsyncFormation()
     {
         string result = await RequetteHttpAsyncFormation();
         JObject json = JObject.Parse(result);
-        Debug.Log(json); 
-
-        //Bloquand ???
-        menu.Formation();
-
+        menu.Formation(json);
     }
-
 
     public static async Task<string> RequetteHttpAsyncFormation()
     {
@@ -100,14 +94,15 @@ public class ConnexionWeb : MonoBehaviour
 
     public void Deconnecter()
     {
+        menu = MenuLoader.instance;
         RequetteAsyncDeconnecter();
+        menu.Deconnecter();
     }
 
     public async Task RequetteAsyncDeconnecter()
     {
         RequetteHttpAsyncDesconnecter();
         data.Deconnecter();
-        menu.Deconnecter();
     }
 
     public static async Task RequetteHttpAsyncDesconnecter()
