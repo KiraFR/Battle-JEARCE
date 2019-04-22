@@ -106,7 +106,7 @@ public class ConnexionWeb : MonoBehaviour
     public async Task RequetteAsyncDeconnecter()
     {
         RequetteHttpAsyncDesconnecter();
-        File.Delete("data.txt");
+        data.Deconnecter();
         menu.Deconnecter();
     }
 

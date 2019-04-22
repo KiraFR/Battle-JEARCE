@@ -82,4 +82,12 @@ public class DataManager
         ancien[3] = sfx.ToString();
         File.WriteAllLines("data.txt", ancien);
     }
+
+    public void Deconnecter()
+    {
+        string[] ancien = File.ReadAllLines("data.txt");
+        ancien[0] = "";
+        ancien[1] = "";
+        File.WriteAllLines("data.txt", ancien);
+    }
 }
