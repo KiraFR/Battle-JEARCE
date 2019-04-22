@@ -17,6 +17,12 @@ var initperso = [{ "personnage": "5cb59bbe1c9d4400009738d6", "nombre": 1 },
     { "personnage": "5cb59bef1c9d4400009738d8", "nombre": 1 },
     { "personnage": "5cb59bfd1c9d4400009738d9", "nombre": 1 },
     { "personnage": "5cb59c0c1c9d4400009738da", "nombre": 1 },]
+var initFormation = [{
+    p1: "5cb59bdc1c9d4400009738d7",
+    p2: "5cb59bdc1c9d4400009738d7",
+    p3: "5cb59bdc1c9d4400009738d7",
+    p4: "5cb59bdc1c9d4400009738d7"
+}]
 app.use(session({
     secret: 'omegalul',
     name: 'salut',
@@ -80,6 +86,7 @@ app.post("/AddUser", async (request, response) => {
         user.argent = 0;
         user.password = crypted;
         user.personnage = initperso;
+        user.formation = initFormation;
         var result = await user.save();
         sess = result;
         sess.password = "";
