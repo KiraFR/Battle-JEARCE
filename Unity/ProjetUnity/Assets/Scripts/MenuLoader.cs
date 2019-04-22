@@ -34,6 +34,10 @@ public class MenuLoader : MonoBehaviour
 
 
         data.VerifFichier();
+        Component[] hingeJoints = OptionsPanel.GetComponentsInChildren<Slider>();
+        hingeJoints[0].GetComponent<Slider>().value = data.getSetSfx();
+        hingeJoints[1].GetComponent<Slider>().value = data.getVolume();
+
         if (data.Connecter())
         {
             PlayPanel.SetActive(true);
@@ -44,9 +48,6 @@ public class MenuLoader : MonoBehaviour
         }
         else
         {
-            Component[] hingeJoints = OptionsPanel.GetComponentsInChildren<Slider>();
-            hingeJoints[0].GetComponent<Slider>().value = data.getSetSfx();
-            hingeJoints[1].GetComponent<Slider>().value = data.getVolume();
             MainMenuPanel.SetActive(true);
             PlayPanel.SetActive(false);
         }
@@ -56,5 +57,17 @@ public class MenuLoader : MonoBehaviour
     {
         ConnexionPanel.SetActive(false);
         PlayPanel.SetActive(true);
+    }
+
+    public void Deconnecter()
+    {
+        PlayPanel.SetActive(false);
+        MainMenuPanel.SetActive(true);
+    }
+
+    public void Formation()
+    {
+        PlayPanel.SetActive(false);
+        FormationPanel.SetActive(true);
     }
 }

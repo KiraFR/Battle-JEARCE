@@ -3,8 +3,9 @@ using UnityEngine.UI;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
+using System.IO;
 
-public class ConnexionAplli : MonoBehaviour
+public class ConnexionWeb : MonoBehaviour
 {
     public GameObject gomail;
     public GameObject gopwd;
@@ -15,11 +16,14 @@ public class ConnexionAplli : MonoBehaviour
     private DataManager data;
     private MenuLoader menu;
 
-    public void ButtonClick()
+    private void Awake()
     {
         data = DataManager.GetInstance();
         menu = MenuLoader.instance;
+    }
 
+    public void ButtonClick()
+    {
         mail = gomail.GetComponent<InputField>().text;
         mdp = gopwd.GetComponent<InputField>().text;
 
@@ -30,14 +34,12 @@ public class ConnexionAplli : MonoBehaviour
         string result = Encoding.UTF8.GetString(enc);*/
 
         RequetteAsync();
-
     }
 
 
     public async Task RequetteAsync()
     {
         string result = await RequetteHttpAsync();
-
 
         //Si bon resultat 
         JObject json = JObject.Parse(result);
@@ -65,5 +67,52 @@ public class ConnexionAplli : MonoBehaviour
             string content = await result.Content.ReadAsStringAsync();
             return content;
         }
+    }
+
+    public void Formation()
+    {
+        RequetteAsyncFormation();
+    }
+
+
+
+    public async Task RequetteAsyncFormation()
+    {
+        string result = await RequetteHttpAsyncFormation();
+        JObject json = JObject.Parse(result);
+        Debug.Log(json); 
+
+        //Bloquand ???
+        menu.Formation();
+
+    }
+
+
+    public static async Task<string> RequetteHttpAsyncFormation()
+    {
+        string url = "http://localhost:5000/GetSession";
+        using (var result = await client.GetAsync($"{url}"))
+        {
+            string content = await result.Content.ReadAsStringAsync();
+            return content;
+        }
+    }
+
+    public void Deconnecter()
+    {
+        RequetteAsyncDeconnecter();
+    }
+
+    public async Task RequetteAsyncDeconnecter()
+    {
+        RequetteHttpAsyncDesconnecter();
+        File.Delete("data.txt");
+        menu.Deconnecter();
+    }
+
+    public static async Task RequetteHttpAsyncDesconnecter()
+    {
+        string url = "http://localhost:5000/DeleteSession";
+        client.GetAsync($"{url}");
     }
 }
