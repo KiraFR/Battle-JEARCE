@@ -63,47 +63,27 @@ MonoBehaviour:
   nbObstacles: 10
   floorTiles: {fileID: 2549434862602930489, guid: af9d3d7a468b37547ab98536b9d0bad9,
     type: 3}
-  grassFloor1: {fileID: 21300000, guid: 80540ee15e182ac4e960a1ae697ec22b, type: 3}
-  grassFloor2: {fileID: 21300002, guid: 80540ee15e182ac4e960a1ae697ec22b, type: 3}
-  grassFloor3: {fileID: 21300008, guid: 80540ee15e182ac4e960a1ae697ec22b, type: 3}
-  grassFloor4: {fileID: 21300004, guid: 80540ee15e182ac4e960a1ae697ec22b, type: 3}
-  grassFloor5: {fileID: 21300000, guid: 9569afb984aa5bc468e73f0948fcb13d, type: 3}
-  sandFloor1: {fileID: 21300016, guid: 80540ee15e182ac4e960a1ae697ec22b, type: 3}
-  sandFloor2: {fileID: 21300018, guid: 80540ee15e182ac4e960a1ae697ec22b, type: 3}
-  sandFloor3: {fileID: 21300024, guid: 80540ee15e182ac4e960a1ae697ec22b, type: 3}
-  sandFloor4: {fileID: 21300020, guid: 80540ee15e182ac4e960a1ae697ec22b, type: 3}
-  sandFloor5: {fileID: 21300002, guid: 9569afb984aa5bc468e73f0948fcb13d, type: 3}
-  dirtFloor1: {fileID: 21300032, guid: 80540ee15e182ac4e960a1ae697ec22b, type: 3}
-  dirtFloor2: {fileID: 21300034, guid: 80540ee15e182ac4e960a1ae697ec22b, type: 3}
-  dirtFloor3: {fileID: 21300040, guid: 80540ee15e182ac4e960a1ae697ec22b, type: 3}
-  dirtFloor4: {fileID: 21300036, guid: 80540ee15e182ac4e960a1ae697ec22b, type: 3}
-  dirtFloor5: {fileID: 21300004, guid: 9569afb984aa5bc468e73f0948fcb13d, type: 3}
-  snowFloor1: {fileID: 21300048, guid: 80540ee15e182ac4e960a1ae697ec22b, type: 3}
-  snowFloor2: {fileID: 21300050, guid: 80540ee15e182ac4e960a1ae697ec22b, type: 3}
-  snowFloor3: {fileID: 21300056, guid: 80540ee15e182ac4e960a1ae697ec22b, type: 3}
-  snowFloor4: {fileID: 21300052, guid: 80540ee15e182ac4e960a1ae697ec22b, type: 3}
-  snowFloor5: {fileID: 21300006, guid: 9569afb984aa5bc468e73f0948fcb13d, type: 3}
   grassFloors:
-  - {fileID: 21300000, guid: 80540ee15e182ac4e960a1ae697ec22b, type: 3}
-  - {fileID: 21300002, guid: 80540ee15e182ac4e960a1ae697ec22b, type: 3}
-  - {fileID: 21300008, guid: 80540ee15e182ac4e960a1ae697ec22b, type: 3}
-  - {fileID: 21300004, guid: 80540ee15e182ac4e960a1ae697ec22b, type: 3}
+  - {fileID: 21300000, guid: 41fd3a7d99be1644f955f01c4af580d3, type: 3}
+  - {fileID: 21300002, guid: 41fd3a7d99be1644f955f01c4af580d3, type: 3}
+  - {fileID: 21300004, guid: 41fd3a7d99be1644f955f01c4af580d3, type: 3}
+  - {fileID: 21300006, guid: 41fd3a7d99be1644f955f01c4af580d3, type: 3}
   - {fileID: 21300000, guid: 9569afb984aa5bc468e73f0948fcb13d, type: 3}
   sandFloors:
-  - {fileID: 21300016, guid: 80540ee15e182ac4e960a1ae697ec22b, type: 3}
-  - {fileID: 21300018, guid: 80540ee15e182ac4e960a1ae697ec22b, type: 3}
-  - {fileID: 21300024, guid: 80540ee15e182ac4e960a1ae697ec22b, type: 3}
-  - {fileID: 21300020, guid: 80540ee15e182ac4e960a1ae697ec22b, type: 3}
+  - {fileID: 21300000, guid: e341999a1438fa44a9f83a45dc0f44ba, type: 3}
+  - {fileID: 21300002, guid: e341999a1438fa44a9f83a45dc0f44ba, type: 3}
+  - {fileID: 21300004, guid: e341999a1438fa44a9f83a45dc0f44ba, type: 3}
+  - {fileID: 21300006, guid: e341999a1438fa44a9f83a45dc0f44ba, type: 3}
   - {fileID: 21300002, guid: 9569afb984aa5bc468e73f0948fcb13d, type: 3}
   dirtFloors:
-  - {fileID: 21300032, guid: 80540ee15e182ac4e960a1ae697ec22b, type: 3}
-  - {fileID: 21300034, guid: 80540ee15e182ac4e960a1ae697ec22b, type: 3}
-  - {fileID: 21300040, guid: 80540ee15e182ac4e960a1ae697ec22b, type: 3}
-  - {fileID: 21300036, guid: 80540ee15e182ac4e960a1ae697ec22b, type: 3}
+  - {fileID: 21300000, guid: bc42454152c92b247b0f39faff167fae, type: 3}
+  - {fileID: 21300002, guid: bc42454152c92b247b0f39faff167fae, type: 3}
+  - {fileID: 21300004, guid: bc42454152c92b247b0f39faff167fae, type: 3}
+  - {fileID: 21300006, guid: bc42454152c92b247b0f39faff167fae, type: 3}
   - {fileID: 21300004, guid: 9569afb984aa5bc468e73f0948fcb13d, type: 3}
   snowFloors:
-  - {fileID: 21300048, guid: 80540ee15e182ac4e960a1ae697ec22b, type: 3}
-  - {fileID: 21300050, guid: 80540ee15e182ac4e960a1ae697ec22b, type: 3}
-  - {fileID: 21300056, guid: 80540ee15e182ac4e960a1ae697ec22b, type: 3}
-  - {fileID: 21300052, guid: 80540ee15e182ac4e960a1ae697ec22b, type: 3}
+  - {fileID: 21300000, guid: 279d149924004af4aae21a33aa550ba4, type: 3}
+  - {fileID: 21300002, guid: 279d149924004af4aae21a33aa550ba4, type: 3}
+  - {fileID: 21300004, guid: 279d149924004af4aae21a33aa550ba4, type: 3}
+  - {fileID: 21300006, guid: 279d149924004af4aae21a33aa550ba4, type: 3}
   - {fileID: 21300006, guid: 9569afb984aa5bc468e73f0948fcb13d, type: 3}
