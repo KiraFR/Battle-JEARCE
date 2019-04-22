@@ -1,12 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Globalization;
+﻿using System.Globalization;
 using System.IO;
-using UnityEngine;
+using Newtonsoft.Json.Linq;
 
 public class DataManager
 {
     public static DataManager instance = null;
+    private JObject user;
+
     private DataManager() {}
 
     public static DataManager GetInstance()
@@ -89,5 +89,15 @@ public class DataManager
         ancien[0] = "";
         ancien[1] = "";
         File.WriteAllLines("data.txt", ancien);
+    }
+
+    public void setUser(JObject u)
+    {
+        user = u;
+    }
+
+    public JObject getUser()
+    {
+        return user;
     }
 }

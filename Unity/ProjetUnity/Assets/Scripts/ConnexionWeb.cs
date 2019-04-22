@@ -43,6 +43,8 @@ public class ConnexionWeb : MonoBehaviour
 
         //Si bon resultat 
         JObject json = JObject.Parse(result);
+        data.setUser(json);
+        menu.SetFormation((JObject)json["formation"][0]);
         data.EcrirePseudoMail((string)json["pseudo"], (string)json["email"]);
         menu.GoodConnection();
     }
@@ -69,7 +71,7 @@ public class ConnexionWeb : MonoBehaviour
         }
     }
 
-    public void Formation()
+    public void FormationButon()
     {
         menu = MenuLoader.instance;
         RequetteAsyncFormation();
@@ -79,6 +81,8 @@ public class ConnexionWeb : MonoBehaviour
     {
         string result = await RequetteHttpAsyncFormation();
         JObject json = JObject.Parse(result);
+        data.setUser(json);
+        menu.SetFormation((JObject)json["formation"][0]);
         menu.Formation(json);
     }
 

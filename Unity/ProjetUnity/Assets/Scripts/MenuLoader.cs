@@ -16,6 +16,7 @@ public class MenuLoader : MonoBehaviour
     private DataManager data = DataManager.GetInstance();
     private SoundManager son;
     public static MenuLoader instance = null;
+    private JObject formation;
 
 
     void Start()
@@ -78,5 +79,16 @@ public class MenuLoader : MonoBehaviour
             list.Add("Formation : "+(i+1));
         }
         hingeJoints[0].GetComponent<Dropdown>().AddOptions(list);
+    }
+
+    public void SelectionFormation()
+    {
+        PlayPanel.SetActive(true);
+        FormationPanel.SetActive(false);
+    }
+
+    public void SetFormation(JObject f)
+    {
+        formation = f;
     }
 }
