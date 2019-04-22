@@ -40,11 +40,11 @@ public class ConnexionWeb : MonoBehaviour
     public async Task RequetteAsync()
     {
         string result = await RequetteHttpAsync();
-
+        await RequetteAsyncFormation();
         //Si bon resultat 
         JObject json = JObject.Parse(result);
         data.setUser(json);
-        menu.SetFormation((JObject)json["formation"][0]);
+        menu.SetFormation(0);
         data.EcrirePseudoMail((string)json["pseudo"], (string)json["email"]);
         menu.GoodConnection();
     }
@@ -79,15 +79,40 @@ public class ConnexionWeb : MonoBehaviour
 
     public async Task RequetteAsyncFormation()
     {
-        string result = await RequetteHttpAsyncFormation();
-        JObject json = JObject.Parse(result);
+        string resultForm = await RequetteHttpAsyncFormation();
+        string resultCharacter = await RequetteHttpAsyncCharacter();
+        Debug.Log(resultCharacter);
+        Debug.Log(resultForm);
+        JObject json = JObject.Parse(resultForm);
+        JArray jsonCharacter = JArray.Parse(resultCharacter);
+        JArray jArray = (JArray)json["formation"];
+        /*for (int i = 0; i < jArray.Count; i++)
+        {
+            JObject k = (JObject)json["formation"][i];
+
+            Debug.Log(i);
+            for(int x = 0; x < k.Count; x++)
+            {
+                Debug.Log(k["p" + (x+1)]);
+            }
+        }*/
         data.setUser(json);
-        menu.SetFormation((JObject)json["formation"][0]);
-        menu.Formation(json);
+        menu.Formation(json, jsonCharacter);
+        menu.SetFormation(0);
     }
 
 
 
+
+    public static async Task<string> RequetteHttpAsyncCharacter()
+    {
+        string url = "http://localhost:5000/GetCharacter";
+        using (var result = await client.GetAsync($"{url}"))
+        {
+            string content = await result.Content.ReadAsStringAsync();
+            return content;
+        }
+    }
 
     public static async Task<string> RequetteHttpAsyncFormation()
     {

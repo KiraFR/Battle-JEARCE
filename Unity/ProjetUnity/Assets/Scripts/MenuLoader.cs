@@ -1,7 +1,5 @@
-﻿using System.Collections;
+﻿using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
-using System.Linq;
-using Newtonsoft.Json.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,7 +14,8 @@ public class MenuLoader : MonoBehaviour
     private DataManager data = DataManager.GetInstance();
     private SoundManager son;
     public static MenuLoader instance = null;
-    private JObject formation;
+    private List<string> formation;
+    private string currentFormation = null;
 
 
     void Start()
@@ -34,7 +33,7 @@ public class MenuLoader : MonoBehaviour
         OptionsPanel.SetActive(false);
         ConnexionPanel.SetActive(false);
         FormationPanel.SetActive(false);
-
+        formation = new List<string>();
 
         data.VerifFichier();
         Component[] hingeJoints = OptionsPanel.GetComponentsInChildren<Slider>();
@@ -68,15 +67,41 @@ public class MenuLoader : MonoBehaviour
         MainMenuPanel.SetActive(true);
     }
 
-    public void Formation(JObject json)
+    public void Formation(JObject json,JArray jsonChara)
     {
         PlayPanel.SetActive(false);
         FormationPanel.SetActive(true);
         Component[] hingeJoints = FormationPanel.GetComponentsInChildren<Dropdown>();
         List<string> list = new List<string>();
-        for(int i=0;i<= ((JArray)json["formation"]).Count; i++) 
+
+        JArray formations = (JArray)json["formation"];
+
+
+
+        for (int i = 0; i < formations.Count; i++)
         {
-            list.Add("Formation : "+(i+1));
+            int count = 0;
+            string characters = "";
+            JObject form = (JObject)json["formation"][i];
+            for(int j = 0; j < form.Count; j++)
+            {
+                for (int v = 0; v < jsonChara.Count; v++)
+                {
+                    string characterFromForm = form["p" + (j + 1)].ToString();
+                    string characterFromAll = jsonChara[v]["_id"].ToString();
+                    if (characterFromForm == characterFromAll)
+                    {
+                        characters += jsonChara[v]["type"] + " ";
+                        count++;
+                    }
+                }
+            }
+            if (count == 4)
+            {
+                list.Add("Formation : " + (i + 1));
+                characters.TrimEnd();
+                formation.Add(characters);
+            }
         }
         hingeJoints[0].GetComponent<Dropdown>().AddOptions(list);
     }
@@ -87,19 +112,9 @@ public class MenuLoader : MonoBehaviour
         FormationPanel.SetActive(false);
     }
 
-    public void SetFormation(JObject f)
+    public void SetFormation(int index)
     {
-        List<string> form = new List<string>();
-        form.Add(f["p1"].ToString());
-        form.Add(f["p2"].ToString());
-        form.Add(f["p3"].ToString());
-        form.Add(f["p4"].ToString());
-
-        foreach(string a in form)
-        {
-            Debug.Log(a);
-        }
-
-        //formation = f;
+        currentFormation = formation[index];
+        Debug.Log(currentFormation);
     }
 }
