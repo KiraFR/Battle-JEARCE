@@ -236,7 +236,7 @@ app.get("/GetItem", async (request, response) => {
         response.send(result);
 
     } catch (error) {
-        response.status500).send(error);
+        response.status(500).send(error);
     }
 });
 
