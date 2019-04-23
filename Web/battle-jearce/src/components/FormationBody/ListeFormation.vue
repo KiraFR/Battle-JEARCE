@@ -31,8 +31,9 @@
         useCredentails: true
       }).then(function (resSession) {
         console.log(resSession.data);
-        if (resSession.data === "la variable session est vide") {
-          router.push('/Validation');
+        if (resSession.data == "la variable session est vide") {
+          self.$parent.$parent.connected = false;
+          router.push('/Battle-Jearce/Accueil');
         }
         self.ListeFormation = resSession.data.formation;
         self.axios({

@@ -50,7 +50,10 @@
         }).then(function (response) {
           console.log(response);
           if (response.data != "") {
-            router.push('/Validation');
+            console.log(self.$connected);
+            self.$parent.$parent.connected = true;
+            console.log(self.$connected);
+            router.push('Accueil');
           } else {
             alert("valeur erronée");
           }

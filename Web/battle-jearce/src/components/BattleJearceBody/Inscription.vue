@@ -70,6 +70,7 @@
     },
     methods: {
       senddata() {
+        var self = this;
         var router = this.$router;
         this.axios({
           url: "http://localhost:5000/AddUser",
@@ -81,8 +82,8 @@
           },
           useCredentails: true
         }).then(function (response) {
-          console.log(response);
-          router.push('/Validation');
+          self.$parent.$parent.connected= true;
+          router.push('Accueil');
         }).catch(function (error) {
           alert("Une erreur est survenue, l'inscription est a été interompue,\nveuillez rééseiller ulterieurement.\n" + error);
           console.log(error);

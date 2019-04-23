@@ -33,7 +33,8 @@
           self.argent = response.data.argent;
           self.score = response.data.score;
         } else {
-          router.push('/Validation');
+          self.$parent.$parent.connected = false;
+          router.push('/Battle-Jearce/Accueil');
         }
       }).catch(function (error) {
         console.log(error);

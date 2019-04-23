@@ -8,11 +8,11 @@
         <router-view name="navBar" />
       </b-col>
       <b-col offset-lg="1" lg="8">
-        <b-row>
+        <!--<b-row>
           <b-col lg="12">
             <router-view name="navBarP" />
           </b-col>
-        </b-row>
+        </b-row>-->
         <b-row>
           <b-col lg="12">
             <router-view name="body" />

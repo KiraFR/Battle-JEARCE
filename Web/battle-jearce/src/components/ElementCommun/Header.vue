@@ -5,11 +5,11 @@
         <router-link to="/Battle-Jearce/Accueil" class="lien"><h1>Battle-JEARCE</h1></router-link>
       </b-col>
       <b-col lg="3" offset-lg="4" align-self="center">
-          <b-nav v-show=!connected>
+          <b-nav v-show=!$parent.$parent.connected>
               <b-nav-item><router-link to="/Battle-Jearce/Inscription" class="lien">S'inscrire</router-link></b-nav-item>
               <b-nav-item><router-link to="/Battle-Jearce/Connexion" class="lien">Se connecter</router-link></b-nav-item>
           </b-nav>
-          <b-nav v-show=connected>
+          <b-nav v-show=$parent.$parent.connected>
             <b-nav-item v-on:click=setdisconnected><router-link to=""  class="lien">Se deconnecter</router-link></b-nav-item>
           </b-nav>
       </b-col>
@@ -19,24 +19,6 @@
 
 <script>
   export default {
-    data() {
-      return {
-        connected: false
-      }
-    },
-    created() {
-      var self = this;
-      this.axios({
-        url: "http://localhost:5000/GetSessionOuverte",
-        method: "get",
-        useCredentails: true
-      }).then(function (response) {
-        self.connected = response.data;
-
-      }).catch(function (error) {
-        console.log(error);
-      });
-    },
     methods: {
       setdisconnected() {
         var self = this;
@@ -46,8 +28,8 @@
           method: "post",
           useCredentails: true
         }).then(function (response) {
-          self.connected = false;
-          router.push('/Validation');
+          self.$parent.$parent.connected = false;
+          router.push('/Battle-Jearce/Accueil');
         }).catch(function (error) {
           alert("pass err")
         });

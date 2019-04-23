@@ -73,8 +73,11 @@
         method: "get",
         useCredentails: true
       }).then(function (resSession) {
-        if (resSession.data ==="la variable session est vide") {
-          router.push('/Validation');
+        console.log(resSession)
+        if (resSession.data == "la variable session est vide") {
+          console.log('pass')
+          self.$parent.$parent.connected = false;
+          router.push('/Battle-Jearce/Accueil');
         }
         self.axios({
           url: "http://localhost:5000/GetCharacter",
@@ -92,7 +95,8 @@
         }).catch(function (error) {
           console.log(error);
         });
-      }).catch(function (error) {
+        }).catch(function (error) {
+          console.log('pass')
         console.log(error);
       });
     }

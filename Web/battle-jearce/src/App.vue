@@ -7,6 +7,11 @@
 <script>
   export default {
     name: 'App',
+    data() {
+      return {
+        connected: false
+      }
+    }
   }
 </script>
 

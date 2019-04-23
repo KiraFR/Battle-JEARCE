@@ -14,7 +14,6 @@ import Inscription from '@/components/BattleJearceBody/Inscription'
 import Connexion from '@/components/BattleJearceBody/Connexion'
 import Reglement from '@/components/BattleJearceBody/Reglement'
 import Contact from '@/components/BattleJearceBody/Contact'
-import Validation from '@/components/Validation'
 import Formation from '@/components/Formation'
 import StatProfil from '@/components/ProfilBody/StatsProfil'
 import InventairePersonnages from '@/components/ProfilBody/inventairePersonnages'
@@ -39,11 +38,6 @@ export default new Router({
     {
       path: '/',
       redirect:'/Battle-Jearce/Accueil'
-    },
-    {
-      path: '/Validation',
-      name: 'Validation',
-      component: Validation,
     },
     {
       path: '/Battle-Jearce',
@@ -128,7 +122,7 @@ export default new Router({
             default: Header,
             body: InventairePersonnages,
             navBar: Navbar,
-            navBarP: NavBarProfil
+            //navBarP: NavBarProfil
           }
         },
         {
@@ -137,7 +131,7 @@ export default new Router({
             default: Header,
             body: InventaireObjets,
             navBar: Navbar,
-            navBarP: NavBarProfil
+            //navBarP: NavBarProfil
           }
         }
       ]
@@ -153,7 +147,7 @@ export default new Router({
             default: Header,
             body: BoutiquePersonnages,
             navBar: Navbar,
-            navBarB: NavBarProfil
+            //navBarB: NavBarBoutique
           }
         },
         {
@@ -162,7 +156,7 @@ export default new Router({
             default: Header,
             body: BoutiqueObjets,
             navBar: Navbar,
-            navBarB: NavBarProfil
+            //navBarB: NavBarBoutique
           }
         }
       ]
