@@ -1,7 +1,7 @@
 <template>
-  <b-container id="size">
-    <b-row>
-      <b-col lg="4" offset-lg="1">
+  <b-container >
+    <b-row id="size">
+      <b-col lg="4" offset-lg="1" align-self="center">
         <router-link to="/Battle-Jearce/Accueil" class="lien"><h1>Battle-JEARCE</h1></router-link>
       </b-col>
       <b-col lg="3" offset-lg="4" align-self="center">
@@ -40,12 +40,16 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+  template{
+    
+  }
   .lien {
     text-decoration: none;
-    color: black;
+    color: white;
   }
-  #size{
+  #size {
+    background-color: black;
     padding-top: 5vh;
-    padding-bottom:3vh;
+    padding-bottom: 3vh;
   }
 </style>
