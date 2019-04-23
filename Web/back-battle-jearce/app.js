@@ -203,7 +203,7 @@ app.get("/GetClassement", async (request, response) => {
        response.send(result);
  
     }catch (error) {
-        response.statut(500).send(error);
+        response.status(500).send(error);
     }
 });
 
@@ -216,7 +216,7 @@ app.get("/GetUser", async (request, response) => {
         response.send(result);
 
 } catch (error) {
-    response.statut(500).send(error);
+    response.status(500).send(error);
 }
 });
 
@@ -226,7 +226,7 @@ app.get("/GetCharacter", async (request, response) => {
         response.send(result);
 
     } catch (error) {
-        response.statut(500).send(error);
+        response.status(500).send(error);
     }
 });
 
@@ -236,7 +236,7 @@ app.get("/GetItem", async (request, response) => {
         response.send(result);
 
     } catch (error) {
-        response.statut(500).send(error);
+        response.status500).send(error);
     }
 });
 
@@ -248,20 +248,23 @@ app.get("/GetSessionOuverte", async (request, response) => {
             response.send(true);
         }
     } catch (error) {
-        response.statut(500).send(error);
+        response.status(500).send(error);
     }
 });
 
 app.get("/GetSession", async (request, response) => {
+    
     try {
         if (sess == null) {
+            console.log("pass")
             var vide = "la variable session est vide";
             reponse.send(vide);
         } else {
             response.send(sess);
         }
     } catch (error) {
-        response.statut(500).send(error);
+        response.send("la variable session est vide");
+        //response.status(500).send(error);
     }
 });
 
@@ -272,7 +275,7 @@ app.post("/DeleteSession", async (request, response) => {
         response.send(result);
 
     } catch (error) {
-        response.statut(500).send(error);
+        response.status(500).send(error);
     }
 });
 
@@ -315,7 +318,7 @@ app.get("/GetUser/:id", async (request, response) => {
         response.send(sess);
 
 } catch (error) {
-    response.statut(500).send(error);
+    response.status(500).send(error);
 }
 });
 
