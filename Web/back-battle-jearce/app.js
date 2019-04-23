@@ -3,6 +3,7 @@ const Express = require("express");
 var session = require('express-session');
 const BodyParser = require("body-parser");
 const app = Express();
+var ObjectID = require('mongodb').ObjectID;
 var mongoose = require("mongoose");
 
 const uri = "mongodb+srv://AdminDB:AdminDB@cluster0-0nx9f.mongodb.net/Jearce?retryWrites=true"
@@ -272,6 +273,18 @@ app.post("/DeleteSession", async (request, response) => {
 
     } catch (error) {
         response.statut(500).send(error);
+    }
+});
+
+app.get("/GetFormation/:id", async (request, response) => {
+    try {
+        console.log('pass');
+        var id = request.params.id;
+        var result = await userModel.findById(id);
+        console.log(result);
+        response.send(result.formation);
+    } catch (error) {
+        response.status(500).send(error);
     }
 });
 
