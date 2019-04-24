@@ -1,16 +1,16 @@
 <template>
-  <b-container >
+  <b-container class="back">
     <b-row id="size">
       <b-col lg="4" offset-lg="1" align-self="center">
         <router-link to="/Battle-Jearce/Accueil" class="lien"><b-img :src="require('../../assets/logo_BATTLE_JEARCE.png')"></b-img></router-link>
       </b-col>
-      <b-col lg="3" offset-lg="4" align-self="center">
+      <b-col lg="6" offset-lg="1" align-self="center">
           <b-nav v-show=!$parent.$parent.connected>
-              <b-nav-item><router-link to="/Battle-Jearce/Inscription" class="lien">S'inscrire</router-link></b-nav-item>
-              <b-nav-item><router-link to="/Battle-Jearce/Connexion" class="lien">Se connecter</router-link></b-nav-item>
+              <b-nav-item><router-link to="/Battle-Jearce/Inscription" class="lien orange">S'inscrire</router-link></b-nav-item>
+              <b-nav-item><router-link to="/Battle-Jearce/Connexion" class="lien rouge ">Se connecter</router-link></b-nav-item>
           </b-nav>
           <b-nav v-show=$parent.$parent.connected>
-            <b-nav-item v-on:click=setdisconnected><router-link to=""  class="lien">Se deconnecter</router-link></b-nav-item>
+            <b-nav-item v-on:click=setdisconnected><router-link to="" class="lien orange">Se deconnecter</router-link></b-nav-item>
           </b-nav>
       </b-col>
     </b-row>
@@ -40,16 +40,34 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+  .rouge {
+    -webkit-text-stroke: 0.5px #B22222;
+  }
+  .orange {
+    -webkit-text-stroke: 0.5px #FFD700;
+  }
+
+  .rouge:hover {
+    -webkit-text-stroke: 0.5px #FFD700;
+  }
+
+  .orange:hover {
+    -webkit-text-stroke: 0.5px #B22222;
+  }
   img{
     width:15vw;
   }
+  .back {
+    background-color: #393333;
+  }
   .lien {
+    font-size: 17px;
+    font-family: "Scream";
     text-decoration: none;
     color: black;
   }
   #size {
     /*background-color: #393333;*/
-    padding-top: 5vh;
-    padding-bottom: 3vh;
+    padding-top: 3vh;
   }
 </style>

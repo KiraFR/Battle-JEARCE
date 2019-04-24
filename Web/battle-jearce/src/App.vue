@@ -16,5 +16,8 @@
 </script>
 
 <style>
-
+  @font-face {
+    font-family: "Scream";
+    src: url("assets/Scream.ttf");
+  }
 </style>

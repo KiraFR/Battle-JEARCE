@@ -7,7 +7,7 @@
     </b-row>
     <b-row>
       <b-col lg="10" offset-lg="1">
-        <b-table striped small :items="ClassementGlobal"></b-table>
+        <b-table fixed borderless striped small :items="ClassementGlobal"></b-table>
       </b-col>
     </b-row>
     <b-row v-show=connected>
@@ -17,7 +17,7 @@
     </b-row>
     <b-row v-show=connected>
       <b-col lg="10" offset-lg="1">
-        <b-table striped small :items="PositionGlobal"></b-table>
+        <b-table striped small fixed borderless :items="PositionGlobal"></b-table>
       </b-col>
     </b-row>
     <!--<b-row align-h="center" v-show=connected>
