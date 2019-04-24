@@ -86,7 +86,7 @@ public class BoardManager : MonoBehaviour
         // Spawn allies 
         List<string> list = new List<string>()
         {
-            "Tank" , "Guerrier" , "Assassin" , "Archer"
+            "Medecin" , "Guerrier" , "Assassin" , "Archer"
         };
         SpawnUnits(list, placement, side);
 

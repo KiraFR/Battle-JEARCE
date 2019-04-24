@@ -9,6 +9,7 @@ public class Square : MonoBehaviour
     public Sprite moveSprite;
     public Sprite attackSprite;
     public Sprite inaccessibleSprite;
+    public Sprite alliesSprite;
     public RuntimeAnimatorController selectedSquareAnim;
 
 
@@ -49,6 +50,23 @@ public class Square : MonoBehaviour
                                 transform.Find("UnderFloor").GetComponent<Animator>().runtimeAnimatorController = null;
                                 gm.SetSelectedSquare(null);
                                 gm.ResetStats();
+                            }
+                            else
+                            {
+                                if (selectedSquare.GetComponent<Square>().GetCharacter().name == "Medecin(Clone)" && selectedSquare.GetComponent<Square>().GetCharacter().GetComponent<Character>().naPasJouer.currentStat == 0) 
+                                {
+                                    int distance = gm.DistanceEntrePoint((int)character.transform.position.x, (int)character.transform.position.y, (int)selectedSquare.GetComponent<Square>().GetCharacter().transform.position.x, (int)selectedSquare.GetComponent<Square>().GetCharacter().transform.position.y);
+                                    if (selectedSquare.GetComponent<Square>().GetCharacter().GetComponent<Character>().maxDistAttack.baseStat >= distance && selectedSquare.GetComponent<Square>().GetCharacter().GetComponent<Character>().minDistAttack.baseStat <= distance)
+                                    {
+                                        if (character.healthPoint.baseStat != character.healthPoint.currentStat)
+                                        {
+                                            Heal(character);
+                                            selectedSquare.GetComponent<Square>().GetCharacter().GetComponent<Character>().naPasJouer.currentStat = 1;
+                                            selectedSquare.transform.Find("UnderFloor").GetComponent<Animator>().runtimeAnimatorController = null;
+                                            gm.ClearMovingTiles();
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
@@ -210,6 +228,10 @@ public class Square : MonoBehaviour
         return enemi.GetAttacked(charac.GetComponent<Character>().attackPoint.baseStat);
     }
 
-
+    public void Heal(Character allie)
+    {
+        int pourcentage = allie.GetComponent<Character>().healthPoint.baseStat*25/100;
+        allie.GetComponent<Character>().healthPoint.currentStat = allie.GetComponent<Character>().healthPoint.currentStat + pourcentage;
+    }
 
 }

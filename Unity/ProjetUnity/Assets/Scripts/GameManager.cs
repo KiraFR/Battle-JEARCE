@@ -14,6 +14,8 @@ public class GameManager : MonoBehaviour
 
     private GameObject ButtonEnd;
 
+    private int isMedecin;
+
     private int[,] plateauDeJeux = new int[6, 9];
     private List<Vector3> chemin = null;
 
@@ -111,6 +113,16 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void AddAlliesTiles(GameObject tile)
+    {
+        if (tile != null)
+        {
+            tile.transform.Find("FloorBase").GetComponent<SpriteRenderer>().sprite = tile.GetComponent<Square>().alliesSprite;
+            tile.GetComponent<Square>().SetMovable(true);
+            movingTiles.Add(tile);
+        }
+    }
+
     public void ClearMovingTiles()
     {
         if (movingTiles.Count > 0)
@@ -178,6 +190,12 @@ public class GameManager : MonoBehaviour
 
     public void AttackSquares(int posX, int posY, int mouvement, int minDistAttack, int maxDistAttack)
     {
+        GameObject objet = GetGameObject(posX, posY);
+        Character character = objet.GetComponent<Square>().GetCharacter();
+        if (character.name == "Medecin(Clone)")
+            isMedecin = 1;
+        else
+            isMedecin = 0;
         PlateauAZero();
         FonctionRecu(posX, posY, mouvement, minDistAttack, maxDistAttack);
     }
@@ -209,11 +227,19 @@ public class GameManager : MonoBehaviour
             if (objet.transform.Find("FloorBase").GetComponent<SpriteRenderer>().sprite != objet.GetComponent<Square>().inaccessibleSprite)
             {
                 Character character = objet.GetComponent<Square>().GetCharacter();
+
                 if ((character != null && !IsEnemy(character.gameObject)) || character == null)
                 {
+                    if (character!=null && IsAlly(character.gameObject) && isMedecin ==1)
+                    {
+                        AddAlliesTiles(objet);
+                    }
                     if (mouvement > 0)
                     {
-                        AddMovingTiles(objet);
+                        if(character != null && !IsAlly(character.gameObject) || character == null || isMedecin==0)
+                        {
+                            AddMovingTiles(objet);
+                        }
                         FonctionRecu(posX, posY, mouvement - 1, minDistAttack, maxDistAttack);
                     }
                     else
@@ -221,7 +247,8 @@ public class GameManager : MonoBehaviour
                         if (minDistAttack <= DistanceEntrePoint((int)GetSelectedSquare().transform.position.x, (int)GetSelectedSquare().transform.position.y, posX , posY))
                         {
                             if (objet.transform.Find("FloorBase").GetComponent<SpriteRenderer>().sprite != objet.GetComponent<Square>().inaccessibleSprite &&
-                            objet.transform.Find("FloorBase").GetComponent<SpriteRenderer>().sprite != objet.GetComponent<Square>().moveSprite)
+                            objet.transform.Find("FloorBase").GetComponent<SpriteRenderer>().sprite != objet.GetComponent<Square>().moveSprite &&
+                                objet.transform.Find("FloorBase").GetComponent<SpriteRenderer>().sprite != objet.GetComponent<Square>().alliesSprite)
                             {
                                 AddMovingAttack(objet);
                             }
@@ -459,8 +486,6 @@ public class GameManager : MonoBehaviour
                 character = squareStart.GetComponent<Square>().GetCharacter();
             }
         }
-
-        //Debug.Log(character);
 
         if (character != null)
         {

@@ -51,6 +51,7 @@ MonoBehaviour:
   moveSprite: {fileID: 21300000, guid: 6e4be27cae016f24a82c662480f3d388, type: 3}
   attackSprite: {fileID: 21300000, guid: 4bb7d4d6a8ea5bf419b4fdd6a71b8940, type: 3}
   inaccessibleSprite: {fileID: 21300004, guid: 0f6c0256e4f28b34a8be7240fb881003, type: 3}
+  alliesSprite: {fileID: 21300000, guid: b9f448636ce76ec4c99785da288d7938, type: 3}
   selectedSquareAnim: {fileID: 9100000, guid: aa2a388a6306c144dbc23bd5ffb409a2, type: 2}
 --- !u!61 &8769085827832648500
 BoxCollider2D:
