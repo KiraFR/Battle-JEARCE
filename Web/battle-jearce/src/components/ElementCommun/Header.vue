@@ -2,7 +2,7 @@
   <b-container >
     <b-row id="size">
       <b-col lg="4" offset-lg="1" align-self="center">
-        <router-link to="/Battle-Jearce/Accueil" class="lien"><h1>Battle-JEARCE</h1></router-link>
+        <router-link to="/Battle-Jearce/Accueil" class="lien"><b-img :src="require('../../assets/logo_BATTLE_JEARCE.png')"></b-img></router-link>
       </b-col>
       <b-col lg="3" offset-lg="4" align-self="center">
           <b-nav v-show=!$parent.$parent.connected>
@@ -40,15 +40,15 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-  template{
-    
+  img{
+    width:15vw;
   }
   .lien {
     text-decoration: none;
-    color: white;
+    color: black;
   }
   #size {
-    background-color: black;
+    /*background-color: #393333;*/
     padding-top: 5vh;
     padding-bottom: 3vh;
   }
