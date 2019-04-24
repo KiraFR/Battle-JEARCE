@@ -86,13 +86,13 @@ public class BoardManager : MonoBehaviour
         // Spawn allies 
         List<string> list = new List<string>()
         {
-            "Medecin" , "Guerrier" , "Assassin" , "Archer"
+            "Medecin" , "Guerrier" , "Assassin" , "Archer", "Tour"
         };
         SpawnUnits(list, placement, side);
 
         list = new List<string>()
         {
-            "Guerrier" , "Guerrier" , "Guerrier" , "Guerrier"
+            "Guerrier" , "Guerrier" , "Guerrier" , "Guerrier", "Tour"
         };
         SpawnUnits(list, !placement, !side);
 
@@ -352,6 +352,7 @@ public class BoardManager : MonoBehaviour
             list.Add(new Vector3(2f, 7f, 0f));
             list.Add(new Vector3(3f, 8f, 0f));
             list.Add(new Vector3(3f, 7f, 0f));
+            list.Add(new Vector3(0f, 8f, 0f));
         }
         else
         {
@@ -359,6 +360,7 @@ public class BoardManager : MonoBehaviour
             list.Add(new Vector3(2f, 0f, 0f));
             list.Add(new Vector3(3f, 1f, 0f));
             list.Add(new Vector3(3f, 0f, 0f));
+            list.Add(new Vector3(5f, 0f, 0f));
         }
         return list;
     }
