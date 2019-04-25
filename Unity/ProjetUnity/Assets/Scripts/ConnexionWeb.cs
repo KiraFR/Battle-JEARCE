@@ -40,12 +40,12 @@ public class ConnexionWeb : MonoBehaviour
     public async Task RequetteAsync()
     {
         string result = await RequetteHttpAsync();
-        await RequetteAsyncFormation();
         //Si bon resultat 
         JObject json = JObject.Parse(result);
-        data.setUser(json);
-        menu.SetFormation(0);
-        data.EcrirePseudoMail((string)json["pseudo"], (string)json["email"]);
+
+        Debug.Log(json);
+        data.SetUser(json);
+        await RequetteAsyncFormation(false);
         menu.GoodConnection();
     }
 
@@ -59,7 +59,8 @@ public class ConnexionWeb : MonoBehaviour
             ICryptoTransform encrypter = csp.CreateEncryptor();
             return encrypter.TransformFinalBlock(data, 0, data.Length);
         }
-    }*/
+    }
+    */
 
     public static async Task<string> RequetteHttpAsync()
     {
@@ -74,29 +75,27 @@ public class ConnexionWeb : MonoBehaviour
     public async void FormationButon()
     {
         menu = MenuLoader.instance;
-        await RequetteAsyncFormation();
+        await RequetteAsyncFormation(true);
     }
 
-    public async Task RequetteAsyncFormation()
+    public async Task RequetteAsyncFormation(bool canvasOpened)
     {
-        string resultForm = await RequetteHttpAsyncFormation();
+        string resultForm = await RequetteHttpAsyncFormation(data.GetIdUser());
         string resultCharacter = await RequetteHttpAsyncCharacter();
-        JObject json = JObject.Parse(resultForm);
+        JArray json = JArray.Parse(resultForm);
+
+        Debug.Log(resultForm);
         JArray jsonCharacter = JArray.Parse(resultCharacter);
-        JArray jArray = (JArray)json["formation"];
-        data.setUser(json);
         menu.Formation(json, jsonCharacter);
         int index = menu.GetIndexFormation();
         if (index == -1) { 
-            menu.SetFormation(0);
+            menu.SetFormation(0, canvasOpened);
         }else{
-            menu.SetFormation(index);
+            menu.SetFormation(index, canvasOpened);
         }
     }
 
-
-
-
+  
     public static async Task<string> RequetteHttpAsyncCharacter()
     {
         string url = "http://localhost:5000/GetCharacter";
@@ -107,9 +106,10 @@ public class ConnexionWeb : MonoBehaviour
         }
     }
 
-    public static async Task<string> RequetteHttpAsyncFormation()
+    public static async Task<string> RequetteHttpAsyncFormation(string id)
     {
-        string url = "http://localhost:5000/GetSession";
+ 
+        string url = "http://localhost:5000/GetFormation/" + id;
         using (var result = await client.GetAsync($"{url}"))
         {
             string content = await result.Content.ReadAsStringAsync();

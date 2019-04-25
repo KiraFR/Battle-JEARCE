@@ -45,16 +45,16 @@ public class MenuLoader : MonoBehaviour
 
         data.VerifFichier();
         Component[] hingeJoints = OptionsPanel.GetComponentsInChildren<Slider>();
-        hingeJoints[0].GetComponent<Slider>().value = data.getSetSfx();
-        hingeJoints[1].GetComponent<Slider>().value = data.getVolume();
+        hingeJoints[0].GetComponent<Slider>().value = data.GetSetSfx();
+        hingeJoints[1].GetComponent<Slider>().value = data.GetVolume();
 
         if (data.Connecter())
         {
             PlayPanel.SetActive(true);
             MainMenuPanel.SetActive(false);
             son = SoundManager.instance;
-            son.SetSfx(data.getSetSfx());
-            son.SetVolume(data.getVolume());
+            son.SetSfx(data.GetSetSfx());
+            son.SetVolume(data.GetVolume());
         }
         else
         {
@@ -75,23 +75,20 @@ public class MenuLoader : MonoBehaviour
         MainMenuPanel.SetActive(true);
     }
 
-    public void Formation(JObject json,JArray jsonChara)
+    public void Formation(JArray formations, JArray jsonChara)
     {
         PlayPanel.SetActive(false);
         FormationPanel.SetActive(true);
         Component[] hingeJoints = FormationPanel.GetComponentsInChildren<Dropdown>();
         List<string> list = new List<string>();
 
-        JArray formations = (JArray)json["formation"];
-
-
-
         for (int i = 0; i < formations.Count; i++)
         {
             int count = 0;
             string characters = "";
-            JObject form = (JObject)json["formation"][i];
-            for(int j = 0; j < form.Count; j++)
+
+            JObject form = (JObject)formations[i];
+            for (int j = 0; j < form.Count; j++)
             {
                 for (int v = 0; v < jsonChara.Count; v++)
                 {
@@ -120,11 +117,14 @@ public class MenuLoader : MonoBehaviour
         FormationPanel.SetActive(false);
     }
 
-    public void SetFormation(int index)
+    public void SetFormation(int index,bool canvasOpened)
     {
         currentFormation = formation[index];
         indexFormation = index;
-        SetFormation();
+        if (canvasOpened)
+        {
+            SetFormation();
+        }
     }
 
     public void SetFormation()

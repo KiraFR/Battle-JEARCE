@@ -19,8 +19,8 @@ public class Formation : MonoBehaviour
 
     public void SelectionFormation()
     {
-        JObject user = data.getUser();
-        menu.SetFormation(roulant.GetComponent<Dropdown>().value);
+        JObject user = data.GetUser();
+        menu.SetFormation(roulant.GetComponent<Dropdown>().value,true);
         menu.SelectionFormation();
     }
 

@@ -38,8 +38,8 @@ public class SoundManager : MonoBehaviour
         // Setting volume option of Audio Source to be equal to musicVolume
         musicSource.volume = musicVolume;
         efxSource.volume = sfxVolume;
-        data.setVolume(musicVolume);
-        data.setSfx(sfxVolume);
+        data.SetVolume(musicVolume);
+        data.GetSfx(sfxVolume);
     }
 
     //Used to play single sound clips.
