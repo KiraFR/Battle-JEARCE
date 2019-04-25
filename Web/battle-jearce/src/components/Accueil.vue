@@ -1,16 +1,16 @@
 <template>
   <b-container>
     <b-row>
-      <router-view />
+      <router-view class="blackfont" />
     </b-row>
     <b-row class="toogleZone">
-      <h1 v-on:click=toogle id="couleur">{{OpenClose}}</h1>
+      <h1 v-on:click=toogle class="blackfont" id="couleur">{{OpenClose}}</h1>
     </b-row>
     <b-row >
-      <b-col v-show=boolOpenClose class="nav" lg=2>
+      <div v-show=boolOpenClose id="nav">
         <router-view name="navBar" />
-      </b-col>
-      <b-col offset-lg="2" lg="8">
+      </div>
+      <b-col offset-lg="1" lg="10" class="bodyStyle">
         <router-view name="body" />
       </b-col>
     </b-row>
@@ -47,13 +47,13 @@
   #couleur:hover {
     color: #B22222;
   }
-  .toogleZone {
-    z-index:10000;
-    background-color: #393333
-  }
-  .nav {
-    position:absolute;
-    height: 80%;
-    background-color: #393333;
+
+  #nav {
+    opacity: 0.95;
+    z-index: 100;
+    position: absolute;
+    height: 70vh;
+    background-color: #894040;
+    border-radius: 0px 0px 5px 5px;
   }
 </style>

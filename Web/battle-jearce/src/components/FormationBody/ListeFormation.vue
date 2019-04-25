@@ -2,7 +2,7 @@
   <b-container>
     <div>
       <b-table hover :items="TabFormation"></b-table>
-    </div>
+    </div#>
   </b-container>
 </template>
 

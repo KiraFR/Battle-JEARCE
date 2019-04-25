@@ -3,7 +3,7 @@
     <b-row align-v="center">
       <b-col>
         <b-nav vertical justified>
-          <b-nav-item v-show=$parent.$parent.connected><router-link to="/Profil/Stats" class="lien orange">Profil</router-link></b-nav-item>
+          <b-nav-item v-show=$parent.$parent.connected><router-link to="/Battle-Jearce/Stats" class="lien orange">Profil</router-link></b-nav-item>
           <b-nav-item v-show=$parent.$parent.connected><router-link to="/Formation/Liste" class="lien rouge">Formation</router-link></b-nav-item>
           <b-nav-item><router-link to="/Battle-Jearce/Accueil" class="lien orange">Accueil</router-link></b-nav-item>
           <!--<b-nav-item><router-link to="/Boutique/BoutiquePersonnages" class="lien">Boutique</router-link></b-nav-item>-->

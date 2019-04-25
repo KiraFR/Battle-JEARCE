@@ -1,7 +1,12 @@
 <template>
   <b-container>
+    <b-row align-h="center">
+      <b-col lg="auto">
+        <h4 class="titreStyle">Connexion</h4>
+      </b-col>
+    </b-row>
     <b-row>
-      <b-col lg="6" offset-lg="3">
+      <b-col lg="8" offset-lg="2">
         <b-form>
           <b-form-group id="Mail"
                         label="Mail"

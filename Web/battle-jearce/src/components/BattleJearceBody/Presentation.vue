@@ -1,8 +1,8 @@
 <template>
   <b-container>
-    <b-row class="justify-content-lg-center">
-      <b-col lg="5" offset-lg="1">
-        <h1>Accueil</h1>
+    <b-row align-h="center">
+      <b-col lg="auto">
+        <h4 class="titreStyle">Accueil</h4>
       </b-col>
     </b-row>
     <b-row align-v="center">

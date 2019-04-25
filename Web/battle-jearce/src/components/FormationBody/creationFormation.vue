@@ -1,7 +1,8 @@
 <template>
   <b-container>
     <b-row>
-      <b-col lg="6" offset-lg="4">
+      <b-col lg="10" offset-lg="1
+             ">
         <b-form>
           <b-form-group label="personnage1"
                         label-for="personnage1">

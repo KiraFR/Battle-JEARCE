@@ -1,23 +1,23 @@
 <template>
   <b-container>
     <b-row align-h="center">
-      <b-col lg="5">
-        <h3 class="titrePartie">Classement Mondial</h3>
+      <b-col lg="auto">
+        <h5 class="titreStyle orange">Classement Mondial</h5>
       </b-col>
     </b-row>
     <b-row>
       <b-col lg="10" offset-lg="1">
-        <b-table fixed borderless striped small :items="ClassementGlobal"></b-table>
+        <b-table striped small :items="ClassementGlobal"></b-table>
       </b-col>
     </b-row>
-    <b-row v-show=connected>
-      <b-col offset-lg="1" lg="4">
-        <h5>Ma Position</h5>
+    <b-row v-show=connected align-h="center">
+      <b-col lg="auto">
+        <h5 class="titreStyle rouge">Ma Position</h5>
       </b-col>
     </b-row>
     <b-row v-show=connected>
       <b-col lg="10" offset-lg="1">
-        <b-table striped small fixed borderless :items="PositionGlobal"></b-table>
+        <b-table striped small :items="PositionGlobal"></b-table>
       </b-col>
     </b-row>
     <!--<b-row align-h="center" v-show=connected>
@@ -115,4 +115,12 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+  .rouge {
+    -webkit-text-stroke: 0.5px #B22222;
+  }
+
+  .orange {
+    -webkit-text-stroke: 0.5px #FFD700;
+  }
+
 </style>

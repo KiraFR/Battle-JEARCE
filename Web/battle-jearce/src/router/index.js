@@ -99,10 +99,18 @@ export default new Router({
             body: Test,
             navBar: Navbar
           }
+        },
+        {
+          path: 'Stats',
+          components: {
+            default: Header,
+            body: StatProfil,
+            navBar: Navbar
+          }
         }
       ]
     },
-    {
+    /*{
       path: '/Profil',
       name: 'Profil',
       component: Profil,
@@ -135,7 +143,7 @@ export default new Router({
           }
         }
       ]
-    },
+    },*/
     {
       path: '/Boutique',
       name: 'Boutique',

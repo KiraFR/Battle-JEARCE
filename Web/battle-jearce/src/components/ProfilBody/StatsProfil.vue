@@ -1,9 +1,42 @@
 <template>
   <b-container>
-    <p>{{pseudo}}</p>
-    <p>{{email}}</p>
-    <p>{{argent}}</p>
-    <p>{{score}}</p>
+    <b-row align-h="center">
+      <b-col lg="auto">
+        <h4 class="titreStyle">Mon Profil</h4>
+      </b-col>
+    </b-row>
+    <b-row align-h="center">
+      <b-col lg="auto" class="titreStyle rouge">
+        email :
+      </b-col>
+      <b-col lg="auto" class="titreStyle orange">
+        {{email}}
+      </b-col>
+    </b-row>
+    <b-row align-h="center">
+      <b-col lg="auto" class="titreStyle rouge">
+        pseudo :
+      </b-col>
+      <b-col lg="auto" class="titreStyle orange">
+        {{pseudo}}
+      </b-col>
+    </b-row>
+    <b-row align-h="center">
+      <b-col lg="auto" class="titreStyle rouge">
+        argent :
+      </b-col>
+      <b-col lg="auto" class="titreStyle orange">
+        {{argent}}
+      </b-col>
+    </b-row>
+    <b-row align-h="center">
+      <b-col lg="auto" class="titreStyle rouge">
+        score :
+      </b-col>
+      <b-col lg="auto" class="titreStyle orange">
+        {{score}}
+      </b-col>
+    </b-row>
   </b-container>
 </template>
 
@@ -45,4 +78,12 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+  .rouge {
+    -webkit-text-stroke: 0.5px #B22222;
+  }
+
+  .orange {
+    -webkit-text-stroke: 0.5px #FFD700;
+  }
+
 </style>

@@ -1,18 +1,20 @@
 <template>
-  <b-container class="back">
+  <b-container>
     <b-row id="size">
       <b-col lg="4" offset-lg="1" align-self="center">
         <router-link to="/Battle-Jearce/Accueil" class="lien"><b-img :src="require('../../assets/logo_BATTLE_JEARCE.png')"></b-img></router-link>
       </b-col>
-      <b-col lg="6" offset-lg="1" align-self="center">
-          <b-nav v-show=!$parent.$parent.connected>
-              <b-nav-item><router-link to="/Battle-Jearce/Inscription" class="lien orange">S'inscrire</router-link></b-nav-item>
-              <b-nav-item><router-link to="/Battle-Jearce/Connexion" class="lien rouge ">Se connecter</router-link></b-nav-item>
-          </b-nav>
-          <b-nav v-show=$parent.$parent.connected>
+      <b-col lg="6" offset-lg="1" align-self="center" v-show=!$parent.$parent.connected>
+        <b-nav>
+          <b-nav-item><router-link to="/Battle-Jearce/Inscription" class="lien orange">S'inscrire</router-link></b-nav-item>
+          <b-nav-item><router-link to="/Battle-Jearce/Connexion" class="lien rouge ">Se connecter</router-link></b-nav-item>
+        </b-nav>
+      </b-col>
+      <b-col lg="4" offset-lg="3" align-self="center"v-show=$parent.$parent.connected>
+          <b-nav >
             <b-nav-item v-on:click=setdisconnected><router-link to="" class="lien orange">Se deconnecter</router-link></b-nav-item>
           </b-nav>
-      </b-col>
+       </b-col>
     </b-row>
    </b-container>
 </template>
@@ -55,10 +57,10 @@
     -webkit-text-stroke: 0.5px #B22222;
   }
   img{
-    width:15vw;
+    height:10vh;
   }
   .back {
-    background-color: #393333;
+    /*background-color: #393333;*/
   }
   .lien {
     font-size: 17px;

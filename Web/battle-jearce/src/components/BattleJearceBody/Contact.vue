@@ -1,7 +1,9 @@
 <template>
   <b-container>
-    <b-row class="justify-content-lg-center">
-      <b-col lg="5"><h3>Nous contacter</h3></b-col>
+    <b-row align-h="center">
+      <b-col lg="auto">
+        <h4 class="titreStyle">Nous Contacter</h4>
+      </b-col>
     </b-row>
     <b-row>
       <b-col lg="6" offset-lg="3">
@@ -11,6 +13,12 @@
             <b-form-input></b-form-input>
 
           </b-form-group>
+          <b-form-textarea id="textarea"
+                           v-model="text"
+                           placeholder="Enter something..."
+                           rows="3"
+                           max-rows="6"></b-form-textarea>
+          <b-button type="submit" v-on:click="verifConnexion" variant="light">Submit</b-button>
         </b-form>
       </b-col>
     </b-row>
