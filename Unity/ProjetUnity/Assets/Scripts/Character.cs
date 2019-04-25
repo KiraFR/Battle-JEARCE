@@ -42,6 +42,11 @@ public class Character : MonoBehaviour
         healthTextPerUnit = canvasGO.transform.Find("ImageHealth").transform.Find("HealthTextPerUnit").GetComponent<TextMeshProUGUI>();
     }
 
+    public void GetHealed(int pdv)
+    {
+        healthTextPerUnit.SetText(healthPoint.currentStat.ToString());
+    }
+
     public bool GetAttacked(int loss)
     {        
         healthPoint.DecreaseCurrent(loss);

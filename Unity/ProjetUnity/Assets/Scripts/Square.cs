@@ -232,6 +232,11 @@ public class Square : MonoBehaviour
     {
         int pourcentage = allie.GetComponent<Character>().healthPoint.baseStat*25/100;
         allie.GetComponent<Character>().healthPoint.currentStat = allie.GetComponent<Character>().healthPoint.currentStat + pourcentage;
+        if(allie.GetComponent<Character>().healthPoint.baseStat < allie.GetComponent<Character>().healthPoint.currentStat)
+        {
+            allie.GetComponent<Character>().healthPoint.currentStat = allie.GetComponent<Character>().healthPoint.baseStat;
+        }
+        allie.GetHealed(allie.GetComponent<Character>().healthPoint.currentStat);
     }
 
 }
