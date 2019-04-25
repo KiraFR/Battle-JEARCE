@@ -75,6 +75,7 @@ public class GameManager : MonoBehaviour
     public void StartGame()
     {
         ClearMovingTiles();
+        selectedSquare = null;
         phase = false;
     }
 
@@ -130,6 +131,7 @@ public class GameManager : MonoBehaviour
             if (selectedSquare != null)
             {
                 selectedSquare.transform.Find("FloorBase").GetComponent<SpriteRenderer>().sprite = null;
+                selectedSquare.transform.GetChild(0).GetComponent<Animator>().runtimeAnimatorController = null;
             }
             foreach (GameObject obj in movingTiles)
             {
@@ -329,6 +331,12 @@ public class GameManager : MonoBehaviour
         foreach (GameObject ally in allies)
         {
             ally.GetComponent<Character>().resetTurn();
+        }
+
+        if(selectedSquare != null)
+        {
+            selectedSquare.transform.GetChild(0).GetComponent<Animator>().runtimeAnimatorController = null;
+            selectedSquare = null;
         }
         ResetStats();
         playerTurn = true;

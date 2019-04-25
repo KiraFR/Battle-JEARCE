@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class ClickButton : MonoBehaviour
@@ -32,5 +33,12 @@ public class ClickButton : MonoBehaviour
     public void BackButton()
     {
         buttonForOptionCanvas.GetComponent<Button>().onClick.AddListener(() => canvasForOptionCanvas.SetActive(true));
+    }
+
+
+    public void PlayButton()
+    {
+        if (!DataManager.instance.Connecter()) { return; }
+        SceneManager.LoadScene("Game", LoadSceneMode.Single);
     }
 }

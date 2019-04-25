@@ -50,7 +50,10 @@ public class DataManager
         string[] ancien = File.ReadAllLines("data.txt");
         if (ancien[0] != "" && ancien[1] != "")
         {
-            idUser = ancien[1];
+            if (idUser == null)
+            {
+                idUser = ancien[1];
+            }
             return true;
         }
         else

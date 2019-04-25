@@ -18,7 +18,6 @@ public class NetworkManager : MonoBehaviour
     private Thread mainThread;
     private List<string> queueCommand = new List<string>();
 
-
     void Start()
     {
         iPAddress = IPAddress.Parse(ip);
