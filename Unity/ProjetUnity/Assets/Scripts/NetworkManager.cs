@@ -1,33 +1,41 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Net;
 using System.Net.Sockets;
+using System.Reflection;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
+using testDLL;
 using UnityEngine;
 
 public class NetworkManager : MonoBehaviour
 {
     public int port = 8181;
     public string ip;
-
     private readonly Socket ClientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
     private IPAddress iPAddress;
     private Thread receivedThread;
-    private Thread mainThread;
-    private List<string> queueCommand = new List<string>();
+    private List<Fonction> queueCommand = new List<Fonction>();
+    private bool stopped;
 
     void Start()
     {
+        stopped = false;
+    }
+
+    public void StartConnection()
+    {
         iPAddress = IPAddress.Parse(ip);
-        ConnectToServer();
-        mainThread = Thread.CurrentThread;
+        new Thread(new ThreadStart(ConnectToServer)).Start();
         receivedThread = new Thread(new ThreadStart(Receive));
         receivedThread.Start();
     }
 
-    private void ConnectToServer()
+    void ConnectToServer()
     {
         int attempts = 0;
 
@@ -36,55 +44,59 @@ public class NetworkManager : MonoBehaviour
             try
             {
                 attempts++;
-                Debug.Log("Connection attempt " + attempts);
                 ClientSocket.Connect(iPAddress, port);
             }
             catch (SocketException)
             {
-                Debug.ClearDeveloperConsole();
+                if (attempts == 50)
+                {
+                    stopped = true;
+                }
             }
         }
 
-        Debug.ClearDeveloperConsole();
-        Debug.Log("Connected");
     }
 
-    private void Exit()
+    void OnDestroy()
     {
-        SendString("exit");
+        SendString("exit",new List<object>());
         ClientSocket.Shutdown(SocketShutdown.Both);
         ClientSocket.Close();
         receivedThread.Abort();
     }
 
-    private void SendString(string text)
+    public void SendString(string text,List<object> param)
     {
-        byte[] buffer = Encoding.ASCII.GetBytes(text);
-        ClientSocket.Send(buffer, 0, buffer.Length, SocketFlags.None);
+        try { 
+            Stream stream = new NetworkStream(ClientSocket);
+            BinaryFormatter bin = new BinaryFormatter();
+            bin.Serialize(stream, new Fonction(text, param));
+            //stream.Close();
+        }
+        catch (Exception)
+        {
+            ClientSocket.Close();
+            stopped = true;
+        }
     }
     
-    void Update()
+    void FixedUpdate()
     {
-        if(queueCommand.Count > 0)
+        if (stopped)
+        {
+
+        }else if(queueCommand.Count > 0)
         {
             for(int i = 0; i < queueCommand.Count; i++)
             {
-                string command = queueCommand[i];
-                string[] list = command.Split(' ');
+                Fonction command = queueCommand[i];
+                Type type = typeof(GameManager);
+                MethodInfo method = type.GetMethod(command.GetName());
+                Debug.Log(method);
 
-                if (list.Length > 0)
+                if (method != null)
                 {
-                    Debug.Log(command);
-                    int xStart, yStart, xFin, yFin;
-                    if (list[0] == "move")
-                    {
-                        int.TryParse(list[1], out xStart);
-                        int.TryParse(list[2], out yStart);
-                        int.TryParse(list[3], out xFin);
-                        int.TryParse(list[4], out yFin);
-                        GameManager.instance.MoveCharacter(new Vector3(xStart, yStart,0f),new Vector3(xFin, yFin,0f));
-
-                    }
+                    method.Invoke(GameManager.instance, command.GetParam().ToArray());
                 }
                 queueCommand.RemoveAt(i);
             }
@@ -93,20 +105,19 @@ public class NetworkManager : MonoBehaviour
 
     private void Receive()
     {
-        var buffer = new byte[2048];
-        int received = ClientSocket.Receive(buffer, SocketFlags.None);
-        if (received > 0)
+        try
         {
-            var data = new byte[received];
-            Array.Copy(buffer, data, received);
-            string receivedData = Encoding.ASCII.GetString(data);
-            if(receivedData != "")
-            {
-                queueCommand.Add(receivedData);
-                Debug.Log(receivedData);
-            }
+            Stream stream = new NetworkStream(ClientSocket);
+            BinaryFormatter bin = new BinaryFormatter();
+            Fonction fnc = (Fonction)bin.Deserialize(stream);
+            queueCommand.Add(fnc);
+            //stream.Close();
+            Receive();
         }
-        Receive();
+        catch (Exception)
+        {
+            ClientSocket.Close();
+            stopped = true;
+        }
     }
-
 }

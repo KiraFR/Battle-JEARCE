@@ -10,6 +10,7 @@ public class ConnexionWeb : MonoBehaviour
     public GameObject gomail;
     public GameObject gopwd;
 
+    private static string server = "http://34.76.34.147/";
     private static readonly HttpClient client = new HttpClient();
     private static string mail;
     private static string mdp;
@@ -26,13 +27,6 @@ public class ConnexionWeb : MonoBehaviour
     {
         mail = gomail.GetComponent<InputField>().text;
         mdp = gopwd.GetComponent<InputField>().text;
-
-        /*string key = "fUjXn2r5u7x!A%D*";
-        byte[] tabKey = System.Text.Encoding.UTF8.GetBytes(key);
-        byte[] data = Encoding.UTF8.GetBytes(mdp);
-        byte[] enc = Encrypt(data, tabKey);
-        string result = Encoding.UTF8.GetString(enc);*/
-
         await RequetteAsync();
     }
 
@@ -42,29 +36,14 @@ public class ConnexionWeb : MonoBehaviour
         string result = await RequetteHttpAsync();
         //Si bon resultat 
         JObject json = JObject.Parse(result);
-
-        Debug.Log(json);
         data.SetUser(json);
         await RequetteAsyncFormation(false);
         menu.GoodConnection();
     }
 
-    /*public static byte[] Encrypt(byte[] data, byte[] key)
-    {
-        using (AesCryptoServiceProvider csp = new AesCryptoServiceProvider())
-        {
-            csp.Key = key;
-            csp.Padding = PaddingMode.PKCS7;
-            csp.Mode = CipherMode.ECB;
-            ICryptoTransform encrypter = csp.CreateEncryptor();
-            return encrypter.TransformFinalBlock(data, 0, data.Length);
-        }
-    }
-    */
-
     public static async Task<string> RequetteHttpAsync()
     {
-        string url = "http://localhost:5000/GetUser/" + mail + "," + mdp;
+        string url = server +"GetUser/" + mail + "," + mdp;
         using (var result = await client.GetAsync($"{url}"))
         {
             string content = await result.Content.ReadAsStringAsync();
@@ -80,13 +59,14 @@ public class ConnexionWeb : MonoBehaviour
 
     public async Task RequetteAsyncFormation(bool canvasOpened)
     {
+        Debug.Log(data.GetIdUser());
         string resultForm = await RequetteHttpAsyncFormation(data.GetIdUser());
         string resultCharacter = await RequetteHttpAsyncCharacter();
         JArray json = JArray.Parse(resultForm);
 
         Debug.Log(resultForm);
         JArray jsonCharacter = JArray.Parse(resultCharacter);
-        menu.Formation(json, jsonCharacter);
+        menu.Formation(json, jsonCharacter, canvasOpened);
         int index = menu.GetIndexFormation();
         if (index == -1) { 
             menu.SetFormation(0, canvasOpened);
@@ -98,7 +78,7 @@ public class ConnexionWeb : MonoBehaviour
   
     public static async Task<string> RequetteHttpAsyncCharacter()
     {
-        string url = "http://localhost:5000/GetCharacter";
+        string url = server + "GetCharacter";
         using (var result = await client.GetAsync($"{url}"))
         {
             string content = await result.Content.ReadAsStringAsync();
@@ -109,7 +89,7 @@ public class ConnexionWeb : MonoBehaviour
     public static async Task<string> RequetteHttpAsyncFormation(string id)
     {
  
-        string url = "http://localhost:5000/GetFormation/" + id;
+        string url = server + "GetFormation/" + id;
         using (var result = await client.GetAsync($"{url}"))
         {
             string content = await result.Content.ReadAsStringAsync();
@@ -132,7 +112,7 @@ public class ConnexionWeb : MonoBehaviour
 
     public static async Task RequetteHttpAsyncDesconnecter()
     {
-        string url = "http://localhost:5000/DeleteSession";
+        string url = server + "DeleteSession";
         await client.GetAsync($"{url}");
     }
 }

@@ -75,11 +75,9 @@ public class MenuLoader : MonoBehaviour
         MainMenuPanel.SetActive(true);
     }
 
-    public void Formation(JArray formations, JArray jsonChara)
+    public void Formation(JArray formations, JArray jsonChara,bool canvasOpen)
     {
-        PlayPanel.SetActive(false);
-        FormationPanel.SetActive(true);
-        Component[] hingeJoints = FormationPanel.GetComponentsInChildren<Dropdown>();
+
         List<string> list = new List<string>();
 
         for (int i = 0; i < formations.Count; i++)
@@ -108,7 +106,13 @@ public class MenuLoader : MonoBehaviour
                 formation.Add(characters);
             }
         }
-        hingeJoints[0].GetComponent<Dropdown>().AddOptions(list);
+        if (canvasOpen)
+        {
+            PlayPanel.SetActive(false);
+            FormationPanel.SetActive(true);
+            Component[] hingeJoints = FormationPanel.GetComponentsInChildren<Dropdown>();
+            hingeJoints[0].GetComponent<Dropdown>().AddOptions(list);
+        }
     }
 
     public void SelectionFormation()
@@ -120,6 +124,7 @@ public class MenuLoader : MonoBehaviour
     public void SetFormation(int index,bool canvasOpened)
     {
         currentFormation = formation[index];
+        data.SetFormation(currentFormation);
         indexFormation = index;
         if (canvasOpened)
         {

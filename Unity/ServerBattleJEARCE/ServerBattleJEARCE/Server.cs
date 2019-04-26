@@ -11,11 +11,6 @@ namespace ServeurJEARCE
 {
     class Server
     {
-
-        //max memory that we will send/receive
-        
-
-
         private static List<Socket> clientSocket = new List<Socket>();
         private static List<Game> games = new List<Game>();
         private static Socket serverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
@@ -37,7 +32,7 @@ namespace ServeurJEARCE
                 new Game(clientSocket[clientSocket.Count - 2], clientSocket[clientSocket.Count - 1]);
             }
 
-            serverSocket.BeginAccept(new AsyncCallback(AcceptCallBack), null);
+            serverSocket.BeginAccept(AcceptCallBack, null);
         }
 
 

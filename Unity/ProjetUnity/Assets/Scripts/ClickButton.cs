@@ -38,7 +38,7 @@ public class ClickButton : MonoBehaviour
 
     public void PlayButton()
     {
-        if (!DataManager.instance.Connecter()) { return; }
+        if (!DataManager.GetInstance().Connecter()) { return; }
         SceneManager.LoadScene("Game", LoadSceneMode.Single);
     }
 }

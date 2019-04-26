@@ -1,14 +1,15 @@
-﻿using System.Globalization;
+﻿using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using Newtonsoft.Json.Linq;
 using UnityEngine;
 
 public class DataManager
 {
-    public static DataManager instance = null;
+    private static DataManager instance = null;
     private JObject user;
-    private string idUser = "";
-
+    private string idUser = null;
+    private string formation;
     private DataManager() {}
 
     public static DataManager GetInstance()
@@ -117,5 +118,15 @@ public class DataManager
     public string GetIdUser()
     {
         return idUser;
+    }
+    
+    public void SetFormation(string form)
+    {
+        formation = form;
+    }
+
+    public string GetFormation()
+    {
+        return formation;
     }
 }

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6276495806716407528}
   - component: {fileID: 6276495806716407529}
   - component: {fileID: 6276495806716407530}
+  - component: {fileID: 8101401368237840447}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -45,6 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boardScript: {fileID: 6276495806716407530}
+  network: {fileID: 8101401368237840447}
   selectedSquareAnim: {fileID: 0}
 --- !u!114 &6276495806716407530
 MonoBehaviour:
@@ -87,3 +89,17 @@ MonoBehaviour:
   - {fileID: 21300004, guid: 279d149924004af4aae21a33aa550ba4, type: 3}
   - {fileID: 21300006, guid: 279d149924004af4aae21a33aa550ba4, type: 3}
   - {fileID: 21300006, guid: 9569afb984aa5bc468e73f0948fcb13d, type: 3}
+--- !u!114 &8101401368237840447
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6276495806716407531}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 419566bcc78c06e43873a99960625f34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  port: 443
+  ip: 34.76.34.147

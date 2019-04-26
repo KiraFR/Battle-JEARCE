@@ -5,7 +5,6 @@ using UnityEngine;
 public class Loader : MonoBehaviour
 {
     public GameObject gameManager;
-    public GameObject networkManager;
     void Start()
     {
         float targetaspect = 9.0f / 18.0f;
@@ -24,7 +23,6 @@ public class Loader : MonoBehaviour
         if (GameManager.instance == null)
         {
             Instantiate(gameManager);
-            //Instantiate(networkManager); // wait until finished
         }
     }
 }

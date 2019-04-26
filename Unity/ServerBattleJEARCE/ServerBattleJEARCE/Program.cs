@@ -11,7 +11,7 @@ namespace ServeurJEARCE
         private static readonly Socket serverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
         private static readonly List<Socket> clientSockets = new List<Socket>();
         private const int BUFFER_SIZE = 2048;
-        private const int PORT = 8181;
+        private const int PORT = 443;
         private static readonly byte[] buffer = new byte[BUFFER_SIZE];
 
         static void Main()

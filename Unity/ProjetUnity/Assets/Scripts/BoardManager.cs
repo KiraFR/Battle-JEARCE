@@ -54,49 +54,14 @@ public class BoardManager : MonoBehaviour
                 instance.transform.GetChild(2).GetComponent<SpriteRenderer>().sprite = baseSprite;
 
                 floorGameObjects.Add(pos, instance);
-                // TODELETE --> DEBUG ALLY CHARACTER
-                /*if (x == 0 && y == 0)
-                {
-
-                    GameObject ally = Instantiate(GetUnit("epeiste"), pos, Quaternion.identity) as GameObject;
-                    instance.GetComponent<Square>().SetCharacter(ally.GetComponent<Character>());
-                    ally.GetComponent<Character>().SetState(true);
-                    GameManager.instance.AddToAllies(ally);
-
-                }
-
-                // TODELETE --> DEBUG ENNEMY CHARACTER 
-                if (x == 0 && y == 1)
-                {
-                    GameObject enemy = Instantiate(GetUnit("epeiste"), pos, Quaternion.identity) as GameObject;
-                    instance.GetComponent<Square>().SetCharacter(enemy.GetComponent<Character>());
-                    enemy.GetComponent<Character>().SetState(false);
-                    GameManager.instance.AddToEnemies(enemy);
-                }*/
-
                 instance.transform.SetParent(boardHolder);
             }
         }
     }
 
-    internal void InitPlacement()
+    internal void InitPlacement(string formation)
     {
-        bool placement = false;
-        bool side = true;
-        // Spawn allies 
-        List<string> list = new List<string>()
-        {
-            "Medecin" , "Guerrier" , "Assassin" , "Archer", "Tour"
-        };
-        SpawnUnits(list, placement, side);
 
-        list = new List<string>()
-        {
-            "Guerrier" , "Guerrier" , "Guerrier" , "Guerrier", "Tour"
-        };
-        SpawnUnits(list, !placement, !side);
-
-        PlacementSquares(placement);
     }
 
     /*
@@ -108,7 +73,7 @@ public class BoardManager : MonoBehaviour
      * true = Allies
      * false = Enemies
      * */
-    void SpawnUnits(List<string> characters, bool placement, bool side)
+    public void SpawnUnits(List<string> characters, bool placement, bool side)
     {
         List<Vector3> pos = GetPosFromSide(placement);
         int i = 0;
@@ -365,7 +330,7 @@ public class BoardManager : MonoBehaviour
         return list;
     }
 
-    void PlacementSquares(bool placement)
+    public void PlacementSquares(bool placement)
     {
         for (int x = 0; x < columns; x++)
         {

@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     public BoardManager boardScript;
+    public NetworkManager network;
     public static GameManager instance = null;
 
     private Text healthText;
@@ -31,8 +32,7 @@ public class GameManager : MonoBehaviour
     private Character cible = null;
     private Character unite = null;
 
-    private List<GameObject> caseCible ;
-
+    private List<GameObject> caseCible;
 
 
 
@@ -58,7 +58,6 @@ public class GameManager : MonoBehaviour
         ButtonEnd = GameObject.Find("EndTurn");
         phase = true;
         ButtonEnd.GetComponentInChildren<Text>().text = "Ready";
-
         InitGame();
         
         playerTurn = true;
@@ -68,7 +67,9 @@ public class GameManager : MonoBehaviour
     {
         movingTiles.Clear();
         boardScript.SetupScene();
-        boardScript.InitPlacement();
+        network.StartConnection();
+        string myFormation = DataManager.GetInstance().GetFormation();
+        network.SendString("init", new List<object>() { myFormation });
     }
 
 
@@ -577,6 +578,19 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < allies.Count; i++)
         {
             allies[i].GetComponent<Character>().naPasJouer.currentStat = 0;
+        }
+    }
+
+
+
+    public void PlacementInit(string formation, bool placement, bool side)
+    {
+        if (phase)
+        {
+            List<string> list = new List<string>(formation.Split(' '));
+            list.Add("Tour");
+            boardScript.SpawnUnits(list, placement, side);
+            boardScript.PlacementSquares(placement);
         }
     }
 }
