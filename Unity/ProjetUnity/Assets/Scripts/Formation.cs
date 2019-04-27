@@ -30,7 +30,7 @@ public class Formation : MonoBehaviour
         List<string> units = new List<string>(formation.Split(' '));
         for(int i = 0; i < units.Count; i++)
         {
-            GameObject unitCanvas = canvas.transform.GetChild(i).gameObject;
+            GameObject unitCanvas = canvas.transform.GetChild(i+1).gameObject;
             Sprite sprite = menu.GetSpriteFromName(units[i]);
             unitCanvas.transform.GetChild(0).GetComponent<Image>().sprite = sprite;
             unitCanvas.transform.GetChild(1).GetComponent<Text>().text = units[i];

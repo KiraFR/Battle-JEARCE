@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -63,11 +62,11 @@ public class GameManager : MonoBehaviour
         playerTurn = true;
     }
 
-    void InitGame()
+    async void InitGame()
     {
         movingTiles.Clear();
         boardScript.SetupScene();
-        network.StartConnection();
+        await network.StartConnection();
         string myFormation = DataManager.GetInstance().GetFormation();
         network.SendString("init", new List<object>() { myFormation });
     }
@@ -522,6 +521,7 @@ public class GameManager : MonoBehaviour
     {
         if (phase)
         {
+            network.SendString("MoveCharacterMP", new List<object>() { character.gameObject.transform.position.x, character.gameObject.transform.position.y, path.x, path.y });
             character.Move(path);
             selectedSquare.GetComponent<Square>().SetCharacter(null);
             selectedSquare.gameObject.transform.Find("UnderFloor").GetComponent<Animator>().runtimeAnimatorController = null;
@@ -530,6 +530,15 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void MoveCharacterMP(int xPosStart, int yPosStart, int xPosEnd, int yPosEnd)
+    {
+        GameObject squareStart = boardScript.GetGameObject(xPosStart, yPosStart);
+        GameObject squareEnd = boardScript.GetGameObject(xPosEnd, yPosEnd);
+        Character character = squareStart.GetComponent<Square>().GetCharacter();
+        squareStart.GetComponent<Square>().SetCharacter(null);
+        character.Move(squareEnd.transform.position);
+        squareEnd.GetComponent<Square>().SetCharacter(character);
+    }
 
     public void SetCible(Character c)
     {
@@ -590,7 +599,10 @@ public class GameManager : MonoBehaviour
             List<string> list = new List<string>(formation.Split(' '));
             list.Add("Tour");
             boardScript.SpawnUnits(list, placement, side);
-            boardScript.PlacementSquares(placement);
+            if (side)
+            {
+                boardScript.PlacementSquares(placement);
+            }
         }
     }
 }

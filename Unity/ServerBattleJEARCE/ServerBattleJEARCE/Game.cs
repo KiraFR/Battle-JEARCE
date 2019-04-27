@@ -1,14 +1,10 @@
-﻿using System;
+﻿using SerialFunction;
+using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net.Sockets;
 using System.Runtime.Serialization.Formatters.Binary;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
-using testDLL;
-
 
 namespace ServeurJEARCE
 {
@@ -21,20 +17,29 @@ namespace ServeurJEARCE
         private bool placement;
         private bool init = false;
         private BinaryFormatter formatter = new BinaryFormatter();
+        Stream player_one_stream;
+        Stream player_two_stream;
+        private bool player_one_ready;
+        private bool player_two_ready;
+
+
         public Game(Socket p1, Socket p2)
         {
             player_one = p1;
             player_two = p2;
+            player_one_stream = new NetworkStream(player_one);
+            player_two_stream = new NetworkStream(player_two);
             playing = true;
+            player_one_ready = false;
+            player_two_ready = false;
             Console.WriteLine("Two clients Connected");
             Thread player_one_th = new Thread(new ThreadStart(ReceiveCallBackPlayerOne));
             Thread player_two_th = new Thread(new ThreadStart(ReceiveCallBackPlayerTwo));
             player_one_th.Start();
             player_two_th.Start();
         }
-
-
-        private void Send(Socket socket, Fonction fonction)
+        
+        private void Send(Stream socket, SerialClass fonction)
         {
             bool sent = false;
             int attempt = 0;
@@ -47,8 +52,7 @@ namespace ServeurJEARCE
                 }
                 try
                 {
-                    Stream stream = new NetworkStream(socket);
-                    formatter.Serialize(stream, fonction);
+                    formatter.Serialize(socket, fonction);
                     //stream.Close();
                     sent = true;
                 }
@@ -60,14 +64,11 @@ namespace ServeurJEARCE
             }
         }
 
-
         public void ReceiveCallBackPlayerTwo()
         {
-            try { 
-                Stream stream = new NetworkStream(player_two);
-                Fonction fnc = (Fonction)formatter.Deserialize(stream);
-                stream.Close();
-
+            try {
+                Console.WriteLine("player two 1");
+                SerialClass fnc = (SerialClass)formatter.Deserialize(player_two_stream);
 
                 if (fnc.GetName().Equals("init"))
                 {
@@ -93,31 +94,34 @@ namespace ServeurJEARCE
                     }
 
                     List<object> paramSendTwo = new List<object>() { fnc.GetParam()[0], place , true };
-                    List<object> paramSendOne = new List<object>() { fnc.GetParam()[0], place , false };
-                    fnc = new Fonction("PlacementInit", paramSendOne);
+                    new Thread(() => Send(player_two_stream, new SerialClass("PlacementInit", paramSendTwo))).Start();
 
-                    new Thread(() => Send(player_two, new Fonction("PlacementInit", paramSendTwo))).Start();
+
+                    List<object> paramSendOne = new List<object>() { fnc.GetParam()[0], place , false };
+                    fnc = new SerialClass("PlacementInit", paramSendOne);
                 }
-                else
+                else if(fnc.GetName().Equals("ready"))
                 {
-                    new Thread(() => Send(player_one, fnc)).Start();
+                    player_two_ready = true;
                 }
+
+                new Thread(() => Send(player_one_stream, fnc)).Start();
                 ReceiveCallBackPlayerTwo();
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                Console.WriteLine("Player Two a perdu la connexion");
+                Console.WriteLine("Player Two a perdu la connexion : " + e.Message);
+                player_one_stream.Close();
+                player_two_stream.Close();
             }
-}
+        }
 
         public void ReceiveCallBackPlayerOne()
         {
             try
             {
-                Stream stream = new NetworkStream(player_one);
-                Fonction fnc = (Fonction)formatter.Deserialize(stream);
-                stream.Close();
-
+                Console.WriteLine("player one 1");
+                SerialClass fnc = (SerialClass)formatter.Deserialize(player_one_stream);
 
                 if (fnc.GetName().Equals("init"))
                 {
@@ -142,19 +146,38 @@ namespace ServeurJEARCE
                         place = !placement;
                     }
 
-                    List<object> paramSendTwo = new List<object>() { fnc.GetParam()[0], place, false };
+                    
                     List<object> paramSendOne = new List<object>() { fnc.GetParam()[0], place, true };
-                    fnc = new Fonction("PlacementInit", paramSendTwo);
+                    new Thread(() => Send(player_one_stream, new SerialClass("PlacementInit", paramSendOne))).Start();
 
-                    new Thread(() => Send(player_one, new Fonction("PlacementInit", paramSendOne))).Start();
+                    
+                    List<object> paramSendTwo = new List<object>() { fnc.GetParam()[0], place, false };
+                    fnc = new SerialClass("PlacementInit", paramSendTwo);
+
                 }
-                new Thread(() => Send(player_two, fnc)).Start();
+                else if (fnc.GetName().Equals("ready"))
+                {
+                    player_one_ready = true;
+
+                    if (player_one_ready && player_two_ready)
+                    {
+                        bool start = (new Random().Next(0, 2) % 2) == 0;
+
+                        List<object> paramSendTwo = new List<object>() { fnc.GetParam()[0],start , false };
+                        fnc = new SerialClass("PlacementInit", paramSendTwo);
+                    }
+
+
+                }
+                new Thread(() => Send(player_two_stream, fnc)).Start();
 
                 ReceiveCallBackPlayerOne();
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                Console.WriteLine("Player One a perdu la connexion");
+                Console.WriteLine("Player One a perdu la connexion : " + e.Message);
+                player_one_stream.Close();
+                player_two_stream.Close();
             }
         }
     }

@@ -10,6 +10,8 @@ public class DataManager
     private JObject user;
     private string idUser = null;
     private string formation;
+    private string dirFile = "/storage/emulated/0/data.txt";
+    //private string dirFile = "data.txt";
     private DataManager() {}
 
     public static DataManager GetInstance()
@@ -23,32 +25,32 @@ public class DataManager
 
     public void VerifFichier()
     {
-        if (!File.Exists("data.txt"))
+        if (!File.Exists(dirFile))
         {
             string[] ini = { "", "", "0.5", "0.5" };
-            File.WriteAllLines("data.txt", ini);
+            File.WriteAllLines(dirFile, ini);
         }
     }
 
     public void EcrirePseudoID(string pseudo, string id)
     {
-        string[] ancien = File.ReadAllLines("data.txt");
+        string[] ancien = File.ReadAllLines(dirFile);
         ancien[0] = pseudo;
         ancien[1] = idUser;
-        File.WriteAllLines("data.txt", ancien);
+        File.WriteAllLines(dirFile, ancien);
     }
 
     public void EcrireSonMusic(string son, string music)
     {
-        string[] ancien = File.ReadAllLines("data.txt");
+        string[] ancien = File.ReadAllLines(dirFile);
         ancien[2] = son;
         ancien[3] = music;
-        File.WriteAllLines("data.txt", ancien);
+        File.WriteAllLines(dirFile, ancien);
     }
 
     public bool Connecter()
     {
-        string[] ancien = File.ReadAllLines("data.txt");
+        string[] ancien = File.ReadAllLines(dirFile);
         if (ancien[0] != "" && ancien[1] != "")
         {
             if (idUser == null)
@@ -66,7 +68,7 @@ public class DataManager
 
     public float GetVolume()
     {
-        string[] ancien = File.ReadAllLines("data.txt");
+        string[] ancien = File.ReadAllLines(dirFile);
         ancien[2] = ancien[2].Replace(",", ".");
         return float.Parse(ancien[2], CultureInfo.InvariantCulture.NumberFormat);
 
@@ -74,7 +76,7 @@ public class DataManager
 
     public float GetSetSfx()
     {
-        string[] ancien = File.ReadAllLines("data.txt");
+        string[] ancien = File.ReadAllLines(dirFile);
         ancien[3] = ancien[3].Replace(",", ".");
         return float.Parse(ancien[3], CultureInfo.InvariantCulture.NumberFormat);
 
@@ -82,24 +84,24 @@ public class DataManager
 
     public void SetVolume(float volume)
     {
-        string[] ancien = File.ReadAllLines("data.txt");
+        string[] ancien = File.ReadAllLines(dirFile);
         ancien[2] = volume.ToString();
-        File.WriteAllLines("data.txt", ancien);
+        File.WriteAllLines(dirFile, ancien);
     }
 
     public void GetSfx(float sfx)
     {
-        string[] ancien = File.ReadAllLines("data.txt");
+        string[] ancien = File.ReadAllLines(dirFile);
         ancien[3] = sfx.ToString();
-        File.WriteAllLines("data.txt", ancien);
+        File.WriteAllLines(dirFile, ancien);
     }
 
     public void Deconnecter()
     {
-        string[] ancien = File.ReadAllLines("data.txt");
+        string[] ancien = File.ReadAllLines(dirFile);
         ancien[0] = "";
         ancien[1] = "";
-        File.WriteAllLines("data.txt", ancien);
+        File.WriteAllLines(dirFile, ancien);
     }
 
     public void SetUser(JObject u)

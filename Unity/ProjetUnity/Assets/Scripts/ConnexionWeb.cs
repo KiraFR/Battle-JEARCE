@@ -11,6 +11,7 @@ public class ConnexionWeb : MonoBehaviour
     public GameObject gopwd;
 
     private static string server = "http://34.76.34.147/";
+    //private static string server = "http://localhost:5000/";
     private static readonly HttpClient client = new HttpClient();
     private static string mail;
     private static string mdp;
@@ -59,12 +60,9 @@ public class ConnexionWeb : MonoBehaviour
 
     public async Task RequetteAsyncFormation(bool canvasOpened)
     {
-        Debug.Log(data.GetIdUser());
         string resultForm = await RequetteHttpAsyncFormation(data.GetIdUser());
         string resultCharacter = await RequetteHttpAsyncCharacter();
         JArray json = JArray.Parse(resultForm);
-
-        Debug.Log(resultForm);
         JArray jsonCharacter = JArray.Parse(resultCharacter);
         menu.Formation(json, jsonCharacter, canvasOpened);
         int index = menu.GetIndexFormation();

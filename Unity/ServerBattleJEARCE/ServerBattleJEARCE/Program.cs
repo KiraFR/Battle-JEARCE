@@ -11,7 +11,7 @@ namespace ServeurJEARCE
         private static readonly Socket serverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
         private static readonly List<Socket> clientSockets = new List<Socket>();
         private const int BUFFER_SIZE = 2048;
-        private const int PORT = 443;
+        private const int PORT = 81;
         private static readonly byte[] buffer = new byte[BUFFER_SIZE];
 
         static void Main()
@@ -64,10 +64,14 @@ namespace ServeurJEARCE
             if (clientSockets.Count > 1)
             {
                 Console.WriteLine((clientSockets.Count - 2) + " et " + (clientSockets.Count - 1));
-                new Game(clientSockets[clientSockets.Count - 2], clientSockets[clientSockets.Count - 1]);
+                Socket p1 = clientSockets[clientSockets.Count - 2];
+                Socket p2 = clientSockets[clientSockets.Count - 1];
+                new Game(p1, p2);
+                clientSockets.Remove(p1);
+                clientSockets.Remove(p2);
             }
             Console.WriteLine("Client connected, waiting for request...");
-           serverSocket.BeginAccept(AcceptCallback, null);
+            serverSocket.BeginAccept(AcceptCallback, null);
         }
 
         private static void ReceiveCallback(IAsyncResult AR)

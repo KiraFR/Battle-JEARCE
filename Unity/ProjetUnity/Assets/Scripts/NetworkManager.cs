@@ -1,60 +1,57 @@
-﻿using System;
+﻿using SerialFunction;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Net.Sockets;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using testDLL;
 using UnityEngine;
 
 public class NetworkManager : MonoBehaviour
 {
     public int port = 8181;
     public string ip;
+
+
     private readonly Socket ClientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
     private IPAddress iPAddress;
     private Thread receivedThread;
-    private List<Fonction> queueCommand = new List<Fonction>();
+    private List<SerialClass> queueCommand = new List<SerialClass>();
     private bool stopped;
+    private Stream stream;
+    private BinaryFormatter formatter;
 
     void Start()
     {
         stopped = false;
     }
 
-    public void StartConnection()
+    public async Task StartConnection()
     {
+
+        Debug.Log(ip + ":" + port);
+        formatter = new BinaryFormatter();
         iPAddress = IPAddress.Parse(ip);
-        new Thread(new ThreadStart(ConnectToServer)).Start();
-        receivedThread = new Thread(new ThreadStart(Receive));
-        receivedThread.Start();
+        bool connected = await ConnectToServer();
+        if (connected)
+        {
+            receivedThread = new Thread(new ThreadStart(Receive));
+            receivedThread.Start();
+        }
     }
 
-    void ConnectToServer()
+    public async Task<bool> ConnectToServer()
     {
-        int attempts = 0;
+        await ClientSocket.ConnectAsync(iPAddress, port);
+        stream = new NetworkStream(ClientSocket);
 
-        while (!ClientSocket.Connected)
-        {
-            try
-            {
-                attempts++;
-                ClientSocket.Connect(iPAddress, port);
-            }
-            catch (SocketException)
-            {
-                if (attempts == 50)
-                {
-                    stopped = true;
-                }
-            }
-        }
-
+        return ClientSocket.Connected;
     }
 
     void OnDestroy()
@@ -68,15 +65,12 @@ public class NetworkManager : MonoBehaviour
     public void SendString(string text,List<object> param)
     {
         try { 
-            Stream stream = new NetworkStream(ClientSocket);
-            BinaryFormatter bin = new BinaryFormatter();
-            bin.Serialize(stream, new Fonction(text, param));
-            //stream.Close();
+            formatter.Serialize(stream, new SerialClass(text, param));
         }
         catch (Exception)
         {
-            ClientSocket.Close();
-            stopped = true;
+            //ClientSocket.Close();
+            //stream.Close();
         }
     }
     
@@ -89,7 +83,7 @@ public class NetworkManager : MonoBehaviour
         {
             for(int i = 0; i < queueCommand.Count; i++)
             {
-                Fonction command = queueCommand[i];
+                SerialClass command = queueCommand[i];
                 Type type = typeof(GameManager);
                 MethodInfo method = type.GetMethod(command.GetName());
                 Debug.Log(method);
@@ -105,19 +99,11 @@ public class NetworkManager : MonoBehaviour
 
     private void Receive()
     {
-        try
+        if (ClientSocket.Connected)
         {
-            Stream stream = new NetworkStream(ClientSocket);
-            BinaryFormatter bin = new BinaryFormatter();
-            Fonction fnc = (Fonction)bin.Deserialize(stream);
+            SerialClass fnc = (SerialClass)formatter.Deserialize(stream);
             queueCommand.Add(fnc);
-            //stream.Close();
-            Receive();
         }
-        catch (Exception)
-        {
-            ClientSocket.Close();
-            stopped = true;
-        }
+        Receive();
     }
 }

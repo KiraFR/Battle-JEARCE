@@ -8,6 +8,7 @@ public class ClickButton : MonoBehaviour
 {
 
     public GameObject canvasForOptionCanvas;
+    public GameObject OptionCanvas;
     public GameObject buttonForOptionCanvas;
 
     public void Quit()
@@ -32,6 +33,8 @@ public class ClickButton : MonoBehaviour
 
     public void BackButton()
     {
+        buttonForOptionCanvas.GetComponent<Button>().onClick.RemoveAllListeners();
+        buttonForOptionCanvas.GetComponent<Button>().onClick.AddListener(() => OptionCanvas.SetActive(false));
         buttonForOptionCanvas.GetComponent<Button>().onClick.AddListener(() => canvasForOptionCanvas.SetActive(true));
     }
 

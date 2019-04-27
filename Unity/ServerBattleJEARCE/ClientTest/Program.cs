@@ -14,7 +14,7 @@ namespace MultiClient
         private static readonly Socket ClientSocket = new Socket
             (AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
-        private const int PORT = 8181;
+        private const int PORT = 81;
         private static Thread receiveRespThread;
         static void Main()
         {

@@ -136,10 +136,9 @@ public class MenuLoader : MonoBehaviour
     {
         string form = GetFormation(indexFormation);
         List<string> units = new List<string>(form.Split(' '));
-        GameObject canvasUnit = FormationPanel.transform.GetChild(1).gameObject;
         for (int i = 0; i < units.Count; i++)
         {
-            GameObject unitCanvas = canvasUnit.transform.GetChild(i).gameObject;
+            GameObject unitCanvas = FormationPanel.transform.GetChild(i+1).gameObject;
             Sprite sprite = GetSpriteFromName(units[i]);
             unitCanvas.transform.GetChild(0).GetComponent<Image>().sprite = sprite;
             unitCanvas.transform.GetChild(1).GetComponent<Text>().text = units[i];
