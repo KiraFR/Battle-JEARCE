@@ -9,7 +9,7 @@ public class DataManager
     private static DataManager instance = null;
     private JObject user;
     private string idUser = null;
-    private string formation;
+    private string formation = "";
     private string dirFile = "/storage/emulated/0/data.txt";
     //private string dirFile = "data.txt";
     private DataManager() {}

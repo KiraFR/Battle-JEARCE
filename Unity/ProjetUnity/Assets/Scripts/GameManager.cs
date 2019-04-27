@@ -68,6 +68,10 @@ public class GameManager : MonoBehaviour
         boardScript.SetupScene();
         await network.StartConnection();
         string myFormation = DataManager.GetInstance().GetFormation();
+        if(myFormation == "")
+        {
+            myFormation = MenuLoader.instance.GetFormation(0);
+        }
         network.SendString("init", new List<object>() { myFormation });
     }
 
@@ -521,7 +525,7 @@ public class GameManager : MonoBehaviour
     {
         if (phase)
         {
-            network.SendString("MoveCharacterMP", new List<object>() { (int)character.gameObject.transform.position.x, (int)character.gameObject.transform.position.y, (int)path.x, path.y });
+            network.SendString("MoveCharacterMP", new List<object>() { character.gameObject.transform.position.x, character.gameObject.transform.position.y, path.x, path.y });
             character.Move(path);
             selectedSquare.GetComponent<Square>().SetCharacter(null);
             selectedSquare.gameObject.transform.Find("UnderFloor").GetComponent<Animator>().runtimeAnimatorController = null;
@@ -530,10 +534,10 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void MoveCharacterMP(int xPosStart, int yPosStart, int xPosEnd, int yPosEnd)
+    public void MoveCharacterMP(float xPosStart, float yPosStart, float xPosEnd, float yPosEnd)
     {
-        GameObject squareStart = boardScript.GetGameObject(xPosStart, yPosStart);
-        GameObject squareEnd = boardScript.GetGameObject(xPosEnd, yPosEnd);
+        GameObject squareStart = boardScript.GetGameObject((int)xPosStart, (int)yPosStart);
+        GameObject squareEnd = boardScript.GetGameObject((int)xPosEnd, (int)yPosEnd);
         Character character = squareStart.GetComponent<Square>().GetCharacter();
         squareStart.GetComponent<Square>().SetCharacter(null);
         character.Move(squareEnd.transform.position);

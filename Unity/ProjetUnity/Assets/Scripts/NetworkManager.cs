@@ -87,10 +87,11 @@ public class NetworkManager : MonoBehaviour
                 Type type = typeof(GameManager);
                 MethodInfo method = type.GetMethod(command.GetName());
                 Debug.Log(method);
+                object[] param = command.GetParam().ToArray();
 
                 if (method != null)
                 {
-                    method.Invoke(GameManager.instance, command.GetParam().ToArray());
+                    method.Invoke(GameManager.instance, param);
                 }
                 queueCommand.RemoveAt(i);
             }

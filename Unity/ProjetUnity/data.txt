@@ -1,4 +1,4 @@
 padoru
 5cb6fd82ee1e810ad060edd5
-0
+0,0454509
 0,5

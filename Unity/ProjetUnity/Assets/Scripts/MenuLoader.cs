@@ -111,6 +111,7 @@ public class MenuLoader : MonoBehaviour
             PlayPanel.SetActive(false);
             FormationPanel.SetActive(true);
             Component[] hingeJoints = FormationPanel.GetComponentsInChildren<Dropdown>();
+            hingeJoints[0].GetComponent<Dropdown>().ClearOptions();
             hingeJoints[0].GetComponent<Dropdown>().AddOptions(list);
         }
     }
