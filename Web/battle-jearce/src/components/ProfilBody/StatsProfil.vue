@@ -1,39 +1,39 @@
 <template>
   <b-container>
     <b-row align-h="center">
-      <b-col lg="auto">
-        <h4 class="titreStyle">Mon Profil</h4>
+      <b-col cols="auto" lg="auto">
+        <h4  class=" sizetitre titreStyle">Mon Profil</h4>
       </b-col>
     </b-row>
     <b-row align-h="center">
-      <b-col lg="auto" class="titreStyle rouge">
+      <b-col lg="auto" cols="auto" class="titreStyle sizeText rouge">
         email :
       </b-col>
-      <b-col lg="auto" class="titreStyle orange">
+      <b-col lg="auto" cols="auto" class="titreStyle sizeText orange">
         {{email}}
       </b-col>
     </b-row>
     <b-row align-h="center">
-      <b-col lg="auto" class="titreStyle rouge">
+      <b-col lg="auto" cols="auto" class="titreStyle sizeText rouge">
         pseudo :
       </b-col>
-      <b-col lg="auto" class="titreStyle orange">
+      <b-col lg="auto" cols="auto" class="titreStyle sizeText orange">
         {{pseudo}}
       </b-col>
     </b-row>
     <b-row align-h="center">
-      <b-col lg="auto" class="titreStyle rouge">
+      <b-col lg="auto" cols="auto" class="titreStyle sizeText rouge">
         argent :
       </b-col>
-      <b-col lg="auto" class="titreStyle orange">
+      <b-col lg="auto" cols="auto" class="titreStyle sizeText orange">
         {{argent}}
       </b-col>
     </b-row>
     <b-row align-h="center">
-      <b-col lg="auto" class="titreStyle rouge">
+      <b-col lg="auto" cols="auto" class="titreStyle sizeText rouge">
         score :
       </b-col>
-      <b-col lg="auto" class="titreStyle orange">
+      <b-col lg="auto" cols="auto" class="titreStyle sizeText orange">
         {{score}}
       </b-col>
     </b-row>
@@ -78,6 +78,14 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+  @media screen and (max-width: 767px) {
+    .sizetitre{
+      font-size: 20px;
+    }
+    .sizeText {
+      font-size: 10px;
+    }
+  }
   .rouge {
     -webkit-text-stroke: 0.5px #B22222;
   }

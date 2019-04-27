@@ -1,8 +1,10 @@
 <template>
   <b-container>
-    <div>
-      <b-table hover :items="TabFormation"></b-table>
-    </div#>
+    <b-row align-h="center">
+      <b-col lg="auto" cols="auto">
+        <b-table hover small class="sizeTab" :items="TabFormation"></b-table>
+      </b-col>
+    </b-row>
   </b-container>
 </template>
 
@@ -64,4 +66,9 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+  @media screen and (max-width: 767px) {
+    .sizeTab{
+      font-size:7px;
+    }
+  }
 </style>

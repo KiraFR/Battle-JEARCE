@@ -1,7 +1,7 @@
 <template>
   <b-container>
     <b-row align-h="center">
-      <b-col lg="auto">
+      <b-col lg="auto" cols="auto">
         <h4 class="titreStyle">Accueil</h4>
       </b-col>
     </b-row>

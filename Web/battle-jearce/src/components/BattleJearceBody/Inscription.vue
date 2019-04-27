@@ -1,12 +1,12 @@
 <template>
   <b-container>
     <b-row align-h="center">
-      <b-col lg="auto">
+      <b-col lg="auto" cols="auto">
         <h4 class="titreStyle">Inscription</h4>
       </b-col>
     </b-row>
     <b-row>
-      <b-col lg="8" offset-lg="2">
+      <b-col lg="8" cols="10" offset="1" offset-lg="2">
         <b-form>
           <b-form-group label="Mail"
                         label-for="InputId">

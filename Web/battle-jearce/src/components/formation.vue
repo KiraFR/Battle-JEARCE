@@ -12,7 +12,7 @@
       </div>
       <b-col offset-lg="1" lg="10" class="bodyStyle">
         <b-row align-h="center">
-          <b-col lg="auto">
+          <b-col lg="auto" cols="auto">
             <h4 class="titreStyle">Formation</h4>
           </b-col>
         </b-row>

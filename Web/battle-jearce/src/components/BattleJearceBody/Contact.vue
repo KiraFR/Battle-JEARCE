@@ -1,12 +1,12 @@
 <template>
   <b-container>
     <b-row align-h="center">
-      <b-col lg="auto">
-        <h4 class="titreStyle">Nous Contacter</h4>
+      <b-col lg="auto" cols="auto">
+        <h4 class="titreStyle size">Nous Contacter</h4>
       </b-col>
     </b-row>
     <b-row>
-      <b-col lg="6" offset-lg="3">
+      <b-col lg="8" cols="10" offset-lg="2" offset="1">
         <b-form>
           <b-form-group id="Mail"
                         label="Mail">
@@ -31,4 +31,9 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+  @media screen and (max-width: 767px) {
+    .size{
+      font-size:17px;
+    }
+  }
 </style>

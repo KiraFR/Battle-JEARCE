@@ -1,8 +1,8 @@
 <template>
   <b-container>
     <b-row align-h="center">
-      <b-col lg="auto">
-        <h5 class="titreStyle orange">Classement Mondial</h5>
+      <b-col lg="auto" cols="auto">
+        <h5 class="titreStyle size orange">Classement Mondial</h5>
       </b-col>
     </b-row>
     <b-row>
@@ -11,8 +11,8 @@
       </b-col>
     </b-row>
     <b-row v-show=connected align-h="center">
-      <b-col lg="auto">
-        <h5 class="titreStyle rouge">Ma Position</h5>
+      <b-col lg="auto" cols="auto">
+        <h5 class="titreStyle size rouge">Ma Position</h5>
       </b-col>
     </b-row>
     <b-row v-show=connected>
@@ -115,6 +115,11 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+  @media screen and (max-width: 767px) {
+    .size {
+      font-size: 12px;
+    }
+  }
   .rouge {
     -webkit-text-stroke: 0.5px #B22222;
   }
