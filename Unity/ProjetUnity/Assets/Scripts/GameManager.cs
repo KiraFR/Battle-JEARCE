@@ -521,7 +521,7 @@ public class GameManager : MonoBehaviour
     {
         if (phase)
         {
-            network.SendString("MoveCharacterMP", new List<object>() { character.gameObject.transform.position.x, character.gameObject.transform.position.y, path.x, path.y });
+            network.SendString("MoveCharacterMP", new List<object>() { (int)character.gameObject.transform.position.x, (int)character.gameObject.transform.position.y, (int)path.x, path.y });
             character.Move(path);
             selectedSquare.GetComponent<Square>().SetCharacter(null);
             selectedSquare.gameObject.transform.Find("UnderFloor").GetComponent<Animator>().runtimeAnimatorController = null;
