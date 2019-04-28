@@ -1,8 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Globalization;
+﻿using System.Globalization;
 using System.IO;
 using Newtonsoft.Json.Linq;
-using UnityEngine;
 
 public class DataManager
 {
@@ -10,8 +8,8 @@ public class DataManager
     private JObject user;
     private string idUser = null;
     private string formation = "";
-    private string dirFile = "/storage/emulated/0/data.txt";
-    //private string dirFile = "data.txt";
+    //private string dirFile = "/storage/emulated/0/data.txt";
+    private string dirFile = "data.txt";
     private DataManager() {}
 
     public static DataManager GetInstance()

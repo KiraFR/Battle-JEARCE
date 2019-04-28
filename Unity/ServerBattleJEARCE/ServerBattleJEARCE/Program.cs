@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using System.Threading;
 
 namespace ServeurJEARCE
 {
@@ -11,15 +12,16 @@ namespace ServeurJEARCE
         private static readonly Socket serverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
         private static readonly List<Socket> clientSockets = new List<Socket>();
         private const int BUFFER_SIZE = 2048;
-        private const int PORT = 81;
+        private const int PORT = 82;
         private static readonly byte[] buffer = new byte[BUFFER_SIZE];
 
         static void Main()
         {
-            Console.Title = "Server";
+            Console.Title = "Server Battle JEARCE";
             SetupServer();
             Console.ReadLine(); // When we press enter close everything
             CloseAllSockets();
+
         }
 
         private static void SetupServer()
@@ -65,10 +67,24 @@ namespace ServeurJEARCE
             {
                 Console.WriteLine((clientSockets.Count - 2) + " et " + (clientSockets.Count - 1));
                 Socket p1 = clientSockets[clientSockets.Count - 2];
-                Socket p2 = clientSockets[clientSockets.Count - 1];
-                new Game(p1, p2);
-                clientSockets.Remove(p1);
-                clientSockets.Remove(p2);
+                if (p1.Connected)
+                {
+                    Socket p2 = clientSockets[clientSockets.Count - 1];
+                    if (p2.Connected)
+                    {
+                        new Game(p1, p2);
+                        clientSockets.Remove(p1);
+                        clientSockets.Remove(p2);
+                    }
+                    else
+                    {
+                        clientSockets.Remove(p2);
+                    }
+                }
+                else
+                {
+                    clientSockets.Remove(p1);
+                }
             }
             Console.WriteLine("Client connected, waiting for request...");
             serverSocket.BeginAccept(AcceptCallback, null);

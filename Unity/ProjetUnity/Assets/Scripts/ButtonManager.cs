@@ -12,7 +12,6 @@ public class ButtonManager : MonoBehaviour
     private Button EndTurnBtn;
     public void Start()
     {
-
         turnCanvas = GameObject.Find("CanvasTurn");
         confirmationCanvas = GameObject.Find("CanvasConfirm");
         EndTurnBtn = GameObject.Find("CanvasBottom").transform.Find("EndTurn").GetComponent<Button>();
@@ -21,7 +20,7 @@ public class ButtonManager : MonoBehaviour
 
         yesButton.onClick.AddListener(EndTurn);
         noButton.onClick.AddListener(StayTurn);
-        EndTurnBtn.onClick.AddListener(Ready);
+        EndTurnBtn.onClick.AddListener(ImReady);
 
         confirmationCanvas.SetActive(false);
         turnCanvas.SetActive(false);
@@ -36,11 +35,20 @@ public class ButtonManager : MonoBehaviour
 
     public void EndTurn()
     {
-        GameManager.instance.EndTurn();
-        GameManager gm = GameManager.instance;
-        gm.IniUnites();
         confirmationCanvas.SetActive(false);
+        GameManager.instance.EndTurn();
+        EndTurnBtn.transform.Find("Text").GetComponent<Text>().text = "Son Tour";
+        EndTurnBtn.onClick.RemoveAllListeners();
+        GameManager.instance.ResetStats();
+    }
+
+
+    public void YourTurn()
+    {
+        EndTurnBtn.GetComponent<Button>().onClick.AddListener(Confirmation);
+        EndTurnBtn.transform.Find("Text").GetComponent<Text>().text = "Fin de tour";
         StartCoroutine("TurnStart");
+        GameManager.instance.ResetStats();
     }
 
     public void StayTurn()
@@ -53,19 +61,52 @@ public class ButtonManager : MonoBehaviour
         confirmationCanvas.SetActive(true);
     }
 
+    private void ImReady()
+    {
+        GameManager.instance.network.SendString("ready", new List<object>());
+
+        EndTurnBtn.onClick.RemoveAllListeners();
+        EndTurnBtn.transform.Find("Text").GetComponent<Text>().text = "En attente";
+        GameManager.instance.ResetStats();
+        GameManager.instance.ClearMovingTiles();
+
+    }
+
     public void Ready()
     {
-        GameManager.instance.StartGame();
-        /*
-         * 
-         * Choses à faire entre les deux => Multijoueur
-         * 
-         * */
-
         StartCoroutine("TurnStart");
 
-        GameObject.Find("EndTurn").GetComponent<Button>().onClick.AddListener(EndTurn);
-        GameObject.Find("EndTurn").transform.Find("Text").GetComponent<Text>().text = "Fin de tour";
+        EndTurnBtn.onClick.RemoveAllListeners();
+        EndTurnBtn.GetComponent<Button>().onClick.AddListener(Confirmation);
+        EndTurnBtn.transform.Find("Text").GetComponent<Text>().text = "Fin de tour";
         GameManager.instance.ResetStats();
+    }
+
+    public void Surrended()
+    {
+        turnCanvas.SetActive(true);
+        turnCanvas.GetComponentInChildren<Text>().text = "Votre adversaire a abandonné ou a quitté la partie.";
+        StartCoroutine("WaitAnLoadScene");
+    }
+
+    public void Lost()
+    {
+        turnCanvas.SetActive(true);
+        turnCanvas.GetComponentInChildren<Text>().text = "Vous avez perdu.";
+        StartCoroutine("WaitAnLoadScene");
+    }
+
+    public void Won()
+    {
+        turnCanvas.SetActive(true);
+        turnCanvas.GetComponentInChildren<Text>().text = "Vous avez gagné !";
+        StartCoroutine("WaitAnLoadScene");
+    }
+
+    IEnumerator WaitAnLoadScene()
+    {
+        yield return new WaitForSeconds(2);
+        turnCanvas.SetActive(false);
+        GameManager.instance.LoadPrecedentScene();
     }
 }

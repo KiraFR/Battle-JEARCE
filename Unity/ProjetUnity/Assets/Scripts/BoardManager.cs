@@ -59,11 +59,6 @@ public class BoardManager : MonoBehaviour
         }
     }
 
-    internal void InitPlacement(string formation)
-    {
-
-    }
-
     /*
      * Placement : 
      * true = Top
@@ -256,13 +251,13 @@ public class BoardManager : MonoBehaviour
     void ChooseSetup()
     {
         int i = Random.Range(0, 4);
-        if (i == 0)
+       /* if (i == 0)
             ObstaclesSetup1();
         else if (i == 1)
             ObstaclesSetup2();
         else if (i == 2)
             ObstaclesSetup3();
-        else
+        else*/
             ObstaclesSetup4();
     }
 

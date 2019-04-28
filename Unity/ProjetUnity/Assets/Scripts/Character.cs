@@ -21,6 +21,8 @@ public class Character : MonoBehaviour
     public Sprite ally;
     public Sprite enemy;
 
+    public bool tower = false;
+
     private TextMeshProUGUI healthTextPerUnit;
 
     public float moveTime = .1f;
@@ -44,6 +46,7 @@ public class Character : MonoBehaviour
 
     public void GetHealed(int pdv)
     {
+        healthPoint.currentStat = pdv;
         healthTextPerUnit.SetText(healthPoint.currentStat.ToString());
     }
 
@@ -51,16 +54,29 @@ public class Character : MonoBehaviour
     {        
         healthPoint.DecreaseCurrent(loss);
         healthTextPerUnit.SetText(healthPoint.currentStat.ToString());
-        GameManager.instance.ChangeHealth(healthPoint.currentStat);
+        if (GameManager.instance.GetHealthShown() != "")
+        {
+            GameManager.instance.ChangeHealth(healthPoint.currentStat);
+        }
         if (healthPoint.currentStat <= 0)
         {
             Destroy(gameObject);
             if(image.sprite == ally)
             {
+                if (tower)
+                {
+                    GameManager.instance.YouLost();
+                    GameManager.instance.network.SendString("YouWin", new List<object>());
+                }
                 GameManager.instance.RemoveFromAllies(gameObject);
             }
             else
             {
+                if (tower)
+                {
+                    GameManager.instance.YouWin();
+                    GameManager.instance.network.SendString("YouLost", new List<object>());
+                }
                 GameManager.instance.RemoveFromEnemies(gameObject);
             }
             
@@ -136,8 +152,10 @@ public class Character : MonoBehaviour
     public void Move(int used)
     {
         movePoint.DecreaseCurrent(used);
-
-        GameManager.instance.ChangeMove(movePoint.currentStat);
+        if (GameManager.instance.GetMoveShown() != "")
+        {
+            GameManager.instance.ChangeMove(movePoint.currentStat);
+        }
     }
     public void Move(List<Vector3> follow)
     {

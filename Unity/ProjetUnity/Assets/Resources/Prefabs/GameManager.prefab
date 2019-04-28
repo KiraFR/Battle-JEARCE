@@ -47,6 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boardScript: {fileID: 6276495806716407530}
   network: {fileID: 8101401368237840447}
+  buttonManager: {fileID: 0}
   selectedSquareAnim: {fileID: 0}
 --- !u!114 &6276495806716407530
 MonoBehaviour:
@@ -101,5 +102,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 419566bcc78c06e43873a99960625f34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  port: 81
+  port: 82
   ip: 34.76.34.147

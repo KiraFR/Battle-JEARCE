@@ -67,10 +67,9 @@ namespace ServeurJEARCE
         public void ReceiveCallBackPlayerTwo()
         {
             try {
-                Console.WriteLine("player two 1");
-                SerialClass fnc = (SerialClass)formatter.Deserialize(player_two_stream);
+                SerialClass query = (SerialClass)formatter.Deserialize(player_two_stream);
 
-                if (fnc.GetName().Equals("init"))
+                if (query.GetName().Equals("init"))
                 {
                     bool place;
                     if (!init)
@@ -93,26 +92,34 @@ namespace ServeurJEARCE
                         place = !placement;
                     }
 
-                    List<object> paramSendTwo = new List<object>() { fnc.GetParam()[0], place , true };
+                    List<object> paramSendTwo = new List<object>() { query.GetParam()[0], place , true };
                     new Thread(() => Send(player_two_stream, new SerialClass("PlacementInit", paramSendTwo))).Start();
 
 
-                    List<object> paramSendOne = new List<object>() { fnc.GetParam()[0], place , false };
-                    fnc = new SerialClass("PlacementInit", paramSendOne);
+                    List<object> paramSendOne = new List<object>() { query.GetParam()[0], place , false };
+                    query = new SerialClass("PlacementInit", paramSendOne);
                 }
-                else if(fnc.GetName().Equals("ready"))
+                else if(query.GetName().Equals("ready"))
                 {
                     player_two_ready = true;
+
+                    if (player_one_ready && player_two_ready)
+                    {
+                        bool start = (new Random().Next(0, 2) % 2) == 0;
+                        new Thread(() => Send(player_two_stream, new SerialClass("StartGame", new List<object>() { !start }))).Start();
+
+                        query = new SerialClass("StartGame", new List<object>() { start });
+                    }
+
                 }
 
-                new Thread(() => Send(player_one_stream, fnc)).Start();
+                new Thread(() => Send(player_one_stream, query)).Start();
                 ReceiveCallBackPlayerTwo();
             }
             catch (Exception e)
             {
                 Console.WriteLine("Player Two a perdu la connexion : " + e.Message);
-                player_one_stream.Close();
-                player_two_stream.Close();
+                formatter.Serialize(player_one_stream, new SerialClass("Surrended", new List<object>()));
             }
         }
 
@@ -120,10 +127,9 @@ namespace ServeurJEARCE
         {
             try
             {
-                Console.WriteLine("player one 1");
-                SerialClass fnc = (SerialClass)formatter.Deserialize(player_one_stream);
+                SerialClass query = (SerialClass)formatter.Deserialize(player_one_stream);
 
-                if (fnc.GetName().Equals("init"))
+                if (query.GetName().Equals("init"))
                 {
                     bool place;
                     if (!init)
@@ -147,37 +153,34 @@ namespace ServeurJEARCE
                     }
 
                     
-                    List<object> paramSendOne = new List<object>() { fnc.GetParam()[0], place, true };
+                    List<object> paramSendOne = new List<object>() { query.GetParam()[0], place, true };
                     new Thread(() => Send(player_one_stream, new SerialClass("PlacementInit", paramSendOne))).Start();
 
                     
-                    List<object> paramSendTwo = new List<object>() { fnc.GetParam()[0], place, false };
-                    fnc = new SerialClass("PlacementInit", paramSendTwo);
+                    List<object> paramSendTwo = new List<object>() { query.GetParam()[0], place, false };
+                    query = new SerialClass("PlacementInit", paramSendTwo);
 
                 }
-                else if (fnc.GetName().Equals("ready"))
+                else if (query.GetName().Equals("ready"))
                 {
                     player_one_ready = true;
 
                     if (player_one_ready && player_two_ready)
                     {
                         bool start = (new Random().Next(0, 2) % 2) == 0;
+                        new Thread(() => Send(player_one_stream, new SerialClass("StartGame", new List<object>() { !start }))).Start();
 
-                        List<object> paramSendTwo = new List<object>() { fnc.GetParam()[0],start , false };
-                        fnc = new SerialClass("PlacementInit", paramSendTwo);
+                        query = new SerialClass("StartGame", new List<object>() { start });
                     }
-
-
                 }
-                new Thread(() => Send(player_two_stream, fnc)).Start();
+                new Thread(() => Send(player_two_stream, query)).Start();
 
                 ReceiveCallBackPlayerOne();
             }
             catch (Exception e)
             {
                 Console.WriteLine("Player One a perdu la connexion : " + e.Message);
-                player_one_stream.Close();
-                player_two_stream.Close();
+                formatter.Serialize(player_two_stream, new SerialClass("Surrended", new List<object>()));
             }
         }
     }

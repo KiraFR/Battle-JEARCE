@@ -1,38 +1,34 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
     public BoardManager boardScript;
     public NetworkManager network;
+    public ButtonManager buttonManager;
     public static GameManager instance = null;
+    public RuntimeAnimatorController selectedSquareAnim;
 
     private Text healthText;
     private Text moveText;
     private Text attackText;
-
     private GameObject ButtonEnd;
-
     private int isMedecin;
-
     private int[,] plateauDeJeux = new int[6, 9];
     private List<Vector3> chemin = null;
-
-    public RuntimeAnimatorController selectedSquareAnim;
-
     private List<GameObject> enemies;
     private List<GameObject> allies;
     private GameObject selectedSquare = null;
     private List<GameObject> movingTiles;
     private bool playerTurn;
     private bool phase;
-
     private Character cible = null;
     private Character unite = null;
-
     private List<GameObject> caseCible;
-
+    private GameObject CanvasLoading;
+    private int placementunit = 0;
 
 
     void Start()
@@ -55,17 +51,27 @@ public class GameManager : MonoBehaviour
         moveText = GameObject.Find("MoveText").GetComponent<Text>();
         attackText = GameObject.Find("AttackText").GetComponent<Text>();
         ButtonEnd = GameObject.Find("EndTurn");
+        CanvasLoading = GameObject.Find("CanvasLoading");
+        buttonManager = GameObject.Find("ButtonManager").GetComponent<ButtonManager>();
         phase = true;
+        playerTurn = false;
         ButtonEnd.GetComponentInChildren<Text>().text = "Ready";
         InitGame();
-        
-        playerTurn = true;
+    }
+
+
+    public void LoadPrecedentScene()
+    {
+        network.Disconnect();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
     }
 
     async void InitGame()
     {
         movingTiles.Clear();
         boardScript.SetupScene();
+
+        CanvasLoading.SetActive(true);
         await network.StartConnection();
         string myFormation = DataManager.GetInstance().GetFormation();
         if(myFormation == "")
@@ -73,14 +79,6 @@ public class GameManager : MonoBehaviour
             myFormation = MenuLoader.instance.GetFormation(0);
         }
         network.SendString("init", new List<object>() { myFormation });
-    }
-
-
-    public void StartGame()
-    {
-        ClearMovingTiles();
-        selectedSquare = null;
-        phase = false;
     }
 
     public GameObject GetGameObject(int xDir, int yDir)
@@ -191,7 +189,7 @@ public class GameManager : MonoBehaviour
 
     public int DistanceEntrePoint(int x, int y, int x2, int y2)
     {
-        return (int)(Mathf.Abs(x - x2) + (int)Mathf.Abs(y - y2));
+        return Mathf.Abs(x - x2) + Mathf.Abs(y - y2);
     }
 
     public void AttackSquares(int posX, int posY, int mouvement, int minDistAttack, int maxDistAttack)
@@ -296,6 +294,22 @@ public class GameManager : MonoBehaviour
         }
     }
 
+
+    public string GetHealthShown()
+    {
+        return healthText.text;
+    }
+    
+    public string GetMoveShown()
+    {
+        return moveText.text;
+    }
+
+    public string GetAttackShown()
+    {
+        return attackText.text;
+    }
+
     public void ChangeHealth(int healthPoint)
     {
         healthText.text = "HP : " + healthPoint;
@@ -343,7 +357,8 @@ public class GameManager : MonoBehaviour
             selectedSquare = null;
         }
         ResetStats();
-        playerTurn = true;
+        IniUnites();
+        network.SendString("YourTurn", new List<object>());
     }
 
     public void Deplacement(int xArrive, int yArrive, int xDepart, int yDepart)
@@ -365,6 +380,7 @@ public class GameManager : MonoBehaviour
             cheminTest.Add(objet);
             chemin = cheminTest;
         }
+
         chemin.RemoveAt(0);
         chemin.Reverse();
     }
@@ -519,29 +535,39 @@ public class GameManager : MonoBehaviour
             Vector3 calcul = new Vector3(Mathf.Abs(endPos.x - startPos.x), Mathf.Abs(endPos.y - startPos.y), 0);
             int essai = Mathf.RoundToInt(calcul.x + calcul.y);
             character.Move(essai);
+
+            network.SendString("MoveCharacterMP", new List<object>()
+            {
+               startPos.x, startPos.y, endPos.x, endPos.y, ToListOfListObject(GetChemin())
+            });
+
         }
     }
+
+
+    private List<List<object>> ToListOfListObject(List<Vector3> cheminVec)
+    {
+        List<List<object>> ret = new List<List<object>>();
+        foreach(Vector3 pos in cheminVec)
+        {
+            ret.Add(new List<object>() { pos.x, pos.y });
+        }
+
+        return ret;
+    }
+
+
     public void MoveCharacter(Character character, Vector3 path)
     {
         if (phase)
         {
-            network.SendString("MoveCharacterMP", new List<object>() { character.gameObject.transform.position.x, character.gameObject.transform.position.y, path.x, path.y });
+            network.SendString("MoveCharacterPlacePhase", new List<object>() { character.gameObject.transform.position.x, character.gameObject.transform.position.y, path.x, path.y });
             character.Move(path);
             selectedSquare.GetComponent<Square>().SetCharacter(null);
             selectedSquare.gameObject.transform.Find("UnderFloor").GetComponent<Animator>().runtimeAnimatorController = null;
             SetSelectedSquare(null);
             ResetStats();
         }
-    }
-
-    public void MoveCharacterMP(float xPosStart, float yPosStart, float xPosEnd, float yPosEnd)
-    {
-        GameObject squareStart = boardScript.GetGameObject((int)xPosStart, (int)yPosStart);
-        GameObject squareEnd = boardScript.GetGameObject((int)xPosEnd, (int)yPosEnd);
-        Character character = squareStart.GetComponent<Square>().GetCharacter();
-        squareStart.GetComponent<Square>().SetCharacter(null);
-        character.Move(squareEnd.transform.position);
-        squareEnd.GetComponent<Square>().SetCharacter(character);
     }
 
     public void SetCible(Character c)
@@ -596,8 +622,44 @@ public class GameManager : MonoBehaviour
 
 
 
+
+
+    // FROM MULTIPLAYER
+    
+    public void StartGame(bool play)
+    {
+        ClearMovingTiles();
+        selectedSquare = null;
+        phase = false;
+        playerTurn = play;
+
+        if (play)
+        {
+            buttonManager.Ready();
+        }
+    }
+
+    public void AttackMP(float attack, float xPosEnd, float yPosEnd)
+    {
+        GameObject squareEnd = boardScript.GetGameObject((int)xPosEnd, (int)yPosEnd);
+        Character character = squareEnd.GetComponent<Square>().GetCharacter();
+        if (character.GetAttacked((int)attack)){
+            squareEnd.GetComponent<Square>().SetCharacter(null);
+        }
+
+    }
+
+    public void HealMP(float heal, float xPosEnd, float yPosEnd)
+    {
+        GameObject squareEnd = boardScript.GetGameObject((int)xPosEnd, (int)yPosEnd);
+        Character character = squareEnd.GetComponent<Square>().GetCharacter();
+        character.GetHealed((int)heal);
+
+    }
+
     public void PlacementInit(string formation, bool placement, bool side)
     {
+        placementunit++;
         if (phase)
         {
             List<string> list = new List<string>(formation.Split(' '));
@@ -608,5 +670,61 @@ public class GameManager : MonoBehaviour
                 boardScript.PlacementSquares(placement);
             }
         }
+        if (placementunit > 1)
+        {
+            CanvasLoading.SetActive(false);
+        }
     }
+
+
+
+    public void MoveCharacterPlacePhase(float xPosStart, float yPosStart, float xPosEnd, float yPosEnd)
+    {
+        GameObject squareStart = boardScript.GetGameObject((int)xPosStart, (int)yPosStart);
+        GameObject squareEnd = boardScript.GetGameObject((int)xPosEnd, (int)yPosEnd);
+        Character character = squareStart.GetComponent<Square>().GetCharacter();
+        squareStart.GetComponent<Square>().SetCharacter(null);
+        character.Move(squareEnd.transform.position);
+        squareEnd.GetComponent<Square>().SetCharacter(character);
+    }
+
+    public void MoveCharacterMP(float xStartPos, float yStartPos, float xEndPos, float yEndPos, List<List<object>> cheminList)
+    {
+        List<Vector3> cheminVec = new List<Vector3>();
+        foreach (List<object> pos in cheminList)
+        {
+            cheminVec.Add(new Vector3((float)pos[0], (float)pos[1], 0f));
+        }
+        
+        GameObject squareEnd = boardScript.GetGameObject((int)xEndPos, (int)yEndPos);
+        GameObject squareStart = boardScript.GetGameObject((int)xStartPos, (int)yStartPos);
+        Character character = squareStart.GetComponent<Square>().GetCharacter();
+        character.Move(cheminVec);
+
+        squareStart.GetComponent<Square>().SetCharacter(null);
+        squareEnd.GetComponent<Square>().SetCharacter(character);
+    }
+
+    public void YourTurn()
+    {
+        playerTurn = true;
+        selectedSquare = null;
+        buttonManager.YourTurn();
+    }
+
+    public void Surrended()
+    {
+        buttonManager.Surrended();
+    }
+    
+    public void YouLost()
+    {
+        buttonManager.Lost();
+    }
+    
+    public void YouWin()
+    {
+        buttonManager.Won();
+    }
+
 }

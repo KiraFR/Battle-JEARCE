@@ -3,14 +3,13 @@ using UnityEngine.UI;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
-using System.IO;
 
 public class ConnexionWeb : MonoBehaviour
 {
     public GameObject gomail;
     public GameObject gopwd;
 
-    private static string server = "http://34.76.34.147/";
+    private static string server = "http://34.76.34.147:81/";
     //private static string server = "http://localhost:5000/";
     private static readonly HttpClient client = new HttpClient();
     private static string mail;

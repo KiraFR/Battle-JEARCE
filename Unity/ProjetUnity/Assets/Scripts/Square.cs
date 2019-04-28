@@ -1,7 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class Square : MonoBehaviour
 {
@@ -225,18 +223,20 @@ public class Square : MonoBehaviour
 
     public bool Attaque(Character enemi, Character charac)
     {
+        gm.network.SendString("AttackMP", new List<object>() { charac.GetComponent<Character>().attackPoint.baseStat, enemi.transform.position.x, enemi.transform.position.y });
         return enemi.GetAttacked(charac.GetComponent<Character>().attackPoint.baseStat);
     }
 
     public void Heal(Character allie)
     {
         int pourcentage = allie.GetComponent<Character>().healthPoint.baseStat*25/100;
-        allie.GetComponent<Character>().healthPoint.currentStat = allie.GetComponent<Character>().healthPoint.currentStat + pourcentage;
-        if(allie.GetComponent<Character>().healthPoint.baseStat < allie.GetComponent<Character>().healthPoint.currentStat)
+        int healpoint = allie.GetComponent<Character>().healthPoint.currentStat + pourcentage;
+        if(allie.GetComponent<Character>().healthPoint.baseStat < healpoint)
         {
-            allie.GetComponent<Character>().healthPoint.currentStat = allie.GetComponent<Character>().healthPoint.baseStat;
+            healpoint = allie.GetComponent<Character>().healthPoint.baseStat;
         }
-        allie.GetHealed(allie.GetComponent<Character>().healthPoint.currentStat);
+        allie.GetHealed(healpoint);
+        gm.network.SendString("HealMP", new List<object>() { healpoint, allie.transform.transform.position.x, allie.transform.transform.position.y });
     }
 
 }

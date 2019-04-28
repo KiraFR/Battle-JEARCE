@@ -1,14 +1,11 @@
 ﻿using SerialFunction;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Net.Sockets;
 using System.Reflection;
-using System.Runtime.CompilerServices;
 using System.Runtime.Serialization.Formatters.Binary;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -17,8 +14,7 @@ public class NetworkManager : MonoBehaviour
 {
     public int port = 8181;
     public string ip;
-
-
+    
     private readonly Socket ClientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
     private IPAddress iPAddress;
     private Thread receivedThread;
@@ -34,8 +30,6 @@ public class NetworkManager : MonoBehaviour
 
     public async Task StartConnection()
     {
-
-        Debug.Log(ip + ":" + port);
         formatter = new BinaryFormatter();
         iPAddress = IPAddress.Parse(ip);
         bool connected = await ConnectToServer();
@@ -57,6 +51,13 @@ public class NetworkManager : MonoBehaviour
     void OnDestroy()
     {
         SendString("exit",new List<object>());
+        ClientSocket.Shutdown(SocketShutdown.Both);
+        ClientSocket.Close();
+        receivedThread.Abort();
+    }
+
+    public void Disconnect()
+    {
         ClientSocket.Shutdown(SocketShutdown.Both);
         ClientSocket.Close();
         receivedThread.Abort();
@@ -86,7 +87,6 @@ public class NetworkManager : MonoBehaviour
                 SerialClass command = queueCommand[i];
                 Type type = typeof(GameManager);
                 MethodInfo method = type.GetMethod(command.GetName());
-                Debug.Log(method);
                 object[] param = command.GetParam().ToArray();
 
                 if (method != null)
